@@ -1,0 +1,96 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cybershield"
+version = "1.0.0"
+description = "CyberShield Enterprise Security Platform - defensive security automation (audit, scan, monitor, comply, report)"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "CyberShield contributors" }]
+keywords = ["security", "devsecops", "soc", "compliance", "vulnerability-management", "nmap", "cis", "nist", "iso27001"]
+classifiers = [
+    "Programming Language :: Python :: 3.12",
+    "Framework :: FastAPI",
+    "Topic :: Security",
+    "Operating System :: POSIX :: Linux",
+]
+dynamic = ["dependencies"]
+
+[project.scripts]
+cybershield = "app.cli:main"
+
+[tool.setuptools.dynamic]
+dependencies = { file = ["requirements.txt"] }
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.setuptools.package-data]
+"app.modules.compliance_checker" = ["data/*.yaml"]
+"app.modules.vulnerability_analyzer" = ["data/*.json"]
+"app.modules.threat_intelligence" = ["data/*.txt"]
+"app.modules.reporting_engine" = ["templates/*.j2"]
+
+# ----------------------------------------------------------------------- ruff
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+extend-exclude = ["docs"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "C4", "SIM", "RUF", "PL", "N"]
+ignore = [
+    "PLR0911", "PLR0912", "PLR0913", "PLR0915", "PLR2004",  # complexity heuristics: reviewed manually
+    "PLC0415",  # lazy imports keep the CLI fast
+    "PLR0917",  # keyword-rich constructors are clearer than parameter objects here
+    "PLW0603",  # module-level caches (engine, CVE/IOC indexes) are intentional and lock-protected
+    "RUF001", "RUF002", "RUF003",  # unicode in UI strings is intentional
+    "S608",  # no string-built SQL exists; SQLAlchemy expressions only
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S104", "S105", "S106", "S108", "S311", "PLR2004", "N802", "N812", "B017", "PLW0108", "E501"]
+"app/dashboard/streamlit_app.py" = ["E402"]
+
+# --------------------------------------------------------------------- pytest
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+markers = [
+    "integration: requires external binaries (nmap) or network listeners",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning:starlette.*",
+    "ignore:Using `httpx` with `starlette.testclient`",
+]
+
+# ------------------------------------------------------------------- coverage
+[tool.coverage.run]
+source = ["app"]
+branch = true
+omit = [
+    "app/dashboard/streamlit_app.py",  # Streamlit UI script: covered by AppTest smoke test + Playwright screenshots
+]
+
+[tool.coverage.report]
+fail_under = 90
+show_missing = true
+skip_covered = true
+exclude_also = [
+    "if __name__ == .__main__.:",
+    "pragma: no cover",
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:",
+]
+
+[tool.coverage.html]
+directory = "reports/coverage"
+
+# --------------------------------------------------------------------- bandit
+[tool.bandit]
+exclude_dirs = ["tests", ".venv"]
+skips = ["B101"]

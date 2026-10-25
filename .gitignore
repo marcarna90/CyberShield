@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# Tooling
+.pytest_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Runtime data (never commit)
+.env
+data/
+backups/
+logs/*
+!logs/.gitkeep
+reports/*
+!reports/.gitkeep
+*.pcap
+*.pcapng
+!docs/examples/sample_traffic.pcap
+initial_admin_password

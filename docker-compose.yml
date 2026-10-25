@@ -1,0 +1,190 @@
+# =============================================================================
+# CyberShield Enterprise Security Platform
+#
+#   docker compose up -d                     # api + dashboard + database
+#   docker compose --profile sensor up -d    # + passive network sensor
+#
+# Dashboard: http://localhost:8501   API docs: http://localhost:8000/docs
+# Admin password (generated on first start):
+#   docker compose exec api cat /run/cybershield-secrets/admin_password
+#
+# Every value below has a safe default; override any of them in a `.env`
+# file next to this compose file (see .env.example). No edits required.
+# =============================================================================
+name: cybershield
+
+x-image: &image
+  image: cybershield:1.0.0
+  # Built locally from this repository (layer cache makes rebuilds near-instant).
+  pull_policy: build
+  build:
+    context: .
+    dockerfile: docker/Dockerfile
+
+x-hardening: &hardening
+  read_only: true
+  tmpfs:
+    - /tmp
+  cap_drop: [ALL]
+  security_opt:
+    - no-new-privileges:true
+  restart: unless-stopped
+
+x-app-env: &app-env
+  CYBERSHIELD_ENVIRONMENT: production
+  CYBERSHIELD_ORGANIZATION: ${CYBERSHIELD_ORGANIZATION:-My Organization}
+  CYBERSHIELD_LOG_LEVEL: ${CYBERSHIELD_LOG_LEVEL:-INFO}
+  CYBERSHIELD_DB_HOST: db
+  CYBERSHIELD_DB_PORT: "5432"
+  CYBERSHIELD_DB_NAME: cybershield
+  CYBERSHIELD_DB_USER: cybershield
+  CYBERSHIELD_DB_PASSWORD_FILE: /run/cybershield-secrets/db_password
+  CYBERSHIELD_SECRET_KEY_FILE: /run/cybershield-secrets/jwt_secret
+  CYBERSHIELD_ADMIN_PASSWORD_FILE: /run/cybershield-secrets/admin_password
+  CYBERSHIELD_ADMIN_USERNAME: ${CYBERSHIELD_ADMIN_USERNAME:-admin}
+  CYBERSHIELD_ADMIN_EMAIL: ${CYBERSHIELD_ADMIN_EMAIL:-admin@localhost}
+  CYBERSHIELD_ALLOWED_TARGETS: ${CYBERSHIELD_ALLOWED_TARGETS:-10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,127.0.0.0/8}
+  CYBERSHIELD_MAX_SCAN_HOSTS: ${CYBERSHIELD_MAX_SCAN_HOSTS:-1024}
+  CYBERSHIELD_NMAP_HOST_TIMEOUT: ${CYBERSHIELD_NMAP_HOST_TIMEOUT:-5m}
+  CYBERSHIELD_ACCESS_TOKEN_EXPIRE_MINUTES: ${CYBERSHIELD_ACCESS_TOKEN_EXPIRE_MINUTES:-30}
+  CYBERSHIELD_RATE_LIMIT_PER_MINUTE: ${CYBERSHIELD_RATE_LIMIT_PER_MINUTE:-120}
+  CYBERSHIELD_AUTH_RATE_LIMIT_PER_MINUTE: ${CYBERSHIELD_AUTH_RATE_LIMIT_PER_MINUTE:-10}
+  CYBERSHIELD_MAX_FAILED_LOGINS: ${CYBERSHIELD_MAX_FAILED_LOGINS:-5}
+  CYBERSHIELD_LOCKOUT_MINUTES: ${CYBERSHIELD_LOCKOUT_MINUTES:-15}
+  CYBERSHIELD_MAX_UPLOAD_MB: ${CYBERSHIELD_MAX_UPLOAD_MB:-50}
+  CYBERSHIELD_ENABLE_DOCS: ${CYBERSHIELD_ENABLE_DOCS:-true}
+  CYBERSHIELD_TRAFFIC_LARGE_TRANSFER_MB: ${CYBERSHIELD_TRAFFIC_LARGE_TRANSFER_MB:-50}
+  CYBERSHIELD_TRAFFIC_SPIKE_FACTOR: ${CYBERSHIELD_TRAFFIC_SPIKE_FACTOR:-3.0}
+  CYBERSHIELD_TRAFFIC_PORTSCAN_THRESHOLD: ${CYBERSHIELD_TRAFFIC_PORTSCAN_THRESHOLD:-25}
+  CYBERSHIELD_THREAT_FEEDS: ${CYBERSHIELD_THREAT_FEEDS:-}
+  CYBERSHIELD_SMTP_HOST: ${CYBERSHIELD_SMTP_HOST:-}
+  CYBERSHIELD_SMTP_PORT: ${CYBERSHIELD_SMTP_PORT:-587}
+  CYBERSHIELD_SMTP_USER: ${CYBERSHIELD_SMTP_USER:-}
+  CYBERSHIELD_SMTP_PASSWORD: ${CYBERSHIELD_SMTP_PASSWORD:-}
+  CYBERSHIELD_SMTP_FROM: ${CYBERSHIELD_SMTP_FROM:-cybershield@localhost}
+  CYBERSHIELD_ALERT_EMAIL_TO: ${CYBERSHIELD_ALERT_EMAIL_TO:-}
+  CYBERSHIELD_ALERT_EMAIL_MIN_SEVERITY: ${CYBERSHIELD_ALERT_EMAIL_MIN_SEVERITY:-high}
+  CYBERSHIELD_SMTP_STARTTLS: ${CYBERSHIELD_SMTP_STARTTLS:-true}
+  CYBERSHIELD_ALERT_COOLDOWN_MINUTES: ${CYBERSHIELD_ALERT_COOLDOWN_MINUTES:-60}
+  CYBERSHIELD_COMPLIANCE_ALERT_THRESHOLD: ${CYBERSHIELD_COMPLIANCE_ALERT_THRESHOLD:-70}
+  CYBERSHIELD_SEED_DEMO: ${CYBERSHIELD_SEED_DEMO:-false}
+
+services:
+  # One-shot: generates jwt_secret / admin_password / db_password on first run.
+  init:
+    <<: *image
+    command: ["init-secrets"]
+    user: "0:0"
+    network_mode: none
+    restart: "no"
+    cap_drop: [ALL]
+    cap_add: [CHOWN, FOWNER, DAC_OVERRIDE]
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - cybershield-secrets:/run/cybershield-secrets
+
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: cybershield
+      POSTGRES_USER: cybershield
+      POSTGRES_PASSWORD_FILE: /run/cybershield-secrets/db_password
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+      - cybershield-secrets:/run/cybershield-secrets:ro
+    # Loopback only, used by the optional host-network sensor. Never exposed externally.
+    ports:
+      - "127.0.0.1:${CYBERSHIELD_DB_LOCAL_PORT:-55432}:5432"
+    depends_on:
+      init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cybershield -d cybershield"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    security_opt:
+      - no-new-privileges:true
+    networks: [backend]
+
+  api:
+    <<: [*image, *hardening]
+    command: ["api"]
+    environment:
+      <<: *app-env
+      # Host audit from the container: the host /etc is mounted read-only.
+      CYBERSHIELD_HOST_ROOT: /host
+      CYBERSHIELD_CORS_ORIGINS: ${CYBERSHIELD_CORS_ORIGINS:-http://localhost:8501}
+    volumes:
+      - cybershield-data:/var/lib/cybershield
+      - cybershield-secrets:/run/cybershield-secrets:ro
+      - /etc:/host/etc:ro
+      - /usr/lib/os-release:/host/usr/lib/os-release:ro
+      - /proc/sys/kernel:/host/proc/sys/kernel:ro
+    ports:
+      - "${CYBERSHIELD_API_BIND:-127.0.0.1}:${CYBERSHIELD_API_PORT:-8000}:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health', timeout=4).status == 200 else 1)"]
+      interval: 15s
+      timeout: 5s
+      start_period: 40s
+      retries: 5
+    networks: [backend, frontend]
+
+  dashboard:
+    <<: [*image, *hardening]
+    command: ["dashboard"]
+    environment:
+      CYBERSHIELD_API_URL: http://api:8000
+    ports:
+      - "${CYBERSHIELD_DASHBOARD_BIND:-127.0.0.1}:${CYBERSHIELD_DASHBOARD_PORT:-8501}:8501"
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8501/_stcore/health', timeout=4).status == 200 else 1)"]
+      interval: 15s
+      timeout: 5s
+      start_period: 30s
+      retries: 5
+    networks: [frontend]
+
+  # Optional passive sensor: `docker compose --profile sensor up -d`
+  # Needs the host network to see real traffic and CAP_NET_RAW to sniff (read-only).
+  sensor:
+    <<: [*image, *hardening]
+    profiles: [sensor]
+    command: ["sensor"]
+    user: "0:0"
+    network_mode: host
+    cap_add: [NET_RAW, NET_ADMIN]
+    environment:
+      <<: *app-env
+      CYBERSHIELD_DB_HOST: 127.0.0.1
+      CYBERSHIELD_DB_PORT: ${CYBERSHIELD_DB_LOCAL_PORT:-55432}
+      CYBERSHIELD_SENSOR_INTERFACE: ${CYBERSHIELD_SENSOR_INTERFACE:-}
+      CYBERSHIELD_SENSOR_INTERVAL_SECONDS: ${CYBERSHIELD_SENSOR_INTERVAL_SECONDS:-60}
+      # Root without DAC_OVERRIDE cannot write the app-owned volume: log to tmpfs (+ stdout).
+      CYBERSHIELD_LOGS_DIR: /tmp/cybershield-logs
+    volumes:
+      - cybershield-data:/var/lib/cybershield
+      - cybershield-secrets:/run/cybershield-secrets:ro
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      disable: true
+
+volumes:
+  cybershield-data:
+  cybershield-secrets:
+  pg-data:
+
+networks:
+  backend:
+  frontend:
