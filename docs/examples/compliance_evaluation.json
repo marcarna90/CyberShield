@@ -1,0 +1,952 @@
+{
+  "generated_at": "2026-10-25T19:39:13.232262Z",
+  "overall_score": 9.0,
+  "frameworks": [
+    {
+      "framework": "CIS",
+      "name": "CIS Critical Security Controls v8",
+      "version": "8.0",
+      "score": 15.4,
+      "passed": 2,
+      "partial": 1,
+      "failed": 9,
+      "not_assessed": 0,
+      "controls": [
+        {
+          "control_id": "CIS-3.10",
+          "framework": "CIS",
+          "title": "Encrypt Sensitive Data in Transit",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "SSH-006": "fail",
+            "NET-012": "fail"
+          },
+          "recommendation": "Use only strong SSH algorithms and replace cleartext services (Telnet, FTP, HTTP) with encrypted alternatives."
+        },
+        {
+          "control_id": "CIS-4.1",
+          "framework": "CIS",
+          "title": "Establish and Maintain a Secure Configuration Process",
+          "status": "fail",
+          "weight": 3,
+          "evidence": {
+            "SSH-001": "fail",
+            "SSH-002": "fail",
+            "SSH-003": "pass",
+            "SSH-005": "fail",
+            "PWD-002": "pass",
+            "KRN-001": "pass",
+            "FS-001": "fail"
+          },
+          "recommendation": "Adopt a hardened baseline (CIS Benchmark) and enforce it with configuration management."
+        },
+        {
+          "control_id": "CIS-4.3",
+          "framework": "CIS",
+          "title": "Configure Automatic Session Locking on Enterprise Assets",
+          "status": "fail",
+          "weight": 1,
+          "evidence": {
+            "SSH-007": "fail"
+          },
+          "recommendation": "Configure idle session timeouts (SSH ClientAliveInterval/CountMax, shell TMOUT)."
+        },
+        {
+          "control_id": "CIS-4.4",
+          "framework": "CIS",
+          "title": "Implement and Manage a Firewall on Servers",
+          "status": "fail",
+          "weight": 3,
+          "evidence": {
+            "FW-001": "fail"
+          },
+          "recommendation": "Enable a default-deny host firewall on every server."
+        },
+        {
+          "control_id": "CIS-4.8",
+          "framework": "CIS",
+          "title": "Uninstall or Disable Unnecessary Services",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "NET-001": "fail",
+            "NET-012": "fail"
+          },
+          "recommendation": "Remove or disable unneeded network services and bind admin services to management interfaces."
+        },
+        {
+          "control_id": "CIS-5.2",
+          "framework": "CIS",
+          "title": "Use Unique Passwords",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "PWD-003": "fail",
+            "USR-002": "fail"
+          },
+          "recommendation": "Enforce password complexity (minimum 14 characters) and forbid empty passwords."
+        },
+        {
+          "control_id": "CIS-5.4",
+          "framework": "CIS",
+          "title": "Restrict Administrator Privileges to Dedicated Administrator Accounts",
+          "status": "fail",
+          "weight": 3,
+          "evidence": {
+            "USR-001": "fail",
+            "SSH-001": "fail",
+            "SUDO-001": "fail"
+          },
+          "recommendation": "Disable direct root login, remove duplicate UID 0 accounts and require authentication for sudo."
+        },
+        {
+          "control_id": "CIS-7.1",
+          "framework": "CIS",
+          "title": "Establish and Maintain a Vulnerability Management Process",
+          "status": "pass",
+          "weight": 2,
+          "evidence": {
+            "VULN-003": "pass"
+          },
+          "recommendation": "Schedule recurring authorised vulnerability scans and track remediation SLAs."
+        },
+        {
+          "control_id": "CIS-7.3",
+          "framework": "CIS",
+          "title": "Perform Automated Operating System Patch Management",
+          "status": "partial",
+          "weight": 2,
+          "evidence": {
+            "UPD-001": "warn"
+          },
+          "recommendation": "Enable automatic security updates or a managed patch cycle."
+        },
+        {
+          "control_id": "CIS-7.7",
+          "framework": "CIS",
+          "title": "Remediate Detected Vulnerabilities",
+          "status": "fail",
+          "weight": 3,
+          "evidence": {
+            "VULN-001": "fail",
+            "VULN-002": "fail"
+          },
+          "recommendation": "Remediate critical vulnerabilities within 72 hours and high within 7 days."
+        },
+        {
+          "control_id": "CIS-8.2",
+          "framework": "CIS",
+          "title": "Collect Audit Logs",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "LOG-001": "fail",
+            "SUDO-002": "warn"
+          },
+          "recommendation": "Enable auditd and sudo logging; forward logs to a central collector."
+        },
+        {
+          "control_id": "CIS-13.6",
+          "framework": "CIS",
+          "title": "Collect Network Traffic Flow Logs",
+          "status": "pass",
+          "weight": 1,
+          "evidence": {
+            "NET-010": "pass"
+          },
+          "recommendation": "Run the CyberShield sensor (or NetFlow/IPFIX) on key network segments."
+        }
+      ],
+      "gaps": [
+        {
+          "control_id": "CIS-4.1",
+          "title": "Establish and Maintain a Secure Configuration Process",
+          "status": "fail",
+          "priority": "P1",
+          "failing_checks": [
+            "SSH-001",
+            "SSH-002",
+            "SSH-005",
+            "FS-001"
+          ],
+          "recommendation": "Adopt a hardened baseline (CIS Benchmark) and enforce it with configuration management."
+        },
+        {
+          "control_id": "CIS-4.4",
+          "title": "Implement and Manage a Firewall on Servers",
+          "status": "fail",
+          "priority": "P1",
+          "failing_checks": [
+            "FW-001"
+          ],
+          "recommendation": "Enable a default-deny host firewall on every server."
+        },
+        {
+          "control_id": "CIS-5.4",
+          "title": "Restrict Administrator Privileges to Dedicated Administrator Accounts",
+          "status": "fail",
+          "priority": "P1",
+          "failing_checks": [
+            "USR-001",
+            "SSH-001",
+            "SUDO-001"
+          ],
+          "recommendation": "Disable direct root login, remove duplicate UID 0 accounts and require authentication for sudo."
+        },
+        {
+          "control_id": "CIS-7.7",
+          "title": "Remediate Detected Vulnerabilities",
+          "status": "fail",
+          "priority": "P1",
+          "failing_checks": [
+            "VULN-001",
+            "VULN-002"
+          ],
+          "recommendation": "Remediate critical vulnerabilities within 72 hours and high within 7 days."
+        },
+        {
+          "control_id": "CIS-3.10",
+          "title": "Encrypt Sensitive Data in Transit",
+          "status": "fail",
+          "priority": "P2",
+          "failing_checks": [
+            "SSH-006",
+            "NET-012"
+          ],
+          "recommendation": "Use only strong SSH algorithms and replace cleartext services (Telnet, FTP, HTTP) with encrypted alternatives."
+        },
+        {
+          "control_id": "CIS-4.3",
+          "title": "Configure Automatic Session Locking on Enterprise Assets",
+          "status": "fail",
+          "priority": "P2",
+          "failing_checks": [
+            "SSH-007"
+          ],
+          "recommendation": "Configure idle session timeouts (SSH ClientAliveInterval/CountMax, shell TMOUT)."
+        },
+        {
+          "control_id": "CIS-4.8",
+          "title": "Uninstall or Disable Unnecessary Services",
+          "status": "fail",
+          "priority": "P2",
+          "failing_checks": [
+            "NET-001",
+            "NET-012"
+          ],
+          "recommendation": "Remove or disable unneeded network services and bind admin services to management interfaces."
+        },
+        {
+          "control_id": "CIS-5.2",
+          "title": "Use Unique Passwords",
+          "status": "fail",
+          "priority": "P2",
+          "failing_checks": [
+            "PWD-003",
+            "USR-002"
+          ],
+          "recommendation": "Enforce password complexity (minimum 14 characters) and forbid empty passwords."
+        },
+        {
+          "control_id": "CIS-8.2",
+          "title": "Collect Audit Logs",
+          "status": "fail",
+          "priority": "P2",
+          "failing_checks": [
+            "LOG-001",
+            "SUDO-002"
+          ],
+          "recommendation": "Enable auditd and sudo logging; forward logs to a central collector."
+        },
+        {
+          "control_id": "CIS-7.3",
+          "title": "Perform Automated Operating System Patch Management",
+          "status": "partial",
+          "priority": "P3",
+          "failing_checks": [
+            "UPD-001"
+          ],
+          "recommendation": "Enable automatic security updates or a managed patch cycle."
+        }
+      ]
+    },
+    {
+      "framework": "NIST_CSF",
+      "name": "NIST Cybersecurity Framework",
+      "version": "2.0",
+      "score": 11.5,
+      "passed": 1,
+      "partial": 0,
+      "failed": 10,
+      "not_assessed": 0,
+      "controls": [
+        {
+          "control_id": "ID.RA-01",
+          "framework": "NIST_CSF",
+          "title": "Vulnerabilities in assets are identified, validated, and recorded",
+          "status": "pass",
+          "weight": 3,
+          "evidence": {
+            "VULN-003": "pass"
+          },
+          "recommendation": "Scan all in-scope assets regularly and record findings in the risk register."
+        },
+        {
+          "control_id": "ID.RA-06",
+          "framework": "NIST_CSF",
+          "title": "Risk responses are chosen, prioritized, planned, tracked, and communicated",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "VULN-001": "fail",
+            "VULN-002": "fail"
+          },
+          "recommendation": "Prioritise remediation by severity and exploitability and track it to closure."
+        },
+        {
+          "control_id": "PR.AA-01",
+          "framework": "NIST_CSF",
+          "title": "Identities and credentials for authorized users, services, and hardware are managed",
+          "status": "fail",
+          "weight": 3,
+          "evidence": {
+            "USR-001": "fail",
+            "USR-002": "fail",
+            "USR-003": "warn",
+            "PWD-001": "fail",
+            "PWD-003": "fail"
+          },
+          "recommendation": "Review accounts, enforce password policy and lock unused/system accounts."
+        },
+        {
+          "control_id": "PR.AA-03",
+          "framework": "NIST_CSF",
+          "title": "Users, services, and hardware are authenticated",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "SSH-002": "fail",
+            "SSH-003": "pass",
+            "SSH-004": "fail",
+            "SSH-008": "fail"
+          },
+          "recommendation": "Use key-based SSH authentication and limit authentication attempts."
+        },
+        {
+          "control_id": "PR.AA-05",
+          "framework": "NIST_CSF",
+          "title": "Access permissions are managed, incorporating least privilege",
+          "status": "fail",
+          "weight": 3,
+          "evidence": {
+            "SUDO-001": "fail",
+            "SSH-001": "fail",
+            "FS-001": "fail"
+          },
+          "recommendation": "Apply least privilege for sudo, root access and sensitive file permissions."
+        },
+        {
+          "control_id": "PR.DS-02",
+          "framework": "NIST_CSF",
+          "title": "The confidentiality, integrity, and availability of data-in-transit are protected",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "SSH-006": "fail",
+            "NET-012": "fail"
+          },
+          "recommendation": "Encrypt all administrative and application traffic with modern protocols."
+        },
+        {
+          "control_id": "PR.IR-01",
+          "framework": "NIST_CSF",
+          "title": "Networks and environments are protected from unauthorized logical access and usage",
+          "status": "fail",
+          "weight": 3,
+          "evidence": {
+            "FW-001": "fail",
+            "NET-001": "fail"
+          },
+          "recommendation": "Filter inbound traffic with host and network firewalls; restrict exposed services."
+        },
+        {
+          "control_id": "PR.PS-01",
+          "framework": "NIST_CSF",
+          "title": "Configuration management practices are established and applied",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "SSH-005": "fail",
+            "SSH-007": "fail",
+            "PWD-002": "pass",
+            "KRN-001": "pass",
+            "KRN-002": "pass"
+          },
+          "recommendation": "Maintain hardened configuration baselines and detect drift automatically."
+        },
+        {
+          "control_id": "PR.PS-02",
+          "framework": "NIST_CSF",
+          "title": "Software is maintained, replaced, and removed commensurate with risk",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "UPD-001": "warn",
+            "VULN-001": "fail"
+          },
+          "recommendation": "Patch promptly and decommission unsupported software."
+        },
+        {
+          "control_id": "PR.PS-04",
+          "framework": "NIST_CSF",
+          "title": "Log records are generated and made available for continuous monitoring",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "LOG-001": "fail",
+            "SUDO-002": "warn"
+          },
+          "recommendation": "Generate security logs (auditd, sudo) and centralise them."
+        },
+        {
+          "control_id": "DE.CM-01",
+          "framework": "NIST_CSF",
+          "title": "Networks and network services are monitored to find potentially adverse events",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "NET-010": "pass",
+            "NET-011": "fail"
+          },
+          "recommendation": "Deploy continuous passive network monitoring and investigate anomalies."
+        }
+      ],
+      "gaps": [
+        {
+          "control_id": "PR.AA-01",
+          "title": "Identities and credentials for authorized users, services, and hardware are managed",
+          "status": "fail",
+          "priority": "P1",
+          "failing_checks": [
+            "USR-001",
+            "USR-002",
+            "USR-003",
+            "PWD-001",
+            "PWD-003"
+          ],
+          "recommendation": "Review accounts, enforce password policy and lock unused/system accounts."
+        },
+        {
+          "control_id": "PR.AA-05",
+          "title": "Access permissions are managed, incorporating least privilege",
+          "status": "fail",
+          "priority": "P1",
+          "failing_checks": [
+            "SUDO-001",
+            "SSH-001",
+            "FS-001"
+          ],
+          "recommendation": "Apply least privilege for sudo, root access and sensitive file permissions."
+        },
+        {
+          "control_id": "PR.IR-01",
+          "title": "Networks and environments are protected from unauthorized logical access and usage",
+          "status": "fail",
+          "priority": "P1",
+          "failing_checks": [
+            "FW-001",
+            "NET-001"
+          ],
+          "recommendation": "Filter inbound traffic with host and network firewalls; restrict exposed services."
+        },
+        {
+          "control_id": "DE.CM-01",
+          "title": "Networks and network services are monitored to find potentially adverse events",
+          "status": "fail",
+          "priority": "P2",
+          "failing_checks": [
+            "NET-011"
+          ],
+          "recommendation": "Deploy continuous passive network monitoring and investigate anomalies."
+        },
+        {
+          "control_id": "ID.RA-06",
+          "title": "Risk responses are chosen, prioritized, planned, tracked, and communicated",
+          "status": "fail",
+          "priority": "P2",
+          "failing_checks": [
+            "VULN-001",
+            "VULN-002"
+          ],
+          "recommendation": "Prioritise remediation by severity and exploitability and track it to closure."
+        },
+        {
+          "control_id": "PR.AA-03",
+          "title": "Users, services, and hardware are authenticated",
+          "status": "fail",
+          "priority": "P2",
+          "failing_checks": [
+            "SSH-002",
+            "SSH-004",
+            "SSH-008"
+          ],
+          "recommendation": "Use key-based SSH authentication and limit authentication attempts."
+        },
+        {
+          "control_id": "PR.DS-02",
+          "title": "The confidentiality, integrity, and availability of data-in-transit are protected",
+          "status": "fail",
+          "priority": "P2",
+          "failing_checks": [
+            "SSH-006",
+            "NET-012"
+          ],
+          "recommendation": "Encrypt all administrative and application traffic with modern protocols."
+        },
+        {
+          "control_id": "PR.PS-01",
+          "title": "Configuration management practices are established and applied",
+          "status": "fail",
+          "priority": "P2",
+          "failing_checks": [
+            "SSH-005",
+            "SSH-007"
+          ],
+          "recommendation": "Maintain hardened configuration baselines and detect drift automatically."
+        },
+        {
+          "control_id": "PR.PS-02",
+          "title": "Software is maintained, replaced, and removed commensurate with risk",
+          "status": "fail",
+          "priority": "P2",
+          "failing_checks": [
+            "UPD-001",
+            "VULN-001"
+          ],
+          "recommendation": "Patch promptly and decommission unsupported software."
+        },
+        {
+          "control_id": "PR.PS-04",
+          "title": "Log records are generated and made available for continuous monitoring",
+          "status": "fail",
+          "priority": "P2",
+          "failing_checks": [
+            "LOG-001",
+            "SUDO-002"
+          ],
+          "recommendation": "Generate security logs (auditd, sudo) and centralise them."
+        }
+      ]
+    },
+    {
+      "framework": "ISO27001",
+      "name": "ISO/IEC 27001:2022 Annex A",
+      "version": "2022",
+      "score": 0.0,
+      "passed": 0,
+      "partial": 0,
+      "failed": 10,
+      "not_assessed": 0,
+      "controls": [
+        {
+          "control_id": "A.5.15",
+          "framework": "ISO27001",
+          "title": "Access control",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "SSH-001": "fail",
+            "SUDO-001": "fail"
+          },
+          "recommendation": "Define and enforce access rules based on business and security requirements."
+        },
+        {
+          "control_id": "A.5.17",
+          "framework": "ISO27001",
+          "title": "Authentication information",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "PWD-001": "fail",
+            "PWD-003": "fail",
+            "USR-002": "fail"
+          },
+          "recommendation": "Manage passwords through policy (length, ageing, no empty passwords)."
+        },
+        {
+          "control_id": "A.8.2",
+          "framework": "ISO27001",
+          "title": "Privileged access rights",
+          "status": "fail",
+          "weight": 3,
+          "evidence": {
+            "USR-001": "fail",
+            "SUDO-001": "fail",
+            "SUDO-002": "warn"
+          },
+          "recommendation": "Restrict and log privileged access."
+        },
+        {
+          "control_id": "A.8.5",
+          "framework": "ISO27001",
+          "title": "Secure authentication",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "SSH-002": "fail",
+            "SSH-003": "pass",
+            "SSH-004": "fail",
+            "SSH-008": "fail"
+          },
+          "recommendation": "Implement secure authentication (keys/MFA, attempt limits)."
+        },
+        {
+          "control_id": "A.8.8",
+          "framework": "ISO27001",
+          "title": "Management of technical vulnerabilities",
+          "status": "fail",
+          "weight": 3,
+          "evidence": {
+            "VULN-001": "fail",
+            "VULN-002": "fail",
+            "VULN-003": "pass",
+            "UPD-001": "warn"
+          },
+          "recommendation": "Identify vulnerabilities timely, evaluate exposure and remediate."
+        },
+        {
+          "control_id": "A.8.9",
+          "framework": "ISO27001",
+          "title": "Configuration management",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "SSH-005": "fail",
+            "SSH-007": "fail",
+            "KRN-001": "pass",
+            "KRN-002": "pass",
+            "FS-001": "fail",
+            "PWD-002": "pass"
+          },
+          "recommendation": "Establish, document and monitor secure configurations."
+        },
+        {
+          "control_id": "A.8.15",
+          "framework": "ISO27001",
+          "title": "Logging",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "LOG-001": "fail",
+            "SUDO-002": "warn"
+          },
+          "recommendation": "Produce, protect and review logs of security events."
+        },
+        {
+          "control_id": "A.8.16",
+          "framework": "ISO27001",
+          "title": "Monitoring activities",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "NET-010": "pass",
+            "NET-011": "fail"
+          },
+          "recommendation": "Monitor networks and systems for anomalous behaviour."
+        },
+        {
+          "control_id": "A.8.20",
+          "framework": "ISO27001",
+          "title": "Networks security",
+          "status": "fail",
+          "weight": 3,
+          "evidence": {
+            "FW-001": "fail",
+            "NET-001": "fail"
+          },
+          "recommendation": "Secure, manage and control networks and filter traffic."
+        },
+        {
+          "control_id": "A.8.24",
+          "framework": "ISO27001",
+          "title": "Use of cryptography",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "SSH-006": "fail",
+            "NET-012": "fail"
+          },
+          "recommendation": "Use approved, modern cryptographic algorithms for data in transit."
+        }
+      ],
+      "gaps": [
+        {
+          "control_id": "A.8.2",
+          "title": "Privileged access rights",
+          "status": "fail",
+          "priority": "P1",
+          "failing_checks": [
+            "USR-001",
+            "SUDO-001",
+            "SUDO-002"
+          ],
+          "recommendation": "Restrict and log privileged access."
+        },
+        {
+          "control_id": "A.8.20",
+          "title": "Networks security",
+          "status": "fail",
+          "priority": "P1",
+          "failing_checks": [
+            "FW-001",
+            "NET-001"
+          ],
+          "recommendation": "Secure, manage and control networks and filter traffic."
+        },
+        {
+          "control_id": "A.8.8",
+          "title": "Management of technical vulnerabilities",
+          "status": "fail",
+          "priority": "P1",
+          "failing_checks": [
+            "VULN-001",
+            "VULN-002",
+            "UPD-001"
+          ],
+          "recommendation": "Identify vulnerabilities timely, evaluate exposure and remediate."
+        },
+        {
+          "control_id": "A.5.15",
+          "title": "Access control",
+          "status": "fail",
+          "priority": "P2",
+          "failing_checks": [
+            "SSH-001",
+            "SUDO-001"
+          ],
+          "recommendation": "Define and enforce access rules based on business and security requirements."
+        },
+        {
+          "control_id": "A.5.17",
+          "title": "Authentication information",
+          "status": "fail",
+          "priority": "P2",
+          "failing_checks": [
+            "PWD-001",
+            "PWD-003",
+            "USR-002"
+          ],
+          "recommendation": "Manage passwords through policy (length, ageing, no empty passwords)."
+        },
+        {
+          "control_id": "A.8.15",
+          "title": "Logging",
+          "status": "fail",
+          "priority": "P2",
+          "failing_checks": [
+            "LOG-001",
+            "SUDO-002"
+          ],
+          "recommendation": "Produce, protect and review logs of security events."
+        },
+        {
+          "control_id": "A.8.16",
+          "title": "Monitoring activities",
+          "status": "fail",
+          "priority": "P2",
+          "failing_checks": [
+            "NET-011"
+          ],
+          "recommendation": "Monitor networks and systems for anomalous behaviour."
+        },
+        {
+          "control_id": "A.8.24",
+          "title": "Use of cryptography",
+          "status": "fail",
+          "priority": "P2",
+          "failing_checks": [
+            "SSH-006",
+            "NET-012"
+          ],
+          "recommendation": "Use approved, modern cryptographic algorithms for data in transit."
+        },
+        {
+          "control_id": "A.8.5",
+          "title": "Secure authentication",
+          "status": "fail",
+          "priority": "P2",
+          "failing_checks": [
+            "SSH-002",
+            "SSH-004",
+            "SSH-008"
+          ],
+          "recommendation": "Implement secure authentication (keys/MFA, attempt limits)."
+        },
+        {
+          "control_id": "A.8.9",
+          "title": "Configuration management",
+          "status": "fail",
+          "priority": "P2",
+          "failing_checks": [
+            "SSH-005",
+            "SSH-007",
+            "FS-001"
+          ],
+          "recommendation": "Establish, document and monitor secure configurations."
+        }
+      ]
+    }
+  ],
+  "executive_summary": "Overall technical compliance is 9% (critical posture). CIS Critical Security Controls v8: 15% (2 passed, 1 partial, 9 failed, 0 not assessed). NIST Cybersecurity Framework: 12% (1 passed, 0 partial, 10 failed, 0 not assessed). ISO/IEC 27001:2022 Annex A: 0% (0 passed, 0 partial, 10 failed, 0 not assessed). 10 priority-1 gap(s) require immediate attention, notably: CIS-4.1 Establish and Maintain a Secure Configuration Process; CIS-4.4 Implement and Manage a Firewall on Servers; CIS-5.4 Restrict Administrator Privileges to Dedicated Administrator Accounts. 30 finding(s) sit in the high-risk zone of the risk matrix.",
+  "risk_matrix": {
+    "likelihood_labels": [
+      "Rare",
+      "Unlikely",
+      "Possible",
+      "Likely",
+      "Almost certain"
+    ],
+    "impact_labels": [
+      "Negligible",
+      "Minor",
+      "Moderate",
+      "Major",
+      "Severe"
+    ],
+    "cells": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        11,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        13,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        3,
+        14,
+        2
+      ],
+      [
+        0,
+        0,
+        0,
+        3,
+        11
+      ]
+    ],
+    "high_risk_count": 30,
+    "top_risks": [
+      {
+        "finding_id": "CVE-2011-2523",
+        "title": "vsftpd 2.3.4 affected by CVE-2011-2523",
+        "asset": "10.10.0.11",
+        "likelihood": 5,
+        "impact": 5,
+        "score": 25
+      },
+      {
+        "finding_id": "CVE-2017-7494",
+        "title": "Samba 4.5.9 affected by CVE-2017-7494",
+        "asset": "10.10.0.11",
+        "likelihood": 5,
+        "impact": 5,
+        "score": 25
+      },
+      {
+        "finding_id": "CVE-2019-10149",
+        "title": "Exim 4.89 affected by CVE-2019-10149",
+        "asset": "10.10.0.12",
+        "likelihood": 5,
+        "impact": 5,
+        "score": 25
+      },
+      {
+        "finding_id": "CVE-2020-1938",
+        "title": "Apache Tomcat 9.0.30 affected by CVE-2020-1938",
+        "asset": "10.10.0.13",
+        "likelihood": 5,
+        "impact": 5,
+        "score": 25
+      },
+      {
+        "finding_id": "CVE-2021-42013",
+        "title": "Apache HTTP Server 2.4.49 affected by CVE-2021-42013",
+        "asset": "10.10.0.10",
+        "likelihood": 5,
+        "impact": 5,
+        "score": 25
+      },
+      {
+        "finding_id": "CVE-2022-22720",
+        "title": "Apache HTTP Server 2.4.49 affected by CVE-2022-22720",
+        "asset": "10.10.0.10",
+        "likelihood": 5,
+        "impact": 5,
+        "score": 25
+      },
+      {
+        "finding_id": "CVE-2023-25690",
+        "title": "Apache HTTP Server 2.4.49 affected by CVE-2023-25690",
+        "asset": "10.10.0.10",
+        "likelihood": 5,
+        "impact": 5,
+        "score": 25
+      },
+      {
+        "finding_id": "CVE-2023-38408",
+        "title": "OpenSSH 8.9p1 affected by CVE-2023-38408",
+        "asset": "10.10.0.10",
+        "likelihood": 5,
+        "impact": 5,
+        "score": 25
+      },
+      {
+        "finding_id": "CVE-2023-38408",
+        "title": "OpenSSH 7.4 affected by CVE-2023-38408",
+        "asset": "10.10.0.11",
+        "likelihood": 5,
+        "impact": 5,
+        "score": 25
+      },
+      {
+        "finding_id": "EXP-DOCKER",
+        "title": "Docker Engine API exposed without TLS",
+        "asset": "10.10.0.21",
+        "likelihood": 5,
+        "impact": 5,
+        "score": 25
+      }
+    ]
+  },
+  "recommendations": [
+    "Adopt a hardened baseline (CIS Benchmark) and enforce it with configuration management.",
+    "Enable a default-deny host firewall on every server.",
+    "Disable direct root login, remove duplicate UID 0 accounts and require authentication for sudo.",
+    "Remediate critical vulnerabilities within 72 hours and high within 7 days.",
+    "Review accounts, enforce password policy and lock unused/system accounts.",
+    "Apply least privilege for sudo, root access and sensitive file permissions.",
+    "Filter inbound traffic with host and network firewalls; restrict exposed services.",
+    "Restrict and log privileged access.",
+    "Secure, manage and control networks and filter traffic.",
+    "Identify vulnerabilities timely, evaluate exposure and remediate.",
+    "Use only strong SSH algorithms and replace cleartext services (Telnet, FTP, HTTP) with encrypted alternatives.",
+    "Configure idle session timeouts (SSH ClientAliveInterval/CountMax, shell TMOUT)."
+  ]
+}

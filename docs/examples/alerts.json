@@ -1,0 +1,182 @@
+[
+  {
+    "id": 40,
+    "created_at": "2026-10-25 19:39:13.210602+00:00",
+    "severity": "medium",
+    "trigger": "traffic_spike",
+    "title": "Unexpected traffic spike",
+    "asset": "network",
+    "channels": [
+      "log",
+      "dashboard"
+    ]
+  },
+  {
+    "id": 39,
+    "created_at": "2026-10-25 19:39:13.210598+00:00",
+    "severity": "medium",
+    "trigger": "traffic_anomaly",
+    "title": "High rate of failed DNS resolutions (NXDOMAIN)",
+    "asset": "network",
+    "channels": [
+      "log",
+      "dashboard"
+    ]
+  },
+  {
+    "id": 38,
+    "created_at": "2026-10-25 19:39:13.210595+00:00",
+    "severity": "medium",
+    "trigger": "traffic_anomaly",
+    "title": "Connection attempt to suspicious port 23",
+    "asset": "10.10.0.99",
+    "channels": [
+      "log",
+      "dashboard"
+    ]
+  },
+  {
+    "id": 37,
+    "created_at": "2026-10-25 19:39:13.210592+00:00",
+    "severity": "medium",
+    "trigger": "traffic_anomaly",
+    "title": "Connection attempt to suspicious port 4444",
+    "asset": "10.10.0.57",
+    "channels": [
+      "log",
+      "dashboard"
+    ]
+  },
+  {
+    "id": 36,
+    "created_at": "2026-10-25 19:39:13.210590+00:00",
+    "severity": "medium",
+    "trigger": "traffic_anomaly",
+    "title": "Algorithmically generated (DGA-like) domain lookups",
+    "asset": "10.10.0.55",
+    "channels": [
+      "log",
+      "dashboard"
+    ]
+  },
+  {
+    "id": 35,
+    "created_at": "2026-10-25 19:39:13.210587+00:00",
+    "severity": "medium",
+    "trigger": "traffic_anomaly",
+    "title": "Legacy TLS/SSL protocol in use",
+    "asset": "10.10.0.53",
+    "channels": [
+      "log",
+      "dashboard"
+    ]
+  },
+  {
+    "id": 34,
+    "created_at": "2026-10-25 19:39:13.210583+00:00",
+    "severity": "high",
+    "trigger": "traffic_anomaly",
+    "title": "Possible port scan from 10.10.0.99",
+    "asset": "10.10.0.99",
+    "channels": [
+      "log",
+      "dashboard"
+    ]
+  },
+  {
+    "id": 33,
+    "created_at": "2026-10-25 19:39:13.210580+00:00",
+    "severity": "high",
+    "trigger": "traffic_anomaly",
+    "title": "Possible DNS tunnelling via tunnel-exfil.example",
+    "asset": "10.10.0.56",
+    "channels": [
+      "log",
+      "dashboard"
+    ]
+  },
+  {
+    "id": 32,
+    "created_at": "2026-10-25 19:39:13.210577+00:00",
+    "severity": "high",
+    "trigger": "threat_intel_match",
+    "title": "Access to known malicious domain malware-c2.example",
+    "asset": "10.10.0.13",
+    "channels": [
+      "log",
+      "dashboard"
+    ]
+  },
+  {
+    "id": 31,
+    "created_at": "2026-10-25 19:39:13.210573+00:00",
+    "severity": "high",
+    "trigger": "traffic_anomaly",
+    "title": "Large outbound transfer from 10.10.0.13 to 203.0.113.50",
+    "asset": "10.10.0.13",
+    "channels": [
+      "log",
+      "dashboard"
+    ]
+  },
+  {
+    "id": 30,
+    "created_at": "2026-10-25 19:39:13.210568+00:00",
+    "severity": "critical",
+    "trigger": "threat_intel_match",
+    "title": "Communication with known malicious IP 203.0.113.50",
+    "asset": "10.10.0.13",
+    "channels": [
+      "log",
+      "dashboard"
+    ]
+  },
+  {
+    "id": 29,
+    "created_at": "2026-10-25 19:39:13.210558+00:00",
+    "severity": "critical",
+    "trigger": "threat_intel_match",
+    "title": "Communication with known malicious IP 203.0.113.66",
+    "asset": "10.10.0.13",
+    "channels": [
+      "log",
+      "dashboard"
+    ]
+  },
+  {
+    "id": 28,
+    "created_at": "2026-10-25 19:39:12.000197+00:00",
+    "severity": "critical",
+    "trigger": "vulnerability_discovered",
+    "title": "Docker Engine API exposed without TLS",
+    "asset": "10.10.0.21",
+    "channels": [
+      "log",
+      "dashboard"
+    ]
+  },
+  {
+    "id": 27,
+    "created_at": "2026-10-25 19:39:11.281484+00:00",
+    "severity": "high",
+    "trigger": "unsafe_configuration",
+    "title": "sudo always requires authentication (no NOPASSWD)",
+    "asset": "web-prod-01",
+    "channels": [
+      "log",
+      "dashboard"
+    ]
+  },
+  {
+    "id": 26,
+    "created_at": "2026-10-25 19:39:11.281454+00:00",
+    "severity": "high",
+    "trigger": "unsafe_configuration",
+    "title": "SSH root login is disabled",
+    "asset": "web-prod-01",
+    "channels": [
+      "log",
+      "dashboard"
+    ]
+  }
+]

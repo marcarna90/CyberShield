@@ -10,10 +10,14 @@ network discovery with CVE correlation, passive traffic analysis, threat-intelli
 a Streamlit dashboard.
 
 ```bash
-git clone https://github.com/<your-account>/CyberShield.git && cd CyberShield
+git clone https://github.com/marcarna90/CyberShield.git && cd CyberShield
 docker compose up -d
 docker compose exec api cat /run/cybershield-secrets/admin_password   # then open http://localhost:8501
 ```
+
+Private repository: run `gh auth login` first (or use a personal access token as the password) - see
+[Installation](docs/INSTALLATION.md#2-docker-compose-recommended). Uninstall: `./scripts/uninstall.sh`
+([details](docs/INSTALLATION.md#6-uninstall)).
 
 ![Dashboard overview](docs/screenshots/01_overview.png)
 
@@ -68,7 +72,7 @@ Full walkthrough: **[Step-by-step execution](docs/QUICKSTART.md)**.
 
 | Guide | |
 |---|---|
-| [Installation](docs/INSTALLATION.md) | Docker & native install, configuration, upgrade, backup, troubleshooting |
+| [Installation](docs/INSTALLATION.md) | Docker & native install, configuration, upgrade, backup, troubleshooting, uninstall |
 | [Kali Linux deployment](docs/DEPLOYMENT_KALI.md) · [Parrot OS deployment](docs/DEPLOYMENT_PARROT.md) | distribution-specific steps |
 | [Step-by-step execution](docs/QUICKSTART.md) | from `git clone` to an executive PDF in 10 steps |
 | [User guide](docs/USER_GUIDE.md) | roles, dashboard tour, workflows, scores, CLI reference |
@@ -106,7 +110,7 @@ CyberShield/
 ├── tests/                   300+ pytest tests (unit, integration, API, CLI, dashboard)
 ├── docker/                  Dockerfile (multi-stage, non-root) + entrypoint
 ├── docs/                    guides, OpenAPI, examples, screenshots, architecture diagram
-├── scripts/                 install, start, scheduled audit, backup, example generation
+├── scripts/                 install, uninstall, start, scheduled audit, backup, example generation
 ├── reports/  logs/          runtime output (git-ignored)
 ├── .github/workflows/main.yml   lint → tests → security → build → docker smoke test
 ├── docker-compose.yml       init · db · api · dashboard · sensor (profile)
@@ -133,5 +137,3 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). Report vulnerabilities privately as desc
 ## License
 
 [MIT](LICENSE). Use only on systems and networks you own or are explicitly authorised to assess.
-#   C y b e r S h i e l d  
- 

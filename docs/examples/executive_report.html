@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:">
+<title>Executive Security Report - ACME Corp (demo)</title>
+<style>
+  :root {
+    --ink: #0f172a; --muted: #475569; --line: #e2e8f0; --panel: #f8fafc; --brand: #0b3d91;
+    --critical: #b91c1c; --high: #ea580c; --medium: #ca8a04; --low: #2563eb; --informational: #64748b;
+    --pass: #15803d; --fail: #b91c1c; --partial: #ca8a04; --na: #94a3b8;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 14px/1.55 -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color: var(--ink); background: #fff; }
+  .page { max-width: 1100px; margin: 0 auto; padding: 32px 28px 64px; }
+  header.cover { border-bottom: 4px solid var(--brand); padding-bottom: 18px; margin-bottom: 28px; display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .brand { font-weight: 700; letter-spacing: .08em; color: var(--brand); text-transform: uppercase; font-size: 12px; }
+  h1 { font-size: 28px; margin: 6px 0 4px; }
+  h2 { font-size: 19px; margin: 36px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+  h3 { font-size: 15px; margin: 22px 0 8px; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .classification { align-self: flex-start; border: 2px solid var(--critical); color: var(--critical); font-weight: 700; padding: 4px 10px; border-radius: 4px; font-size: 12px; letter-spacing: .1em; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; }
+  .card .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+  .card .value { font-size: 22px; font-weight: 700; margin-top: 2px; }
+  .narrative { background: var(--panel); border-left: 4px solid var(--brand); padding: 14px 16px; border-radius: 4px; }
+  table { width: 100%; border-collapse: collapse; margin: 8px 0 4px; font-size: 13px; }
+  th, td { text-align: left; padding: 7px 9px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--panel); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .sev { display: inline-block; min-width: 86px; text-align: center; color: #fff; font-weight: 700; font-size: 11px; padding: 2px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: .04em; }
+  .sev-critical { background: var(--critical); } .sev-high { background: var(--high); } .sev-medium { background: var(--medium); }
+  .sev-low { background: var(--low); } .sev-informational { background: var(--informational); }
+  .st { font-weight: 700; text-transform: uppercase; font-size: 11px; }
+  .st-pass { color: var(--pass); } .st-fail { color: var(--fail); } .st-partial, .st-warn { color: var(--partial); } .st-not_assessed, .st-unknown, .st-not_applicable { color: var(--na); }
+  .heat { table-layout: fixed; }
+  .heat th:first-child { width: 22%; }
+  .heat td { text-align: center; font-weight: 700; }
+  .finding { border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; margin: 10px 0; page-break-inside: avoid; }
+  .finding .head { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .finding .title { font-weight: 600; }
+  .finding dl { display: grid; grid-template-columns: 140px 1fr; gap: 4px 12px; margin: 10px 0 0; }
+  .finding dt { color: var(--muted); font-size: 12px; }
+  .finding dd { margin: 0; word-break: break-word; }
+  .bar { height: 8px; background: var(--line); border-radius: 999px; overflow: hidden; min-width: 120px; }
+  .bar > span { display: block; height: 100%; background: var(--brand); }
+  ol.recs li { margin: 6px 0; }
+  footer { margin-top: 48px; color: var(--muted); font-size: 12px; border-top: 1px solid var(--line); padding-top: 10px; }
+  @media print { .page { padding: 0; } h2 { page-break-after: avoid; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="cover">
+    <div>
+      <div class="brand">CyberShield Enterprise Security Platform</div>
+      <h1>Executive Security Report</h1>
+      <div class="meta">ACME Corp (demo) &middot; Generated 2026-10-25 19:39 UTC by examples</div>
+      <div class="meta">Scope: 8 network asset(s), host audit of web-prod-01, traffic capture &#39;demo:sensor-eth0&#39;</div>
+    </div>
+    <div class="classification">CONFIDENTIAL</div>
+  </header>
+
+  <h2>1. Summary</h2>
+  <div class="cards">
+    
+    <div class="card"><div class="label">Risk score</div><div class="value">100/100</div></div>
+    
+    <div class="card"><div class="label">Security posture</div><div class="value">0/100</div></div>
+    
+    <div class="card"><div class="label">Open findings</div><div class="value">57</div></div>
+    
+    <div class="card"><div class="label">Critical</div><div class="value">13</div></div>
+    
+    <div class="card"><div class="label">High</div><div class="value">17</div></div>
+    
+    <div class="card"><div class="label">Assets</div><div class="value">8</div></div>
+    
+    <div class="card"><div class="label">Compliance</div><div class="value">9%</div></div>
+    
+    <div class="card"><div class="label">Network health</div><div class="value">0/100</div></div>
+    
+  </div>
+  <p class="narrative">The assessment identified 57 open finding(s): 13 critical, 17 high, 16 medium and 11 low. The aggregated risk score is 100/100, which corresponds to a critical level of risk. Critical findings must be remediated immediately (P1, 24-72 hours). Overall technical compliance is 9% (critical posture). CIS Critical Security Controls v8: 15% (2 passed, 1 partial, 9 failed, 0 not assessed). NIST Cybersecurity Framework: 12% (1 passed, 0 partial, 10 failed, 0 not assessed). ISO/IEC 27001:2022 Annex A: 0% (0 passed, 0 partial, 10 failed, 0 not assessed). 10 priority-1 gap(s) require immediate attention, notably: CIS-4.1 Establish and Maintain a Secure Configuration Process; CIS-4.4 Implement and Manage a Firewall on Servers; CIS-5.4 Restrict Administrator Privileges to Dedicated Administrator Accounts. 30 finding(s) sit in the high-risk zone of the risk matrix. Network health score of the latest capture is 0/100 with 13 anomaly(ies).</p>
+
+  <h2>2. Severity matrix</h2>
+  <table>
+    <thead><tr><th>Category</th><th class="num">critical</th><th class="num">high</th><th class="num">medium</th><th class="num">low</th><th class="num">informational</th><th class="num">Total</th></tr></thead>
+    <tbody>
+    
+      <tr><td>accounts</td><td class="num">2</td><td class="num"></td><td class="num"></td><td class="num">1</td><td class="num"></td><td class="num"><strong>3</strong></td></tr>
+    
+      <tr><td>exposure</td><td class="num">1</td><td class="num">2</td><td class="num">3</td><td class="num">2</td><td class="num"></td><td class="num"><strong>8</strong></td></tr>
+    
+      <tr><td>filesystem</td><td class="num"></td><td class="num">1</td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"><strong>1</strong></td></tr>
+    
+      <tr><td>firewall</td><td class="num"></td><td class="num">1</td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"><strong>1</strong></td></tr>
+    
+      <tr><td>logging</td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num">1</td><td class="num"></td><td class="num"><strong>1</strong></td></tr>
+    
+      <tr><td>network</td><td class="num"></td><td class="num">1</td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"><strong>1</strong></td></tr>
+    
+      <tr><td>password_policy</td><td class="num"></td><td class="num"></td><td class="num">2</td><td class="num"></td><td class="num"></td><td class="num"><strong>2</strong></td></tr>
+    
+      <tr><td>patching</td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num">1</td><td class="num"></td><td class="num"><strong>1</strong></td></tr>
+    
+      <tr><td>privilege</td><td class="num"></td><td class="num">1</td><td class="num"></td><td class="num">1</td><td class="num"></td><td class="num"><strong>2</strong></td></tr>
+    
+      <tr><td>ssh</td><td class="num"></td><td class="num">1</td><td class="num">2</td><td class="num">4</td><td class="num"></td><td class="num"><strong>7</strong></td></tr>
+    
+      <tr><td>traffic</td><td class="num">1</td><td class="num">4</td><td class="num">6</td><td class="num">1</td><td class="num"></td><td class="num"><strong>12</strong></td></tr>
+    
+      <tr><td>vulnerability</td><td class="num">9</td><td class="num">6</td><td class="num">3</td><td class="num"></td><td class="num"></td><td class="num"><strong>18</strong></td></tr>
+    
+    <tr><td><strong>Total</strong></td><td class="num"><strong>13</strong></td><td class="num"><strong>17</strong></td><td class="num"><strong>16</strong></td><td class="num"><strong>11</strong></td><td class="num"><strong>0</strong></td><td class="num"><strong>57</strong></td></tr>
+    </tbody>
+  </table>
+
+  
+  <h3>Risk matrix (likelihood &times; impact)</h3>
+  <table class="heat">
+    <thead><tr><th>Likelihood \ Impact</th><th>Negligible</th><th>Minor</th><th>Moderate</th><th>Major</th><th>Severe</th></tr></thead>
+    <tbody>
+    
+      <tr><th>Almost certain</th>
+      
+        
+        <td style="background: #fef9c3"></td>
+      
+        
+        <td style="background: #fed7aa"></td>
+      
+        
+        <td style="background: #fecaca"></td>
+      
+        
+        <td style="background: #fecaca">3</td>
+      
+        
+        <td style="background: #fecaca">11</td>
+      </tr>
+    
+      <tr><th>Likely</th>
+      
+        
+        <td style="background: #fef9c3"></td>
+      
+        
+        <td style="background: #fed7aa"></td>
+      
+        
+        <td style="background: #fed7aa">3</td>
+      
+        
+        <td style="background: #fecaca">14</td>
+      
+        
+        <td style="background: #fecaca">2</td>
+      </tr>
+    
+      <tr><th>Possible</th>
+      
+        
+        <td style="background: #dcfce7"></td>
+      
+        
+        <td style="background: #fef9c3"></td>
+      
+        
+        <td style="background: #fed7aa">13</td>
+      
+        
+        <td style="background: #fed7aa"></td>
+      
+        
+        <td style="background: #fecaca"></td>
+      </tr>
+    
+      <tr><th>Unlikely</th>
+      
+        
+        <td style="background: #dcfce7"></td>
+      
+        
+        <td style="background: #fef9c3">11</td>
+      
+        
+        <td style="background: #fef9c3"></td>
+      
+        
+        <td style="background: #fed7aa"></td>
+      
+        
+        <td style="background: #fed7aa"></td>
+      </tr>
+    
+      <tr><th>Rare</th>
+      
+        
+        <td style="background: #dcfce7"></td>
+      
+        
+        <td style="background: #dcfce7"></td>
+      
+        
+        <td style="background: #dcfce7"></td>
+      
+        
+        <td style="background: #fef9c3"></td>
+      
+        
+        <td style="background: #fef9c3"></td>
+      </tr>
+    
+    </tbody>
+  </table>
+  
+
+  
+  <h2>3. Compliance</h2>
+  <table>
+    <thead><tr><th>Framework</th><th>Score</th><th class="num">Passed</th><th class="num">Partial</th><th class="num">Failed</th><th class="num">Not assessed</th></tr></thead>
+    <tbody>
+    
+      <tr><td>CIS Critical Security Controls v8</td>
+        <td><div class="bar"><span style="width: 15.4%"></span></div> 15%</td>
+        <td class="num">2</td><td class="num">1</td><td class="num">9</td><td class="num">0</td></tr>
+    
+      <tr><td>NIST Cybersecurity Framework</td>
+        <td><div class="bar"><span style="width: 11.5%"></span></div> 12%</td>
+        <td class="num">1</td><td class="num">0</td><td class="num">10</td><td class="num">0</td></tr>
+    
+      <tr><td>ISO/IEC 27001:2022 Annex A</td>
+        <td><div class="bar"><span style="width: 0.0%"></span></div> 0%</td>
+        <td class="num">0</td><td class="num">0</td><td class="num">10</td><td class="num">0</td></tr>
+    
+    </tbody>
+  </table>
+  
+    <h3>Gap analysis - CIS Critical Security Controls v8</h3>
+    <table>
+      <thead><tr><th>Priority</th><th>Control</th><th>Status</th><th>Failing checks</th><th>Recommendation</th></tr></thead>
+      <tbody>
+      
+        <tr><td><strong>P1</strong></td><td>CIS-4.1 Establish and Maintain a Secure Configuration Process</td><td class="st st-fail">fail</td><td>SSH-001, SSH-002, SSH-005, FS-001</td><td>Adopt a hardened baseline (CIS Benchmark) and enforce it with configuration management.</td></tr>
+      
+        <tr><td><strong>P1</strong></td><td>CIS-4.4 Implement and Manage a Firewall on Servers</td><td class="st st-fail">fail</td><td>FW-001</td><td>Enable a default-deny host firewall on every server.</td></tr>
+      
+        <tr><td><strong>P1</strong></td><td>CIS-5.4 Restrict Administrator Privileges to Dedicated Administrator Accounts</td><td class="st st-fail">fail</td><td>USR-001, SSH-001, SUDO-001</td><td>Disable direct root login, remove duplicate UID 0 accounts and require authentication for sudo.</td></tr>
+      
+        <tr><td><strong>P1</strong></td><td>CIS-7.7 Remediate Detected Vulnerabilities</td><td class="st st-fail">fail</td><td>VULN-001, VULN-002</td><td>Remediate critical vulnerabilities within 72 hours and high within 7 days.</td></tr>
+      
+      </tbody>
+    </table>
+  
+    <h3>Gap analysis - NIST Cybersecurity Framework</h3>
+    <table>
+      <thead><tr><th>Priority</th><th>Control</th><th>Status</th><th>Failing checks</th><th>Recommendation</th></tr></thead>
+      <tbody>
+      
+        <tr><td><strong>P1</strong></td><td>PR.AA-01 Identities and credentials for authorized users, services, and hardware are managed</td><td class="st st-fail">fail</td><td>USR-001, USR-002, USR-003, PWD-001, PWD-003</td><td>Review accounts, enforce password policy and lock unused/system accounts.</td></tr>
+      
+        <tr><td><strong>P1</strong></td><td>PR.AA-05 Access permissions are managed, incorporating least privilege</td><td class="st st-fail">fail</td><td>SUDO-001, SSH-001, FS-001</td><td>Apply least privilege for sudo, root access and sensitive file permissions.</td></tr>
+      
+        <tr><td><strong>P1</strong></td><td>PR.IR-01 Networks and environments are protected from unauthorized logical access and usage</td><td class="st st-fail">fail</td><td>FW-001, NET-001</td><td>Filter inbound traffic with host and network firewalls; restrict exposed services.</td></tr>
+      
+      </tbody>
+    </table>
+  
+    <h3>Gap analysis - ISO/IEC 27001:2022 Annex A</h3>
+    <table>
+      <thead><tr><th>Priority</th><th>Control</th><th>Status</th><th>Failing checks</th><th>Recommendation</th></tr></thead>
+      <tbody>
+      
+        <tr><td><strong>P1</strong></td><td>A.8.2 Privileged access rights</td><td class="st st-fail">fail</td><td>USR-001, SUDO-001, SUDO-002</td><td>Restrict and log privileged access.</td></tr>
+      
+        <tr><td><strong>P1</strong></td><td>A.8.20 Networks security</td><td class="st st-fail">fail</td><td>FW-001, NET-001</td><td>Secure, manage and control networks and filter traffic.</td></tr>
+      
+        <tr><td><strong>P1</strong></td><td>A.8.8 Management of technical vulnerabilities</td><td class="st st-fail">fail</td><td>VULN-001, VULN-002, UPD-001</td><td>Identify vulnerabilities timely, evaluate exposure and remediate.</td></tr>
+      
+      </tbody>
+    </table>
+  
+  
+
+  <h2>4. Findings (top 15 of 57)</h2>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">Apache HTTP Server 2.4.49 affected by CVE-2021-42013</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2021-42013 &middot; CVSS 9.8 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.10:80 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>Incomplete fix for CVE-2021-41773: path traversal and remote code execution in Apache HTTP Server 2.4.49 and 2.4.50. A public exploit is available.</dd>
+      <dt>Evidence</dt><dd>80/tcp banner &#39;Apache httpd 2.4.49 (Unix) OpenSSL/1.0.1f&#39; matches affected range (versions 2.4.49, 2.4.50).</dd>
+      <dt>Recommendation</dt><dd>Upgrade Apache HTTP Server to 2.4.51 or later.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2021-42013</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">Apache HTTP Server 2.4.49 affected by CVE-2022-22720</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2022-22720 &middot; CVSS 9.8 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.10:80 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>Apache HTTP Server 2.4.52 and earlier fails to close the inbound connection when errors are encountered discarding the request body, exposing the server to HTTP request smuggling.</dd>
+      <dt>Evidence</dt><dd>80/tcp banner &#39;Apache httpd 2.4.49 (Unix) OpenSSL/1.0.1f&#39; matches affected range (&lt;= 2.4.52).</dd>
+      <dt>Recommendation</dt><dd>Upgrade Apache HTTP Server to 2.4.53 or later.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2022-22720</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">Apache HTTP Server 2.4.49 affected by CVE-2023-25690</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2023-25690 &middot; CVSS 9.8 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.10:80 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>Some mod_proxy configurations on Apache HTTP Server 2.4.0 through 2.4.55 allow HTTP request smuggling.</dd>
+      <dt>Evidence</dt><dd>80/tcp banner &#39;Apache httpd 2.4.49 (Unix) OpenSSL/1.0.1f&#39; matches affected range (&gt;= 2.4.0 and &lt;= 2.4.55).</dd>
+      <dt>Recommendation</dt><dd>Upgrade Apache HTTP Server to 2.4.56 or later.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2023-25690</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">OpenSSH 8.9p1 affected by CVE-2023-38408</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2023-38408 &middot; CVSS 9.8 &middot; confidence medium</dd>
+      <dt>Asset</dt><dd>10.10.0.10:22 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>The PKCS#11 feature in ssh-agent has an insufficiently trustworthy search path, leading to remote code execution if an agent is forwarded to an attacker-controlled system.</dd>
+      <dt>Evidence</dt><dd>22/tcp banner &#39;OpenSSH 8.9p1 Ubuntu 3ubuntu0.6 Ubuntu Linux; protocol 2.0&#39; matches affected range (&lt; 9.3p2).</dd>
+      <dt>Recommendation</dt><dd>Upgrade OpenSSH to 9.3p2 or later. Distribution package detected: verify with the distro security tracker, the fix may be backported without a version change.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2023-38408</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">vsftpd 2.3.4 affected by CVE-2011-2523</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2011-2523 &middot; CVSS 9.8 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.11:21 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>vsftpd 2.3.4 downloaded between 2011-06-30 and 2011-07-03 contains a backdoor which opens a shell on port 6200/tcp. A public exploit is available.</dd>
+      <dt>Evidence</dt><dd>21/tcp banner &#39;vsftpd 2.3.4&#39; matches affected range (versions 2.3.4).</dd>
+      <dt>Recommendation</dt><dd>Upgrade vsftpd to 2.3.5 or later.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2011-2523</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">Samba 4.5.9 affected by CVE-2017-7494</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2017-7494 &middot; CVSS 9.8 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.11:445 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>SambaCry: a malicious client can upload a shared library to a writable share and cause the server to load and execute it (remote code execution). A public exploit is available.</dd>
+      <dt>Evidence</dt><dd>445/tcp banner &#39;Samba smbd 4.5.9 workgroup: CORP&#39; matches affected range (&gt;= 4.5.0 and &lt; 4.5.10).</dd>
+      <dt>Recommendation</dt><dd>Upgrade Samba to 4.6.4 or later.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2017-7494</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">OpenSSH 7.4 affected by CVE-2023-38408</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2023-38408 &middot; CVSS 9.8 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.11:22 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>The PKCS#11 feature in ssh-agent has an insufficiently trustworthy search path, leading to remote code execution if an agent is forwarded to an attacker-controlled system.</dd>
+      <dt>Evidence</dt><dd>22/tcp banner &#39;OpenSSH 7.4 protocol 2.0&#39; matches affected range (&lt; 9.3p2).</dd>
+      <dt>Recommendation</dt><dd>Upgrade OpenSSH to 9.3p2 or later.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2023-38408</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">Exim 4.89 affected by CVE-2019-10149</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2019-10149 &middot; CVSS 9.8 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.12:25 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>Improper validation of recipient addresses in deliver_message() in Exim 4.87 to 4.91 allows remote command execution (&#34;Return of the WIZard&#34;). A public exploit is available.</dd>
+      <dt>Evidence</dt><dd>25/tcp banner &#39;Exim smtpd 4.89&#39; matches affected range (&gt;= 4.87 and &lt;= 4.91).</dd>
+      <dt>Recommendation</dt><dd>Upgrade Exim to 4.92 or later.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2019-10149</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">Apache Tomcat 9.0.30 affected by CVE-2020-1938</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2020-1938 &middot; CVSS 9.8 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.13:8080 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>Ghostcat: the AJP connector trusts incoming connections by default, allowing file read/inclusion (and RCE when uploads are possible) in Apache Tomcat. A public exploit is available.</dd>
+      <dt>Evidence</dt><dd>8080/tcp banner &#39;Apache Tomcat 9.0.30&#39; matches affected range (&gt;= 9.0.0.M1 and &lt; 9.0.31).</dd>
+      <dt>Recommendation</dt><dd>Upgrade Apache Tomcat to 9.0.31 or later.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2020-1938</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">Communication with known malicious IP 203.0.113.50</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>TRF-IOC-IP &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.13 &middot; traffic &middot; traffic_monitor</dd>
+      
+      <dt>Evidence</dt><dd>41943 packets / 62914500 bytes exchanged with 203.0.113.50 (IOC 203.0.113.50, source cybershield-sample: Sample data exfiltration endpoint)</dd>
+      <dt>Recommendation</dt><dd>Isolate the host, block the indicator at the perimeter, and start incident response (collect volatile evidence before remediation).</dd>
+      
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">Docker Engine API exposed without TLS</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>EXP-DOCKER &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.21:2375 &middot; exposure &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>Docker Engine API exposed without TLS on 10.10.0.21:2375/tcp.</dd>
+      <dt>Evidence</dt><dd>2375/tcp docker Docker 20.10.7</dd>
+      <dt>Recommendation</dt><dd>Never expose the Docker socket over TCP without mutual TLS; bind to a unix socket only.</dd>
+      
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">No duplicate UID 0 (root-equivalent) accounts</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>USR-001 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>web-prod-01 &middot; accounts &middot; system_auditor</dd>
+      
+      <dt>Evidence</dt><dd>Accounts with UID 0 besides root: svc-backup</dd>
+      <dt>Recommendation</dt><dd>Only &#39;root&#39; may have UID 0. Investigate and remove/renumber other UID 0 accounts immediately.</dd>
+      <dt>References</dt><dd>CIS Debian/Ubuntu Benchmark 7.2.x | NIST CSF PR.AA-05</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">No accounts with empty passwords</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>USR-002 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>web-prod-01 &middot; accounts &middot; system_auditor</dd>
+      
+      <dt>Evidence</dt><dd>Accounts with empty password: svc-backup</dd>
+      <dt>Recommendation</dt><dd>Lock or set a strong password on every account with an empty password field (`passwd -l &lt;user&gt;`).</dd>
+      <dt>References</dt><dd>CIS Debian/Ubuntu Benchmark 7.2.x | ISO 27001 A.5.17</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-high">high</span><span class="title">OpenSSH 8.9p1 affected by CVE-2024-6387</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2024-6387 &middot; CVSS 8.1 &middot; confidence medium</dd>
+      <dt>Asset</dt><dd>10.10.0.10:22 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>regreSSHion: a signal handler race condition in sshd&#39;s SIGALRM handling (LoginGraceTime) can allow unauthenticated remote code execution as root on glibc-based Linux systems.</dd>
+      <dt>Evidence</dt><dd>22/tcp banner &#39;OpenSSH 8.9p1 Ubuntu 3ubuntu0.6 Ubuntu Linux; protocol 2.0&#39; matches affected range (&gt;= 8.5p1 and &lt; 9.8p1).</dd>
+      <dt>Recommendation</dt><dd>Upgrade OpenSSH to 9.8p1 or later. Distribution package detected: verify with the distro security tracker, the fix may be backported without a version change.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2024-6387 | https://www.qualys.com/2024/07/01/cve-2024-6387/regresshion.txt</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-high">high</span><span class="title">OpenSSH 9.7p1 affected by CVE-2024-6387</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2024-6387 &middot; CVSS 8.1 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.12:22 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>regreSSHion: a signal handler race condition in sshd&#39;s SIGALRM handling (LoginGraceTime) can allow unauthenticated remote code execution as root on glibc-based Linux systems.</dd>
+      <dt>Evidence</dt><dd>22/tcp banner &#39;OpenSSH 9.7p1 protocol 2.0&#39; matches affected range (&gt;= 8.5p1 and &lt; 9.8p1).</dd>
+      <dt>Recommendation</dt><dd>Upgrade OpenSSH to 9.8p1 or later.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2024-6387 | https://www.qualys.com/2024/07/01/cve-2024-6387/regresshion.txt</dd>
+    </dl>
+  </div>
+  
+
+  <h2>5. Recommendations</h2>
+  <ol class="recs"><li>Upgrade Apache HTTP Server to 2.4.51 or later.</li><li>Upgrade Apache HTTP Server to 2.4.53 or later.</li><li>Upgrade Apache HTTP Server to 2.4.56 or later.</li><li>Upgrade OpenSSH to 9.3p2 or later. Distribution package detected: verify with the distro security tracker, the fix may be backported without a version change.</li><li>Upgrade vsftpd to 2.3.5 or later.</li><li>Upgrade Samba to 4.6.4 or later.</li><li>Upgrade OpenSSH to 9.3p2 or later.</li><li>Upgrade Exim to 4.92 or later.</li><li>Upgrade Apache Tomcat to 9.0.31 or later.</li><li>Isolate the host, block the indicator at the perimeter, and start incident response (collect volatile evidence before remediation).</li><li>Never expose the Docker socket over TCP without mutual TLS; bind to a unix socket only.</li><li>Only &#39;root&#39; may have UID 0. Investigate and remove/renumber other UID 0 accounts immediately.</li></ol>
+
+  <h2>6. Remediation priorities</h2>
+  <table>
+    <thead><tr><th>Priority</th><th>Severity</th><th>Target</th><th class="num">Findings</th><th>Examples</th></tr></thead>
+    <tbody>
+    
+      <tr><td><strong>P1</strong> Immediate</td><td><span class="sev sev-critical">critical</span></td><td>Within 24-72 hours</td><td class="num">13</td><td>Apache HTTP Server 2.4.49 affected by CVE-2021-42013 (10.10.0.10); Apache HTTP Server 2.4.49 affected by CVE-2022-22720 (10.10.0.10); Apache HTTP Server 2.4.49 affected by CVE-2023-25690 (10.10.0.10); OpenSSH 8.9p1 affected by CVE-2023-38408 (10.10.0.10); vsftpd 2.3.4 affected by CVE-2011-2523 (10.10.0.11); Samba 4.5.9 affected by CVE-2017-7494 (10.10.0.11); OpenSSH 7.4 affected by CVE-2023-38408 (10.10.0.11); Exim 4.89 affected by CVE-2019-10149 (10.10.0.12)</td></tr>
+    
+      <tr><td><strong>P2</strong> Urgent</td><td><span class="sev sev-high">high</span></td><td>Within 7 days</td><td class="num">17</td><td>OpenSSH 8.9p1 affected by CVE-2024-6387 (10.10.0.10); OpenSSH 9.7p1 affected by CVE-2024-6387 (10.10.0.12); nginx 1.18.0 affected by CVE-2021-23017 (10.10.0.14); nginx 1.18.0 affected by CVE-2021-23017 (10.10.0.14); OpenSSL 1.0.1f affected by CVE-2014-0160 (10.10.0.10); Apache HTTP Server 2.4.49 affected by CVE-2021-41773 (10.10.0.10); Redis exposed to the network (10.10.0.13); Large outbound transfer from 10.10.0.13 to 203.0.113.50 (10.10.0.13)</td></tr>
+    
+      <tr><td><strong>P3</strong> Planned</td><td><span class="sev sev-medium">medium</span></td><td>Within 30 days</td><td class="num">16</td><td>OpenSSH 8.9p1 affected by CVE-2023-48795 (10.10.0.10); OpenSSH 7.4 affected by CVE-2023-48795 (10.10.0.11); OpenSSH 7.4 affected by CVE-2018-15473 (10.10.0.11); Database service reachable over the network (10.10.0.10); FTP service exposed (cleartext credentials) (10.10.0.11); SMB/NetBIOS file sharing exposed (10.10.0.11); Legacy TLS/SSL protocol in use (10.10.0.53); Algorithmically generated (DGA-like) domain lookups (10.10.0.55)</td></tr>
+    
+      <tr><td><strong>P4</strong> Routine</td><td><span class="sev sev-low">low</span></td><td>Within 90 days</td><td class="num">11</td><td>Web service without HTTPS (10.10.0.10); Web service without HTTPS (10.10.0.13); Cleartext HTTP to Internet hosts (10.10.0.54); System auditing (auditd) is installed (web-prod-01); SSH MaxAuthTries is 4 or less (web-prod-01); SSH X11 forwarding is disabled (web-prod-01); SSH idle session timeout is configured (web-prod-01); SSH LoginGraceTime is 60 seconds or less (web-prod-01)</td></tr>
+    
+    </tbody>
+  </table>
+
+  
+
+  <footer>
+    CONFIDENTIAL &middot; Produced by CyberShield 1.0.0 for authorised defensive use only. Automated findings should be validated by a qualified analyst before remediation decisions.
+  </footer>
+</div>
+</body>
+</html>

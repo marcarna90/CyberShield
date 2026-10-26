@@ -1,0 +1,1196 @@
+{
+  "report_type": "executive",
+  "title": "Executive Security Report",
+  "organization": "ACME Corp (demo)",
+  "generated_at": "2026-10-25T19:39:13.267653Z",
+  "generated_by": "examples",
+  "scope": "8 network asset(s), host audit of web-prod-01, traffic capture 'demo:sensor-eth0'",
+  "classification": "CONFIDENTIAL",
+  "summary": {
+    "Risk score": "100/100",
+    "Security posture": "0/100",
+    "Open findings": 57,
+    "Critical": 13,
+    "High": 17,
+    "Assets": 8,
+    "Compliance": "9%",
+    "Network health": "0/100"
+  },
+  "narrative": "The assessment identified 57 open finding(s): 13 critical, 17 high, 16 medium and 11 low. The aggregated risk score is 100/100, which corresponds to a critical level of risk. Critical findings must be remediated immediately (P1, 24-72 hours). Overall technical compliance is 9% (critical posture). CIS Critical Security Controls v8: 15% (2 passed, 1 partial, 9 failed, 0 not assessed). NIST Cybersecurity Framework: 12% (1 passed, 0 partial, 10 failed, 0 not assessed). ISO/IEC 27001:2022 Annex A: 0% (0 passed, 0 partial, 10 failed, 0 not assessed). 10 priority-1 gap(s) require immediate attention, notably: CIS-4.1 Establish and Maintain a Secure Configuration Process; CIS-4.4 Implement and Manage a Firewall on Servers; CIS-5.4 Restrict Administrator Privileges to Dedicated Administrator Accounts. 30 finding(s) sit in the high-risk zone of the risk matrix. Network health score of the latest capture is 0/100 with 13 anomaly(ies).",
+  "findings": [
+    {
+      "finding_id": "CVE-2021-42013",
+      "title": "Apache HTTP Server 2.4.49 affected by CVE-2021-42013",
+      "severity": "critical",
+      "category": "vulnerability",
+      "source": "vulnerability_analyzer",
+      "asset": "10.10.0.10",
+      "description": "Incomplete fix for CVE-2021-41773: path traversal and remote code execution in Apache HTTP Server 2.4.49 and 2.4.50. A public exploit is available.",
+      "evidence": "80/tcp banner 'Apache httpd 2.4.49 (Unix) OpenSSL/1.0.1f' matches affected range (versions 2.4.49, 2.4.50).",
+      "recommendation": "Upgrade Apache HTTP Server to 2.4.51 or later.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2021-42013"
+      ],
+      "cve": "CVE-2021-42013",
+      "cvss": 9.8,
+      "port": 80,
+      "confidence": "high",
+      "detected_at": "2026-10-12T19:39:11.039933Z"
+    },
+    {
+      "finding_id": "CVE-2022-22720",
+      "title": "Apache HTTP Server 2.4.49 affected by CVE-2022-22720",
+      "severity": "critical",
+      "category": "vulnerability",
+      "source": "vulnerability_analyzer",
+      "asset": "10.10.0.10",
+      "description": "Apache HTTP Server 2.4.52 and earlier fails to close the inbound connection when errors are encountered discarding the request body, exposing the server to HTTP request smuggling.",
+      "evidence": "80/tcp banner 'Apache httpd 2.4.49 (Unix) OpenSSL/1.0.1f' matches affected range (<= 2.4.52).",
+      "recommendation": "Upgrade Apache HTTP Server to 2.4.53 or later.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2022-22720"
+      ],
+      "cve": "CVE-2022-22720",
+      "cvss": 9.8,
+      "port": 80,
+      "confidence": "high",
+      "detected_at": "2026-10-12T19:39:11.039933Z"
+    },
+    {
+      "finding_id": "CVE-2023-25690",
+      "title": "Apache HTTP Server 2.4.49 affected by CVE-2023-25690",
+      "severity": "critical",
+      "category": "vulnerability",
+      "source": "vulnerability_analyzer",
+      "asset": "10.10.0.10",
+      "description": "Some mod_proxy configurations on Apache HTTP Server 2.4.0 through 2.4.55 allow HTTP request smuggling.",
+      "evidence": "80/tcp banner 'Apache httpd 2.4.49 (Unix) OpenSSL/1.0.1f' matches affected range (>= 2.4.0 and <= 2.4.55).",
+      "recommendation": "Upgrade Apache HTTP Server to 2.4.56 or later.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2023-25690"
+      ],
+      "cve": "CVE-2023-25690",
+      "cvss": 9.8,
+      "port": 80,
+      "confidence": "high",
+      "detected_at": "2026-10-12T19:39:11.039933Z"
+    },
+    {
+      "finding_id": "CVE-2023-38408",
+      "title": "OpenSSH 8.9p1 affected by CVE-2023-38408",
+      "severity": "critical",
+      "category": "vulnerability",
+      "source": "vulnerability_analyzer",
+      "asset": "10.10.0.10",
+      "description": "The PKCS#11 feature in ssh-agent has an insufficiently trustworthy search path, leading to remote code execution if an agent is forwarded to an attacker-controlled system.",
+      "evidence": "22/tcp banner 'OpenSSH 8.9p1 Ubuntu 3ubuntu0.6 Ubuntu Linux; protocol 2.0' matches affected range (< 9.3p2).",
+      "recommendation": "Upgrade OpenSSH to 9.3p2 or later. Distribution package detected: verify with the distro security tracker, the fix may be backported without a version change.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2023-38408"
+      ],
+      "cve": "CVE-2023-38408",
+      "cvss": 9.8,
+      "port": 22,
+      "confidence": "medium",
+      "detected_at": "2026-10-12T19:39:11.039933Z"
+    },
+    {
+      "finding_id": "CVE-2011-2523",
+      "title": "vsftpd 2.3.4 affected by CVE-2011-2523",
+      "severity": "critical",
+      "category": "vulnerability",
+      "source": "vulnerability_analyzer",
+      "asset": "10.10.0.11",
+      "description": "vsftpd 2.3.4 downloaded between 2011-06-30 and 2011-07-03 contains a backdoor which opens a shell on port 6200/tcp. A public exploit is available.",
+      "evidence": "21/tcp banner 'vsftpd 2.3.4' matches affected range (versions 2.3.4).",
+      "recommendation": "Upgrade vsftpd to 2.3.5 or later.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2011-2523"
+      ],
+      "cve": "CVE-2011-2523",
+      "cvss": 9.8,
+      "port": 21,
+      "confidence": "high",
+      "detected_at": "2026-10-12T19:39:11.039933Z"
+    },
+    {
+      "finding_id": "CVE-2017-7494",
+      "title": "Samba 4.5.9 affected by CVE-2017-7494",
+      "severity": "critical",
+      "category": "vulnerability",
+      "source": "vulnerability_analyzer",
+      "asset": "10.10.0.11",
+      "description": "SambaCry: a malicious client can upload a shared library to a writable share and cause the server to load and execute it (remote code execution). A public exploit is available.",
+      "evidence": "445/tcp banner 'Samba smbd 4.5.9 workgroup: CORP' matches affected range (>= 4.5.0 and < 4.5.10).",
+      "recommendation": "Upgrade Samba to 4.6.4 or later.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2017-7494"
+      ],
+      "cve": "CVE-2017-7494",
+      "cvss": 9.8,
+      "port": 445,
+      "confidence": "high",
+      "detected_at": "2026-10-12T19:39:11.039933Z"
+    },
+    {
+      "finding_id": "CVE-2023-38408",
+      "title": "OpenSSH 7.4 affected by CVE-2023-38408",
+      "severity": "critical",
+      "category": "vulnerability",
+      "source": "vulnerability_analyzer",
+      "asset": "10.10.0.11",
+      "description": "The PKCS#11 feature in ssh-agent has an insufficiently trustworthy search path, leading to remote code execution if an agent is forwarded to an attacker-controlled system.",
+      "evidence": "22/tcp banner 'OpenSSH 7.4 protocol 2.0' matches affected range (< 9.3p2).",
+      "recommendation": "Upgrade OpenSSH to 9.3p2 or later.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2023-38408"
+      ],
+      "cve": "CVE-2023-38408",
+      "cvss": 9.8,
+      "port": 22,
+      "confidence": "high",
+      "detected_at": "2026-10-12T19:39:11.039933Z"
+    },
+    {
+      "finding_id": "CVE-2019-10149",
+      "title": "Exim 4.89 affected by CVE-2019-10149",
+      "severity": "critical",
+      "category": "vulnerability",
+      "source": "vulnerability_analyzer",
+      "asset": "10.10.0.12",
+      "description": "Improper validation of recipient addresses in deliver_message() in Exim 4.87 to 4.91 allows remote command execution (\"Return of the WIZard\"). A public exploit is available.",
+      "evidence": "25/tcp banner 'Exim smtpd 4.89' matches affected range (>= 4.87 and <= 4.91).",
+      "recommendation": "Upgrade Exim to 4.92 or later.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2019-10149"
+      ],
+      "cve": "CVE-2019-10149",
+      "cvss": 9.8,
+      "port": 25,
+      "confidence": "high",
+      "detected_at": "2026-10-15T19:39:11.039933Z"
+    },
+    {
+      "finding_id": "CVE-2020-1938",
+      "title": "Apache Tomcat 9.0.30 affected by CVE-2020-1938",
+      "severity": "critical",
+      "category": "vulnerability",
+      "source": "vulnerability_analyzer",
+      "asset": "10.10.0.13",
+      "description": "Ghostcat: the AJP connector trusts incoming connections by default, allowing file read/inclusion (and RCE when uploads are possible) in Apache Tomcat. A public exploit is available.",
+      "evidence": "8080/tcp banner 'Apache Tomcat 9.0.30' matches affected range (>= 9.0.0.M1 and < 9.0.31).",
+      "recommendation": "Upgrade Apache Tomcat to 9.0.31 or later.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2020-1938"
+      ],
+      "cve": "CVE-2020-1938",
+      "cvss": 9.8,
+      "port": 8080,
+      "confidence": "high",
+      "detected_at": "2026-10-15T19:39:11.039933Z"
+    },
+    {
+      "finding_id": "TRF-IOC-IP",
+      "title": "Communication with known malicious IP 203.0.113.50",
+      "severity": "critical",
+      "category": "traffic",
+      "source": "traffic_monitor",
+      "asset": "10.10.0.13",
+      "description": "Communication with known malicious IP 203.0.113.50",
+      "evidence": "41943 packets / 62914500 bytes exchanged with 203.0.113.50 (IOC 203.0.113.50, source cybershield-sample: Sample data exfiltration endpoint)",
+      "recommendation": "Isolate the host, block the indicator at the perimeter, and start incident response (collect volatile evidence before remediation).",
+      "references": [],
+      "cve": null,
+      "cvss": null,
+      "port": null,
+      "confidence": "high",
+      "detected_at": "2026-10-25T19:39:11.039933Z"
+    },
+    {
+      "finding_id": "EXP-DOCKER",
+      "title": "Docker Engine API exposed without TLS",
+      "severity": "critical",
+      "category": "exposure",
+      "source": "vulnerability_analyzer",
+      "asset": "10.10.0.21",
+      "description": "Docker Engine API exposed without TLS on 10.10.0.21:2375/tcp.",
+      "evidence": "2375/tcp docker Docker 20.10.7",
+      "recommendation": "Never expose the Docker socket over TCP without mutual TLS; bind to a unix socket only.",
+      "references": [],
+      "cve": null,
+      "cvss": null,
+      "port": 2375,
+      "confidence": "high",
+      "detected_at": "2026-10-25T19:39:11.039933Z"
+    },
+    {
+      "finding_id": "USR-001",
+      "title": "No duplicate UID 0 (root-equivalent) accounts",
+      "severity": "critical",
+      "category": "accounts",
+      "source": "system_auditor",
+      "asset": "web-prod-01",
+      "description": "No duplicate UID 0 (root-equivalent) accounts",
+      "evidence": "Accounts with UID 0 besides root: svc-backup",
+      "recommendation": "Only 'root' may have UID 0. Investigate and remove/renumber other UID 0 accounts immediately.",
+      "references": [
+        "CIS Debian/Ubuntu Benchmark 7.2.x",
+        "NIST CSF PR.AA-05"
+      ],
+      "cve": null,
+      "cvss": null,
+      "port": null,
+      "confidence": "high",
+      "detected_at": "2026-10-20T19:39:11.039933Z"
+    },
+    {
+      "finding_id": "USR-002",
+      "title": "No accounts with empty passwords",
+      "severity": "critical",
+      "category": "accounts",
+      "source": "system_auditor",
+      "asset": "web-prod-01",
+      "description": "No accounts with empty passwords",
+      "evidence": "Accounts with empty password: svc-backup",
+      "recommendation": "Lock or set a strong password on every account with an empty password field (`passwd -l <user>`).",
+      "references": [
+        "CIS Debian/Ubuntu Benchmark 7.2.x",
+        "ISO 27001 A.5.17"
+      ],
+      "cve": null,
+      "cvss": null,
+      "port": null,
+      "confidence": "high",
+      "detected_at": "2026-10-20T19:39:11.039933Z"
+    },
+    {
+      "finding_id": "CVE-2024-6387",
+      "title": "OpenSSH 8.9p1 affected by CVE-2024-6387",
+      "severity": "high",
+      "category": "vulnerability",
+      "source": "vulnerability_analyzer",
+      "asset": "10.10.0.10",
+      "description": "regreSSHion: a signal handler race condition in sshd's SIGALRM handling (LoginGraceTime) can allow unauthenticated remote code execution as root on glibc-based Linux systems.",
+      "evidence": "22/tcp banner 'OpenSSH 8.9p1 Ubuntu 3ubuntu0.6 Ubuntu Linux; protocol 2.0' matches affected range (>= 8.5p1 and < 9.8p1).",
+      "recommendation": "Upgrade OpenSSH to 9.8p1 or later. Distribution package detected: verify with the distro security tracker, the fix may be backported without a version change.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-6387",
+        "https://www.qualys.com/2024/07/01/cve-2024-6387/regresshion.txt"
+      ],
+      "cve": "CVE-2024-6387",
+      "cvss": 8.1,
+      "port": 22,
+      "confidence": "medium",
+      "detected_at": "2026-10-12T19:39:11.039933Z"
+    },
+    {
+      "finding_id": "CVE-2024-6387",
+      "title": "OpenSSH 9.7p1 affected by CVE-2024-6387",
+      "severity": "high",
+      "category": "vulnerability",
+      "source": "vulnerability_analyzer",
+      "asset": "10.10.0.12",
+      "description": "regreSSHion: a signal handler race condition in sshd's SIGALRM handling (LoginGraceTime) can allow unauthenticated remote code execution as root on glibc-based Linux systems.",
+      "evidence": "22/tcp banner 'OpenSSH 9.7p1 protocol 2.0' matches affected range (>= 8.5p1 and < 9.8p1).",
+      "recommendation": "Upgrade OpenSSH to 9.8p1 or later.",
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-6387",
+        "https://www.qualys.com/2024/07/01/cve-2024-6387/regresshion.txt"
+      ],
+      "cve": "CVE-2024-6387",
+      "cvss": 8.1,
+      "port": 22,
+      "confidence": "high",
+      "detected_at": "2026-10-15T19:39:11.039933Z"
+    }
+  ],
+  "findings_total": 57,
+  "severity_counts": {
+    "critical": 13,
+    "high": 17,
+    "medium": 16,
+    "low": 11,
+    "informational": 0
+  },
+  "severity_matrix": {
+    "accounts": {
+      "critical": 2,
+      "high": 0,
+      "medium": 0,
+      "low": 1,
+      "informational": 0
+    },
+    "exposure": {
+      "critical": 1,
+      "high": 2,
+      "medium": 3,
+      "low": 2,
+      "informational": 0
+    },
+    "filesystem": {
+      "critical": 0,
+      "high": 1,
+      "medium": 0,
+      "low": 0,
+      "informational": 0
+    },
+    "firewall": {
+      "critical": 0,
+      "high": 1,
+      "medium": 0,
+      "low": 0,
+      "informational": 0
+    },
+    "logging": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 1,
+      "informational": 0
+    },
+    "network": {
+      "critical": 0,
+      "high": 1,
+      "medium": 0,
+      "low": 0,
+      "informational": 0
+    },
+    "password_policy": {
+      "critical": 0,
+      "high": 0,
+      "medium": 2,
+      "low": 0,
+      "informational": 0
+    },
+    "patching": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 1,
+      "informational": 0
+    },
+    "privilege": {
+      "critical": 0,
+      "high": 1,
+      "medium": 0,
+      "low": 1,
+      "informational": 0
+    },
+    "ssh": {
+      "critical": 0,
+      "high": 1,
+      "medium": 2,
+      "low": 4,
+      "informational": 0
+    },
+    "traffic": {
+      "critical": 1,
+      "high": 4,
+      "medium": 6,
+      "low": 1,
+      "informational": 0
+    },
+    "vulnerability": {
+      "critical": 9,
+      "high": 6,
+      "medium": 3,
+      "low": 0,
+      "informational": 0
+    }
+  },
+  "recommendations": [
+    "Upgrade Apache HTTP Server to 2.4.51 or later.",
+    "Upgrade Apache HTTP Server to 2.4.53 or later.",
+    "Upgrade Apache HTTP Server to 2.4.56 or later.",
+    "Upgrade OpenSSH to 9.3p2 or later. Distribution package detected: verify with the distro security tracker, the fix may be backported without a version change.",
+    "Upgrade vsftpd to 2.3.5 or later.",
+    "Upgrade Samba to 4.6.4 or later.",
+    "Upgrade OpenSSH to 9.3p2 or later.",
+    "Upgrade Exim to 4.92 or later.",
+    "Upgrade Apache Tomcat to 9.0.31 or later.",
+    "Isolate the host, block the indicator at the perimeter, and start incident response (collect volatile evidence before remediation).",
+    "Never expose the Docker socket over TCP without mutual TLS; bind to a unix socket only.",
+    "Only 'root' may have UID 0. Investigate and remove/renumber other UID 0 accounts immediately."
+  ],
+  "remediation_priorities": [
+    {
+      "priority": "P1",
+      "label": "Immediate",
+      "severity": "critical",
+      "sla": "Within 24-72 hours",
+      "count": 13,
+      "items": [
+        "Apache HTTP Server 2.4.49 affected by CVE-2021-42013 (10.10.0.10)",
+        "Apache HTTP Server 2.4.49 affected by CVE-2022-22720 (10.10.0.10)",
+        "Apache HTTP Server 2.4.49 affected by CVE-2023-25690 (10.10.0.10)",
+        "OpenSSH 8.9p1 affected by CVE-2023-38408 (10.10.0.10)",
+        "vsftpd 2.3.4 affected by CVE-2011-2523 (10.10.0.11)",
+        "Samba 4.5.9 affected by CVE-2017-7494 (10.10.0.11)",
+        "OpenSSH 7.4 affected by CVE-2023-38408 (10.10.0.11)",
+        "Exim 4.89 affected by CVE-2019-10149 (10.10.0.12)"
+      ]
+    },
+    {
+      "priority": "P2",
+      "label": "Urgent",
+      "severity": "high",
+      "sla": "Within 7 days",
+      "count": 17,
+      "items": [
+        "OpenSSH 8.9p1 affected by CVE-2024-6387 (10.10.0.10)",
+        "OpenSSH 9.7p1 affected by CVE-2024-6387 (10.10.0.12)",
+        "nginx 1.18.0 affected by CVE-2021-23017 (10.10.0.14)",
+        "nginx 1.18.0 affected by CVE-2021-23017 (10.10.0.14)",
+        "OpenSSL 1.0.1f affected by CVE-2014-0160 (10.10.0.10)",
+        "Apache HTTP Server 2.4.49 affected by CVE-2021-41773 (10.10.0.10)",
+        "Redis exposed to the network (10.10.0.13)",
+        "Large outbound transfer from 10.10.0.13 to 203.0.113.50 (10.10.0.13)"
+      ]
+    },
+    {
+      "priority": "P3",
+      "label": "Planned",
+      "severity": "medium",
+      "sla": "Within 30 days",
+      "count": 16,
+      "items": [
+        "OpenSSH 8.9p1 affected by CVE-2023-48795 (10.10.0.10)",
+        "OpenSSH 7.4 affected by CVE-2023-48795 (10.10.0.11)",
+        "OpenSSH 7.4 affected by CVE-2018-15473 (10.10.0.11)",
+        "Database service reachable over the network (10.10.0.10)",
+        "FTP service exposed (cleartext credentials) (10.10.0.11)",
+        "SMB/NetBIOS file sharing exposed (10.10.0.11)",
+        "Legacy TLS/SSL protocol in use (10.10.0.53)",
+        "Algorithmically generated (DGA-like) domain lookups (10.10.0.55)"
+      ]
+    },
+    {
+      "priority": "P4",
+      "label": "Routine",
+      "severity": "low",
+      "sla": "Within 90 days",
+      "count": 11,
+      "items": [
+        "Web service without HTTPS (10.10.0.10)",
+        "Web service without HTTPS (10.10.0.13)",
+        "Cleartext HTTP to Internet hosts (10.10.0.54)",
+        "System auditing (auditd) is installed (web-prod-01)",
+        "SSH MaxAuthTries is 4 or less (web-prod-01)",
+        "SSH X11 forwarding is disabled (web-prod-01)",
+        "SSH idle session timeout is configured (web-prod-01)",
+        "SSH LoginGraceTime is 60 seconds or less (web-prod-01)"
+      ]
+    }
+  ],
+  "compliance": [
+    {
+      "framework": "CIS",
+      "name": "CIS Critical Security Controls v8",
+      "score": 15.4,
+      "passed": 2,
+      "partial": 1,
+      "failed": 9,
+      "not_assessed": 0,
+      "gaps": [
+        {
+          "control_id": "CIS-4.1",
+          "title": "Establish and Maintain a Secure Configuration Process",
+          "status": "fail",
+          "priority": "P1",
+          "failing_checks": [
+            "SSH-001",
+            "SSH-002",
+            "SSH-005",
+            "FS-001"
+          ],
+          "recommendation": "Adopt a hardened baseline (CIS Benchmark) and enforce it with configuration management."
+        },
+        {
+          "control_id": "CIS-4.4",
+          "title": "Implement and Manage a Firewall on Servers",
+          "status": "fail",
+          "priority": "P1",
+          "failing_checks": [
+            "FW-001"
+          ],
+          "recommendation": "Enable a default-deny host firewall on every server."
+        },
+        {
+          "control_id": "CIS-5.4",
+          "title": "Restrict Administrator Privileges to Dedicated Administrator Accounts",
+          "status": "fail",
+          "priority": "P1",
+          "failing_checks": [
+            "USR-001",
+            "SSH-001",
+            "SUDO-001"
+          ],
+          "recommendation": "Disable direct root login, remove duplicate UID 0 accounts and require authentication for sudo."
+        },
+        {
+          "control_id": "CIS-7.7",
+          "title": "Remediate Detected Vulnerabilities",
+          "status": "fail",
+          "priority": "P1",
+          "failing_checks": [
+            "VULN-001",
+            "VULN-002"
+          ],
+          "recommendation": "Remediate critical vulnerabilities within 72 hours and high within 7 days."
+        }
+      ],
+      "controls": [
+        {
+          "control_id": "CIS-3.10",
+          "framework": "CIS",
+          "title": "Encrypt Sensitive Data in Transit",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "SSH-006": "fail",
+            "NET-012": "fail"
+          },
+          "recommendation": "Use only strong SSH algorithms and replace cleartext services (Telnet, FTP, HTTP) with encrypted alternatives."
+        },
+        {
+          "control_id": "CIS-4.1",
+          "framework": "CIS",
+          "title": "Establish and Maintain a Secure Configuration Process",
+          "status": "fail",
+          "weight": 3,
+          "evidence": {
+            "SSH-001": "fail",
+            "SSH-002": "fail",
+            "SSH-003": "pass",
+            "SSH-005": "fail",
+            "PWD-002": "pass",
+            "KRN-001": "pass",
+            "FS-001": "fail"
+          },
+          "recommendation": "Adopt a hardened baseline (CIS Benchmark) and enforce it with configuration management."
+        },
+        {
+          "control_id": "CIS-4.3",
+          "framework": "CIS",
+          "title": "Configure Automatic Session Locking on Enterprise Assets",
+          "status": "fail",
+          "weight": 1,
+          "evidence": {
+            "SSH-007": "fail"
+          },
+          "recommendation": "Configure idle session timeouts (SSH ClientAliveInterval/CountMax, shell TMOUT)."
+        },
+        {
+          "control_id": "CIS-4.4",
+          "framework": "CIS",
+          "title": "Implement and Manage a Firewall on Servers",
+          "status": "fail",
+          "weight": 3,
+          "evidence": {
+            "FW-001": "fail"
+          },
+          "recommendation": "Enable a default-deny host firewall on every server."
+        },
+        {
+          "control_id": "CIS-4.8",
+          "framework": "CIS",
+          "title": "Uninstall or Disable Unnecessary Services",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "NET-001": "fail",
+            "NET-012": "fail"
+          },
+          "recommendation": "Remove or disable unneeded network services and bind admin services to management interfaces."
+        },
+        {
+          "control_id": "CIS-5.2",
+          "framework": "CIS",
+          "title": "Use Unique Passwords",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "PWD-003": "fail",
+            "USR-002": "fail"
+          },
+          "recommendation": "Enforce password complexity (minimum 14 characters) and forbid empty passwords."
+        },
+        {
+          "control_id": "CIS-5.4",
+          "framework": "CIS",
+          "title": "Restrict Administrator Privileges to Dedicated Administrator Accounts",
+          "status": "fail",
+          "weight": 3,
+          "evidence": {
+            "USR-001": "fail",
+            "SSH-001": "fail",
+            "SUDO-001": "fail"
+          },
+          "recommendation": "Disable direct root login, remove duplicate UID 0 accounts and require authentication for sudo."
+        },
+        {
+          "control_id": "CIS-7.1",
+          "framework": "CIS",
+          "title": "Establish and Maintain a Vulnerability Management Process",
+          "status": "pass",
+          "weight": 2,
+          "evidence": {
+            "VULN-003": "pass"
+          },
+          "recommendation": "Schedule recurring authorised vulnerability scans and track remediation SLAs."
+        },
+        {
+          "control_id": "CIS-7.3",
+          "framework": "CIS",
+          "title": "Perform Automated Operating System Patch Management",
+          "status": "partial",
+          "weight": 2,
+          "evidence": {
+            "UPD-001": "warn"
+          },
+          "recommendation": "Enable automatic security updates or a managed patch cycle."
+        },
+        {
+          "control_id": "CIS-7.7",
+          "framework": "CIS",
+          "title": "Remediate Detected Vulnerabilities",
+          "status": "fail",
+          "weight": 3,
+          "evidence": {
+            "VULN-001": "fail",
+            "VULN-002": "fail"
+          },
+          "recommendation": "Remediate critical vulnerabilities within 72 hours and high within 7 days."
+        },
+        {
+          "control_id": "CIS-8.2",
+          "framework": "CIS",
+          "title": "Collect Audit Logs",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "LOG-001": "fail",
+            "SUDO-002": "warn"
+          },
+          "recommendation": "Enable auditd and sudo logging; forward logs to a central collector."
+        },
+        {
+          "control_id": "CIS-13.6",
+          "framework": "CIS",
+          "title": "Collect Network Traffic Flow Logs",
+          "status": "pass",
+          "weight": 1,
+          "evidence": {
+            "NET-010": "pass"
+          },
+          "recommendation": "Run the CyberShield sensor (or NetFlow/IPFIX) on key network segments."
+        }
+      ]
+    },
+    {
+      "framework": "NIST_CSF",
+      "name": "NIST Cybersecurity Framework",
+      "score": 11.5,
+      "passed": 1,
+      "partial": 0,
+      "failed": 10,
+      "not_assessed": 0,
+      "gaps": [
+        {
+          "control_id": "PR.AA-01",
+          "title": "Identities and credentials for authorized users, services, and hardware are managed",
+          "status": "fail",
+          "priority": "P1",
+          "failing_checks": [
+            "USR-001",
+            "USR-002",
+            "USR-003",
+            "PWD-001",
+            "PWD-003"
+          ],
+          "recommendation": "Review accounts, enforce password policy and lock unused/system accounts."
+        },
+        {
+          "control_id": "PR.AA-05",
+          "title": "Access permissions are managed, incorporating least privilege",
+          "status": "fail",
+          "priority": "P1",
+          "failing_checks": [
+            "SUDO-001",
+            "SSH-001",
+            "FS-001"
+          ],
+          "recommendation": "Apply least privilege for sudo, root access and sensitive file permissions."
+        },
+        {
+          "control_id": "PR.IR-01",
+          "title": "Networks and environments are protected from unauthorized logical access and usage",
+          "status": "fail",
+          "priority": "P1",
+          "failing_checks": [
+            "FW-001",
+            "NET-001"
+          ],
+          "recommendation": "Filter inbound traffic with host and network firewalls; restrict exposed services."
+        }
+      ],
+      "controls": [
+        {
+          "control_id": "ID.RA-01",
+          "framework": "NIST_CSF",
+          "title": "Vulnerabilities in assets are identified, validated, and recorded",
+          "status": "pass",
+          "weight": 3,
+          "evidence": {
+            "VULN-003": "pass"
+          },
+          "recommendation": "Scan all in-scope assets regularly and record findings in the risk register."
+        },
+        {
+          "control_id": "ID.RA-06",
+          "framework": "NIST_CSF",
+          "title": "Risk responses are chosen, prioritized, planned, tracked, and communicated",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "VULN-001": "fail",
+            "VULN-002": "fail"
+          },
+          "recommendation": "Prioritise remediation by severity and exploitability and track it to closure."
+        },
+        {
+          "control_id": "PR.AA-01",
+          "framework": "NIST_CSF",
+          "title": "Identities and credentials for authorized users, services, and hardware are managed",
+          "status": "fail",
+          "weight": 3,
+          "evidence": {
+            "USR-001": "fail",
+            "USR-002": "fail",
+            "USR-003": "warn",
+            "PWD-001": "fail",
+            "PWD-003": "fail"
+          },
+          "recommendation": "Review accounts, enforce password policy and lock unused/system accounts."
+        },
+        {
+          "control_id": "PR.AA-03",
+          "framework": "NIST_CSF",
+          "title": "Users, services, and hardware are authenticated",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "SSH-002": "fail",
+            "SSH-003": "pass",
+            "SSH-004": "fail",
+            "SSH-008": "fail"
+          },
+          "recommendation": "Use key-based SSH authentication and limit authentication attempts."
+        },
+        {
+          "control_id": "PR.AA-05",
+          "framework": "NIST_CSF",
+          "title": "Access permissions are managed, incorporating least privilege",
+          "status": "fail",
+          "weight": 3,
+          "evidence": {
+            "SUDO-001": "fail",
+            "SSH-001": "fail",
+            "FS-001": "fail"
+          },
+          "recommendation": "Apply least privilege for sudo, root access and sensitive file permissions."
+        },
+        {
+          "control_id": "PR.DS-02",
+          "framework": "NIST_CSF",
+          "title": "The confidentiality, integrity, and availability of data-in-transit are protected",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "SSH-006": "fail",
+            "NET-012": "fail"
+          },
+          "recommendation": "Encrypt all administrative and application traffic with modern protocols."
+        },
+        {
+          "control_id": "PR.IR-01",
+          "framework": "NIST_CSF",
+          "title": "Networks and environments are protected from unauthorized logical access and usage",
+          "status": "fail",
+          "weight": 3,
+          "evidence": {
+            "FW-001": "fail",
+            "NET-001": "fail"
+          },
+          "recommendation": "Filter inbound traffic with host and network firewalls; restrict exposed services."
+        },
+        {
+          "control_id": "PR.PS-01",
+          "framework": "NIST_CSF",
+          "title": "Configuration management practices are established and applied",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "SSH-005": "fail",
+            "SSH-007": "fail",
+            "PWD-002": "pass",
+            "KRN-001": "pass",
+            "KRN-002": "pass"
+          },
+          "recommendation": "Maintain hardened configuration baselines and detect drift automatically."
+        },
+        {
+          "control_id": "PR.PS-02",
+          "framework": "NIST_CSF",
+          "title": "Software is maintained, replaced, and removed commensurate with risk",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "UPD-001": "warn",
+            "VULN-001": "fail"
+          },
+          "recommendation": "Patch promptly and decommission unsupported software."
+        },
+        {
+          "control_id": "PR.PS-04",
+          "framework": "NIST_CSF",
+          "title": "Log records are generated and made available for continuous monitoring",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "LOG-001": "fail",
+            "SUDO-002": "warn"
+          },
+          "recommendation": "Generate security logs (auditd, sudo) and centralise them."
+        },
+        {
+          "control_id": "DE.CM-01",
+          "framework": "NIST_CSF",
+          "title": "Networks and network services are monitored to find potentially adverse events",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "NET-010": "pass",
+            "NET-011": "fail"
+          },
+          "recommendation": "Deploy continuous passive network monitoring and investigate anomalies."
+        }
+      ]
+    },
+    {
+      "framework": "ISO27001",
+      "name": "ISO/IEC 27001:2022 Annex A",
+      "score": 0.0,
+      "passed": 0,
+      "partial": 0,
+      "failed": 10,
+      "not_assessed": 0,
+      "gaps": [
+        {
+          "control_id": "A.8.2",
+          "title": "Privileged access rights",
+          "status": "fail",
+          "priority": "P1",
+          "failing_checks": [
+            "USR-001",
+            "SUDO-001",
+            "SUDO-002"
+          ],
+          "recommendation": "Restrict and log privileged access."
+        },
+        {
+          "control_id": "A.8.20",
+          "title": "Networks security",
+          "status": "fail",
+          "priority": "P1",
+          "failing_checks": [
+            "FW-001",
+            "NET-001"
+          ],
+          "recommendation": "Secure, manage and control networks and filter traffic."
+        },
+        {
+          "control_id": "A.8.8",
+          "title": "Management of technical vulnerabilities",
+          "status": "fail",
+          "priority": "P1",
+          "failing_checks": [
+            "VULN-001",
+            "VULN-002",
+            "UPD-001"
+          ],
+          "recommendation": "Identify vulnerabilities timely, evaluate exposure and remediate."
+        }
+      ],
+      "controls": [
+        {
+          "control_id": "A.5.15",
+          "framework": "ISO27001",
+          "title": "Access control",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "SSH-001": "fail",
+            "SUDO-001": "fail"
+          },
+          "recommendation": "Define and enforce access rules based on business and security requirements."
+        },
+        {
+          "control_id": "A.5.17",
+          "framework": "ISO27001",
+          "title": "Authentication information",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "PWD-001": "fail",
+            "PWD-003": "fail",
+            "USR-002": "fail"
+          },
+          "recommendation": "Manage passwords through policy (length, ageing, no empty passwords)."
+        },
+        {
+          "control_id": "A.8.2",
+          "framework": "ISO27001",
+          "title": "Privileged access rights",
+          "status": "fail",
+          "weight": 3,
+          "evidence": {
+            "USR-001": "fail",
+            "SUDO-001": "fail",
+            "SUDO-002": "warn"
+          },
+          "recommendation": "Restrict and log privileged access."
+        },
+        {
+          "control_id": "A.8.5",
+          "framework": "ISO27001",
+          "title": "Secure authentication",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "SSH-002": "fail",
+            "SSH-003": "pass",
+            "SSH-004": "fail",
+            "SSH-008": "fail"
+          },
+          "recommendation": "Implement secure authentication (keys/MFA, attempt limits)."
+        },
+        {
+          "control_id": "A.8.8",
+          "framework": "ISO27001",
+          "title": "Management of technical vulnerabilities",
+          "status": "fail",
+          "weight": 3,
+          "evidence": {
+            "VULN-001": "fail",
+            "VULN-002": "fail",
+            "VULN-003": "pass",
+            "UPD-001": "warn"
+          },
+          "recommendation": "Identify vulnerabilities timely, evaluate exposure and remediate."
+        },
+        {
+          "control_id": "A.8.9",
+          "framework": "ISO27001",
+          "title": "Configuration management",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "SSH-005": "fail",
+            "SSH-007": "fail",
+            "KRN-001": "pass",
+            "KRN-002": "pass",
+            "FS-001": "fail",
+            "PWD-002": "pass"
+          },
+          "recommendation": "Establish, document and monitor secure configurations."
+        },
+        {
+          "control_id": "A.8.15",
+          "framework": "ISO27001",
+          "title": "Logging",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "LOG-001": "fail",
+            "SUDO-002": "warn"
+          },
+          "recommendation": "Produce, protect and review logs of security events."
+        },
+        {
+          "control_id": "A.8.16",
+          "framework": "ISO27001",
+          "title": "Monitoring activities",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "NET-010": "pass",
+            "NET-011": "fail"
+          },
+          "recommendation": "Monitor networks and systems for anomalous behaviour."
+        },
+        {
+          "control_id": "A.8.20",
+          "framework": "ISO27001",
+          "title": "Networks security",
+          "status": "fail",
+          "weight": 3,
+          "evidence": {
+            "FW-001": "fail",
+            "NET-001": "fail"
+          },
+          "recommendation": "Secure, manage and control networks and filter traffic."
+        },
+        {
+          "control_id": "A.8.24",
+          "framework": "ISO27001",
+          "title": "Use of cryptography",
+          "status": "fail",
+          "weight": 2,
+          "evidence": {
+            "SSH-006": "fail",
+            "NET-012": "fail"
+          },
+          "recommendation": "Use approved, modern cryptographic algorithms for data in transit."
+        }
+      ]
+    }
+  ],
+  "risk_matrix": {
+    "likelihood_labels": [
+      "Rare",
+      "Unlikely",
+      "Possible",
+      "Likely",
+      "Almost certain"
+    ],
+    "impact_labels": [
+      "Negligible",
+      "Minor",
+      "Moderate",
+      "Major",
+      "Severe"
+    ],
+    "cells": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        11,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        13,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        3,
+        14,
+        2
+      ],
+      [
+        0,
+        0,
+        0,
+        3,
+        11
+      ]
+    ],
+    "high_risk_count": 30,
+    "top_risks": [
+      {
+        "finding_id": "CVE-2011-2523",
+        "title": "vsftpd 2.3.4 affected by CVE-2011-2523",
+        "asset": "10.10.0.11",
+        "likelihood": 5,
+        "impact": 5,
+        "score": 25
+      },
+      {
+        "finding_id": "CVE-2017-7494",
+        "title": "Samba 4.5.9 affected by CVE-2017-7494",
+        "asset": "10.10.0.11",
+        "likelihood": 5,
+        "impact": 5,
+        "score": 25
+      },
+      {
+        "finding_id": "CVE-2019-10149",
+        "title": "Exim 4.89 affected by CVE-2019-10149",
+        "asset": "10.10.0.12",
+        "likelihood": 5,
+        "impact": 5,
+        "score": 25
+      },
+      {
+        "finding_id": "CVE-2020-1938",
+        "title": "Apache Tomcat 9.0.30 affected by CVE-2020-1938",
+        "asset": "10.10.0.13",
+        "likelihood": 5,
+        "impact": 5,
+        "score": 25
+      },
+      {
+        "finding_id": "CVE-2021-42013",
+        "title": "Apache HTTP Server 2.4.49 affected by CVE-2021-42013",
+        "asset": "10.10.0.10",
+        "likelihood": 5,
+        "impact": 5,
+        "score": 25
+      },
+      {
+        "finding_id": "CVE-2022-22720",
+        "title": "Apache HTTP Server 2.4.49 affected by CVE-2022-22720",
+        "asset": "10.10.0.10",
+        "likelihood": 5,
+        "impact": 5,
+        "score": 25
+      },
+      {
+        "finding_id": "CVE-2023-25690",
+        "title": "Apache HTTP Server 2.4.49 affected by CVE-2023-25690",
+        "asset": "10.10.0.10",
+        "likelihood": 5,
+        "impact": 5,
+        "score": 25
+      },
+      {
+        "finding_id": "CVE-2023-38408",
+        "title": "OpenSSH 8.9p1 affected by CVE-2023-38408",
+        "asset": "10.10.0.10",
+        "likelihood": 5,
+        "impact": 5,
+        "score": 25
+      },
+      {
+        "finding_id": "CVE-2023-38408",
+        "title": "OpenSSH 7.4 affected by CVE-2023-38408",
+        "asset": "10.10.0.11",
+        "likelihood": 5,
+        "impact": 5,
+        "score": 25
+      },
+      {
+        "finding_id": "EXP-DOCKER",
+        "title": "Docker Engine API exposed without TLS",
+        "asset": "10.10.0.21",
+        "likelihood": 5,
+        "impact": 5,
+        "score": 25
+      }
+    ]
+  },
+  "sections": []
+}

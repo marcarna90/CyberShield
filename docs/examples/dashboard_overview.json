@@ -1,0 +1,213 @@
+{
+  "generated_at": "2026-10-25T19:39:13.256249+00:00",
+  "risk_score": 99.7,
+  "posture_score": 0.3,
+  "assets": 8,
+  "services": 17,
+  "open_findings": 57,
+  "severity_counts": {
+    "critical": 13,
+    "high": 17,
+    "medium": 16,
+    "low": 11,
+    "informational": 0
+  },
+  "findings_by_source": {
+    "vulnerability_analyzer": 26,
+    "system_auditor": 19,
+    "traffic_monitor": 12
+  },
+  "open_alerts": 40,
+  "compliance": {
+    "CIS": 15.4,
+    "NIST_CSF": 11.5,
+    "ISO27001": 0.0
+  },
+  "traffic": {
+    "health_score": 0.0,
+    "packets": 43216,
+    "bytes": 63860433,
+    "captured_at": "2026-10-25T19:39:11.039933+00:00",
+    "source": "demo:sensor-eth0"
+  },
+  "trend": [
+    {
+      "date": "2026-10-12",
+      "critical": 7,
+      "high": 3,
+      "medium": 6,
+      "low": 1,
+      "informational": 0
+    },
+    {
+      "date": "2026-10-13",
+      "critical": 7,
+      "high": 3,
+      "medium": 6,
+      "low": 1,
+      "informational": 0
+    },
+    {
+      "date": "2026-10-14",
+      "critical": 7,
+      "high": 3,
+      "medium": 6,
+      "low": 1,
+      "informational": 0
+    },
+    {
+      "date": "2026-10-15",
+      "critical": 10,
+      "high": 5,
+      "medium": 8,
+      "low": 2,
+      "informational": 0
+    },
+    {
+      "date": "2026-10-16",
+      "critical": 10,
+      "high": 5,
+      "medium": 8,
+      "low": 2,
+      "informational": 0
+    },
+    {
+      "date": "2026-10-17",
+      "critical": 10,
+      "high": 5,
+      "medium": 8,
+      "low": 2,
+      "informational": 0
+    },
+    {
+      "date": "2026-10-18",
+      "critical": 10,
+      "high": 5,
+      "medium": 8,
+      "low": 2,
+      "informational": 0
+    },
+    {
+      "date": "2026-10-19",
+      "critical": 10,
+      "high": 8,
+      "medium": 8,
+      "low": 2,
+      "informational": 0
+    },
+    {
+      "date": "2026-10-20",
+      "critical": 12,
+      "high": 13,
+      "medium": 12,
+      "low": 10,
+      "informational": 0
+    },
+    {
+      "date": "2026-10-21",
+      "critical": 12,
+      "high": 13,
+      "medium": 12,
+      "low": 10,
+      "informational": 0
+    },
+    {
+      "date": "2026-10-22",
+      "critical": 11,
+      "high": 13,
+      "medium": 10,
+      "low": 10,
+      "informational": 0
+    },
+    {
+      "date": "2026-10-23",
+      "critical": 11,
+      "high": 13,
+      "medium": 10,
+      "low": 10,
+      "informational": 0
+    },
+    {
+      "date": "2026-10-24",
+      "critical": 11,
+      "high": 13,
+      "medium": 10,
+      "low": 10,
+      "informational": 0
+    },
+    {
+      "date": "2026-10-25",
+      "critical": 13,
+      "high": 17,
+      "medium": 16,
+      "low": 11,
+      "informational": 0
+    }
+  ],
+  "recent_scans": [
+    {
+      "id": 14,
+      "type": "compliance",
+      "status": "completed",
+      "target": "",
+      "started_at": "2026-10-25T19:39:11.039933+00:00",
+      "requested_by": "demo-seeder"
+    },
+    {
+      "id": 13,
+      "type": "compliance",
+      "status": "completed",
+      "target": "",
+      "started_at": "2026-10-25T19:39:11.039933+00:00",
+      "requested_by": "demo-seeder"
+    },
+    {
+      "id": 12,
+      "type": "network",
+      "status": "completed",
+      "target": "10.10.0.10,10.10.0.11,10.10.0.12,10.10.0.13,10.10.0.30,10.10.0.14,10.10.0.20,10.10.0.21",
+      "started_at": "2026-10-25T19:39:11.039933+00:00",
+      "requested_by": "demo-seeder"
+    },
+    {
+      "id": 11,
+      "type": "compliance",
+      "status": "completed",
+      "target": "",
+      "started_at": "2026-10-23T19:39:11.039933+00:00",
+      "requested_by": "demo-seeder"
+    },
+    {
+      "id": 10,
+      "type": "compliance",
+      "status": "completed",
+      "target": "",
+      "started_at": "2026-10-22T19:39:11.039933+00:00",
+      "requested_by": "demo-seeder"
+    },
+    {
+      "id": 9,
+      "type": "network",
+      "status": "completed",
+      "target": "10.10.0.30",
+      "started_at": "2026-10-22T19:39:11.039933+00:00",
+      "requested_by": "demo-seeder"
+    },
+    {
+      "id": 8,
+      "type": "compliance",
+      "status": "completed",
+      "target": "",
+      "started_at": "2026-10-20T19:39:11.039933+00:00",
+      "requested_by": "demo-seeder"
+    },
+    {
+      "id": 7,
+      "type": "host_audit",
+      "status": "completed",
+      "target": "/tmp/cybershield-demo-grgkt2kp",
+      "started_at": "2026-10-20T19:39:11.039933+00:00",
+      "requested_by": "demo-seeder"
+    }
+  ]
+}

@@ -44,4 +44,7 @@ sensor: ## Start the optional passive network sensor (Docker)
 admin-password: ## Print the generated admin password (Docker)
 	@docker compose exec api cat /run/cybershield-secrets/admin_password; echo
 
-.PHONY: help install dev lint format test security run audit examples up down sensor admin-password
+uninstall: ## Remove the Docker and/or native install (asks first; ARGS="--dry-run" / "--keep-data")
+	./scripts/uninstall.sh $(ARGS)
+
+.PHONY: help install dev lint format test security run audit examples up down sensor admin-password uninstall

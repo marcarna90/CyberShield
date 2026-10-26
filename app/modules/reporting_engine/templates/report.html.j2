@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:">
+<title>{{ report.title }} - {{ report.organization }}</title>
+<style>
+  :root {
+    --ink: #0f172a; --muted: #475569; --line: #e2e8f0; --panel: #f8fafc; --brand: #0b3d91;
+    --critical: #b91c1c; --high: #ea580c; --medium: #ca8a04; --low: #2563eb; --informational: #64748b;
+    --pass: #15803d; --fail: #b91c1c; --partial: #ca8a04; --na: #94a3b8;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 14px/1.55 -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color: var(--ink); background: #fff; }
+  .page { max-width: 1100px; margin: 0 auto; padding: 32px 28px 64px; }
+  header.cover { border-bottom: 4px solid var(--brand); padding-bottom: 18px; margin-bottom: 28px; display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .brand { font-weight: 700; letter-spacing: .08em; color: var(--brand); text-transform: uppercase; font-size: 12px; }
+  h1 { font-size: 28px; margin: 6px 0 4px; }
+  h2 { font-size: 19px; margin: 36px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+  h3 { font-size: 15px; margin: 22px 0 8px; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .classification { align-self: flex-start; border: 2px solid var(--critical); color: var(--critical); font-weight: 700; padding: 4px 10px; border-radius: 4px; font-size: 12px; letter-spacing: .1em; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; }
+  .card .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+  .card .value { font-size: 22px; font-weight: 700; margin-top: 2px; }
+  .narrative { background: var(--panel); border-left: 4px solid var(--brand); padding: 14px 16px; border-radius: 4px; }
+  table { width: 100%; border-collapse: collapse; margin: 8px 0 4px; font-size: 13px; }
+  th, td { text-align: left; padding: 7px 9px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--panel); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .sev { display: inline-block; min-width: 86px; text-align: center; color: #fff; font-weight: 700; font-size: 11px; padding: 2px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: .04em; }
+  .sev-critical { background: var(--critical); } .sev-high { background: var(--high); } .sev-medium { background: var(--medium); }
+  .sev-low { background: var(--low); } .sev-informational { background: var(--informational); }
+  .st { font-weight: 700; text-transform: uppercase; font-size: 11px; }
+  .st-pass { color: var(--pass); } .st-fail { color: var(--fail); } .st-partial, .st-warn { color: var(--partial); } .st-not_assessed, .st-unknown, .st-not_applicable { color: var(--na); }
+  .heat { table-layout: fixed; }
+  .heat th:first-child { width: 22%; }
+  .heat td { text-align: center; font-weight: 700; }
+  .finding { border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; margin: 10px 0; page-break-inside: avoid; }
+  .finding .head { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .finding .title { font-weight: 600; }
+  .finding dl { display: grid; grid-template-columns: 140px 1fr; gap: 4px 12px; margin: 10px 0 0; }
+  .finding dt { color: var(--muted); font-size: 12px; }
+  .finding dd { margin: 0; word-break: break-word; }
+  .bar { height: 8px; background: var(--line); border-radius: 999px; overflow: hidden; min-width: 120px; }
+  .bar > span { display: block; height: 100%; background: var(--brand); }
+  ol.recs li { margin: 6px 0; }
+  footer { margin-top: 48px; color: var(--muted); font-size: 12px; border-top: 1px solid var(--line); padding-top: 10px; }
+  @media print { .page { padding: 0; } h2 { page-break-after: avoid; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="cover">
+    <div>
+      <div class="brand">CyberShield Enterprise Security Platform</div>
+      <h1>{{ report.title }}</h1>
+      <div class="meta">{{ report.organization }} &middot; Generated {{ report.generated_at.strftime('%Y-%m-%d %H:%M UTC') }} by {{ report.generated_by }}</div>
+      <div class="meta">Scope: {{ report.scope }}</div>
+    </div>
+    <div class="classification">{{ report.classification }}</div>
+  </header>
+
+  <h2>1. Summary</h2>
+  <div class="cards">
+    {% for label, value in report.summary.items() %}
+    <div class="card"><div class="label">{{ label }}</div><div class="value">{{ value }}</div></div>
+    {% endfor %}
+  </div>
+  <p class="narrative">{{ report.narrative }}</p>
+
+  <h2>2. Severity matrix</h2>
+  <table>
+    <thead><tr><th>Category</th>{% for sev in severities %}<th class="num">{{ sev }}</th>{% endfor %}<th class="num">Total</th></tr></thead>
+    <tbody>
+    {% for category, row in report.severity_matrix.items() %}
+      <tr><td>{{ category }}</td>{% for sev in severities %}<td class="num">{{ row[sev] or '' }}</td>{% endfor %}<td class="num"><strong>{{ row.values() | sum }}</strong></td></tr>
+    {% else %}
+      <tr><td colspan="{{ severities|length + 2 }}">No open findings.</td></tr>
+    {% endfor %}
+    <tr><td><strong>Total</strong></td>{% for sev in severities %}<td class="num"><strong>{{ report.severity_counts.get(sev, 0) }}</strong></td>{% endfor %}<td class="num"><strong>{{ report.findings_total }}</strong></td></tr>
+    </tbody>
+  </table>
+
+  {% if report.risk_matrix %}
+  <h3>Risk matrix (likelihood &times; impact)</h3>
+  <table class="heat">
+    <thead><tr><th>Likelihood \ Impact</th>{% for label in report.risk_matrix.impact_labels %}<th>{{ label }}</th>{% endfor %}</tr></thead>
+    <tbody>
+    {% for li in range(4, -1, -1) %}
+      <tr><th>{{ report.risk_matrix.likelihood_labels[li] }}</th>
+      {% for im in range(5) %}
+        {% set score = (li + 1) * (im + 1) %}
+        <td style="background: {{ '#fecaca' if score >= 15 else '#fed7aa' if score >= 8 else '#fef9c3' if score >= 4 else '#dcfce7' }}">{{ report.risk_matrix.cells[li][im] or '' }}</td>
+      {% endfor %}</tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+  {% if report.compliance %}
+  <h2>3. Compliance</h2>
+  <table>
+    <thead><tr><th>Framework</th><th>Score</th><th class="num">Passed</th><th class="num">Partial</th><th class="num">Failed</th><th class="num">Not assessed</th></tr></thead>
+    <tbody>
+    {% for fw in report.compliance %}
+      <tr><td>{{ fw.name }}</td>
+        <td><div class="bar"><span style="width: {{ fw.score }}%"></span></div> {{ '%.0f' % fw.score }}%</td>
+        <td class="num">{{ fw.passed }}</td><td class="num">{{ fw.partial }}</td><td class="num">{{ fw.failed }}</td><td class="num">{{ fw.not_assessed }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% for fw in report.compliance if fw.gaps %}
+    <h3>Gap analysis - {{ fw.name }}</h3>
+    <table>
+      <thead><tr><th>Priority</th><th>Control</th><th>Status</th><th>Failing checks</th><th>Recommendation</th></tr></thead>
+      <tbody>
+      {% for gap in fw.gaps %}
+        <tr><td><strong>{{ gap.priority }}</strong></td><td>{{ gap.control_id }} {{ gap.title }}</td><td class="st st-{{ gap.status }}">{{ gap.status }}</td><td>{{ gap.failing_checks | join(', ') }}</td><td>{{ gap.recommendation }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% endfor %}
+  {% endif %}
+
+  <h2>{{ 4 if report.compliance else 3 }}. Findings{% if report.findings|length < report.findings_total %} (top {{ report.findings|length }} of {{ report.findings_total }}){% endif %}</h2>
+  {% for f in report.findings %}
+  <div class="finding">
+    <div class="head"><span class="sev sev-{{ f.severity }}">{{ f.severity }}</span><span class="title">{{ f.title }}</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>{{ f.finding_id }}{% if f.cvss is not none %} &middot; CVSS {{ '%.1f' % f.cvss }}{% endif %} &middot; confidence {{ f.confidence }}</dd>
+      <dt>Asset</dt><dd>{{ f.asset }}{% if f.port is not none %}:{{ f.port }}{% endif %} &middot; {{ f.category }} &middot; {{ f.source }}</dd>
+      {% if f.description and f.description != f.title %}<dt>Description</dt><dd>{{ f.description }}</dd>{% endif %}
+      {% if f.evidence %}<dt>Evidence</dt><dd>{{ f.evidence }}</dd>{% endif %}
+      <dt>Recommendation</dt><dd>{{ f.recommendation }}</dd>
+      {% if f.references %}<dt>References</dt><dd>{{ f.references | join(' | ') }}</dd>{% endif %}
+    </dl>
+  </div>
+  {% else %}
+  <p>No open findings in scope.</p>
+  {% endfor %}
+
+  <h2>{{ 5 if report.compliance else 4 }}. Recommendations</h2>
+  <ol class="recs">{% for rec in report.recommendations %}<li>{{ rec }}</li>{% else %}<li>No action required.</li>{% endfor %}</ol>
+
+  <h2>{{ 6 if report.compliance else 5 }}. Remediation priorities</h2>
+  <table>
+    <thead><tr><th>Priority</th><th>Severity</th><th>Target</th><th class="num">Findings</th><th>Examples</th></tr></thead>
+    <tbody>
+    {% for p in report.remediation_priorities %}
+      <tr><td><strong>{{ p.priority }}</strong> {{ p.label }}</td><td><span class="sev sev-{{ p.severity }}">{{ p.severity }}</span></td><td>{{ p.sla }}</td><td class="num">{{ p.count }}</td><td>{{ p['items'] | join('; ') }}</td></tr>
+    {% else %}
+      <tr><td colspan="5">Nothing to remediate.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  {% for section in report.sections %}
+  <h2>{{ section.title }}</h2>
+  {% if section.note %}<p class="meta">{{ section.note }}</p>{% endif %}
+  <table>
+    <thead><tr>{% for col in section.columns %}<th>{{ col }}</th>{% endfor %}</tr></thead>
+    <tbody>
+    {% for row in section.rows %}<tr>{% for cell in row %}<td{% if cell in ('PASS','FAIL','WARN','UNKNOWN','NOT_APPLICABLE') %} class="st st-{{ cell|lower }}"{% endif %}>{{ cell }}</td>{% endfor %}</tr>{% endfor %}
+    </tbody>
+  </table>
+  {% endfor %}
+
+  <footer>
+    {{ report.classification }} &middot; Produced by CyberShield {{ version }} for authorised defensive use only. Automated findings should be validated by a qualified analyst before remediation decisions.
+  </footer>
+</div>
+</body>
+</html>

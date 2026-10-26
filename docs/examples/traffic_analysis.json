@@ -1,0 +1,833 @@
+{
+  "source": "demo:sensor-eth0",
+  "started_at": "2026-10-25T19:29:11.434757Z",
+  "ended_at": "2026-10-25T19:39:09.908782Z",
+  "duration_seconds": 598.474,
+  "total_packets": 43216,
+  "total_bytes": 63860433,
+  "protocols": {
+    "TLS": 42917,
+    "DNS": 271,
+    "TCP-other": 18,
+    "HTTP": 3,
+    "SMB": 2,
+    "SSH": 1,
+    "SMTP": 1,
+    "MySQL": 1,
+    "RDP": 1,
+    "PostgreSQL": 1
+  },
+  "protocol_bytes": {
+    "TLS": 63825801,
+    "DNS": 32984,
+    "TCP-other": 972,
+    "HTTP": 298,
+    "SMB": 108,
+    "SSH": 54,
+    "SMTP": 54,
+    "MySQL": 54,
+    "RDP": 54,
+    "PostgreSQL": 54
+  },
+  "top_talkers": [
+    {
+      "ip": "10.10.0.13",
+      "bytes": 62915920,
+      "packets": 41953,
+      "internal": true
+    },
+    {
+      "ip": "192.0.2.16",
+      "bytes": 69263,
+      "packets": 69,
+      "internal": false
+    },
+    {
+      "ip": "192.0.2.25",
+      "bytes": 66328,
+      "packets": 66,
+      "internal": false
+    },
+    {
+      "ip": "192.0.2.15",
+      "bytes": 59850,
+      "packets": 60,
+      "internal": false
+    },
+    {
+      "ip": "192.0.2.12",
+      "bytes": 57602,
+      "packets": 57,
+      "internal": false
+    },
+    {
+      "ip": "192.0.2.19",
+      "bytes": 56263,
+      "packets": 57,
+      "internal": false
+    },
+    {
+      "ip": "192.0.2.22",
+      "bytes": 51464,
+      "packets": 51,
+      "internal": false
+    },
+    {
+      "ip": "192.0.2.29",
+      "bytes": 48812,
+      "packets": 48,
+      "internal": false
+    },
+    {
+      "ip": "192.0.2.11",
+      "bytes": 47965,
+      "packets": 48,
+      "internal": false
+    },
+    {
+      "ip": "192.0.2.27",
+      "bytes": 45817,
+      "packets": 45,
+      "internal": false
+    }
+  ],
+  "top_destinations": [
+    {
+      "ip": "203.0.113.50",
+      "bytes": 62914500,
+      "internal": false
+    },
+    {
+      "ip": "10.10.0.51",
+      "bytes": 134396,
+      "internal": true
+    },
+    {
+      "ip": "10.10.0.50",
+      "bytes": 132802,
+      "internal": true
+    },
+    {
+      "ip": "10.10.0.53",
+      "bytes": 131845,
+      "internal": true
+    },
+    {
+      "ip": "10.10.0.52",
+      "bytes": 119790,
+      "internal": true
+    },
+    {
+      "ip": "10.10.0.54",
+      "bytes": 105333,
+      "internal": true
+    },
+    {
+      "ip": "10.10.0.56",
+      "bytes": 104571,
+      "internal": true
+    },
+    {
+      "ip": "10.10.0.57",
+      "bytes": 102986,
+      "internal": true
+    },
+    {
+      "ip": "10.10.0.55",
+      "bytes": 85863,
+      "internal": true
+    },
+    {
+      "ip": "10.10.0.2",
+      "bytes": 16465,
+      "internal": true
+    }
+  ],
+  "top_ports": [
+    {
+      "protocol": "TCP",
+      "port": 443,
+      "packets": 42915
+    },
+    {
+      "protocol": "UDP",
+      "port": 53,
+      "packets": 270
+    },
+    {
+      "protocol": "TCP",
+      "port": 80,
+      "packets": 2
+    },
+    {
+      "protocol": "TCP",
+      "port": 21,
+      "packets": 1
+    },
+    {
+      "protocol": "TCP",
+      "port": 22,
+      "packets": 1
+    },
+    {
+      "protocol": "TCP",
+      "port": 23,
+      "packets": 1
+    },
+    {
+      "protocol": "TCP",
+      "port": 25,
+      "packets": 1
+    },
+    {
+      "protocol": "TCP",
+      "port": 53,
+      "packets": 1
+    },
+    {
+      "protocol": "TCP",
+      "port": 110,
+      "packets": 1
+    },
+    {
+      "protocol": "TCP",
+      "port": 111,
+      "packets": 1
+    }
+  ],
+  "dns": {
+    "queries": 135,
+    "unique_domains": 111,
+    "responses": 135,
+    "nxdomain": 45,
+    "top_domains": [
+      {
+        "domain": "intranet.example.com",
+        "count": 9
+      },
+      {
+        "domain": "www.example.com",
+        "count": 6
+      },
+      {
+        "domain": "cdn.example.net",
+        "count": 4
+      },
+      {
+        "domain": "mail.example.org",
+        "count": 4
+      },
+      {
+        "domain": "docs.example.org",
+        "count": 4
+      },
+      {
+        "domain": "updates.example.net",
+        "count": 3
+      },
+      {
+        "domain": "s7w794ssv7xjh5vt.example",
+        "count": 1
+      },
+      {
+        "domain": "0z5hfsmgdw5820cz.example",
+        "count": 1
+      },
+      {
+        "domain": "qs03z0hzb6vdccj8.example",
+        "count": 1
+      },
+      {
+        "domain": "kzb4snsx6jvk0mtb.example",
+        "count": 1
+      }
+    ]
+  },
+  "http": {
+    "requests": 1,
+    "methods": {
+      "GET": 1
+    },
+    "top_hosts": [
+      {
+        "host": "downloads.example.net",
+        "count": 1
+      }
+    ]
+  },
+  "tls": {
+    "handshakes": 71,
+    "versions": {
+      "TLS 1.3": 70,
+      "TLS 1.0": 1
+    },
+    "top_sni": [
+      {
+        "sni": "docs.example.org",
+        "count": 15
+      },
+      {
+        "sni": "intranet.example.com",
+        "count": 13
+      },
+      {
+        "sni": "www.example.com",
+        "count": 11
+      },
+      {
+        "sni": "malware-c2.example",
+        "count": 10
+      },
+      {
+        "sni": "updates.example.net",
+        "count": 8
+      },
+      {
+        "sni": "cdn.example.net",
+        "count": 7
+      },
+      {
+        "sni": "mail.example.org",
+        "count": 6
+      },
+      {
+        "sni": "legacy-portal.example.org",
+        "count": 1
+      }
+    ],
+    "legacy_connections": 1
+  },
+  "trends": [
+    {
+      "ts": "2026-10-25T19:29:10+00:00",
+      "packets": 18,
+      "bytes": 14948
+    },
+    {
+      "ts": "2026-10-25T19:29:20+00:00",
+      "packets": 17,
+      "bytes": 15398
+    },
+    {
+      "ts": "2026-10-25T19:29:30+00:00",
+      "packets": 18,
+      "bytes": 15484
+    },
+    {
+      "ts": "2026-10-25T19:29:40+00:00",
+      "packets": 17,
+      "bytes": 15588
+    },
+    {
+      "ts": "2026-10-25T19:29:50+00:00",
+      "packets": 19,
+      "bytes": 15111
+    },
+    {
+      "ts": "2026-10-25T19:30:00+00:00",
+      "packets": 16,
+      "bytes": 15883
+    },
+    {
+      "ts": "2026-10-25T19:30:10+00:00",
+      "packets": 34,
+      "bytes": 14867
+    },
+    {
+      "ts": "2026-10-25T19:30:20+00:00",
+      "packets": 39,
+      "bytes": 19694
+    },
+    {
+      "ts": "2026-10-25T19:30:30+00:00",
+      "packets": 38,
+      "bytes": 17390
+    },
+    {
+      "ts": "2026-10-25T19:30:40+00:00",
+      "packets": 36,
+      "bytes": 17409
+    },
+    {
+      "ts": "2026-10-25T19:30:50+00:00",
+      "packets": 30,
+      "bytes": 16267
+    },
+    {
+      "ts": "2026-10-25T19:31:00+00:00",
+      "packets": 16,
+      "bytes": 14424
+    },
+    {
+      "ts": "2026-10-25T19:31:10+00:00",
+      "packets": 54,
+      "bytes": 20845
+    },
+    {
+      "ts": "2026-10-25T19:31:20+00:00",
+      "packets": 57,
+      "bytes": 22538
+    },
+    {
+      "ts": "2026-10-25T19:31:30+00:00",
+      "packets": 58,
+      "bytes": 21390
+    },
+    {
+      "ts": "2026-10-25T19:31:40+00:00",
+      "packets": 20,
+      "bytes": 17703
+    },
+    {
+      "ts": "2026-10-25T19:31:50+00:00",
+      "packets": 18,
+      "bytes": 15487
+    },
+    {
+      "ts": "2026-10-25T19:32:00+00:00",
+      "packets": 16,
+      "bytes": 15292
+    },
+    {
+      "ts": "2026-10-25T19:32:10+00:00",
+      "packets": 18,
+      "bytes": 16124
+    },
+    {
+      "ts": "2026-10-25T19:32:20+00:00",
+      "packets": 17,
+      "bytes": 14973
+    },
+    {
+      "ts": "2026-10-25T19:32:30+00:00",
+      "packets": 48,
+      "bytes": 16741
+    },
+    {
+      "ts": "2026-10-25T19:32:40+00:00",
+      "packets": 16,
+      "bytes": 15399
+    },
+    {
+      "ts": "2026-10-25T19:32:50+00:00",
+      "packets": 18,
+      "bytes": 15323
+    },
+    {
+      "ts": "2026-10-25T19:33:00+00:00",
+      "packets": 16,
+      "bytes": 15981
+    },
+    {
+      "ts": "2026-10-25T19:33:10+00:00",
+      "packets": 18,
+      "bytes": 15178
+    },
+    {
+      "ts": "2026-10-25T19:33:20+00:00",
+      "packets": 17,
+      "bytes": 15442
+    },
+    {
+      "ts": "2026-10-25T19:33:30+00:00",
+      "packets": 18,
+      "bytes": 14786
+    },
+    {
+      "ts": "2026-10-25T19:33:40+00:00",
+      "packets": 16,
+      "bytes": 14437
+    },
+    {
+      "ts": "2026-10-25T19:33:50+00:00",
+      "packets": 18,
+      "bytes": 14706
+    },
+    {
+      "ts": "2026-10-25T19:34:00+00:00",
+      "packets": 16,
+      "bytes": 13595
+    },
+    {
+      "ts": "2026-10-25T19:34:10+00:00",
+      "packets": 19,
+      "bytes": 17184
+    },
+    {
+      "ts": "2026-10-25T19:34:20+00:00",
+      "packets": 17,
+      "bytes": 14033
+    },
+    {
+      "ts": "2026-10-25T19:34:30+00:00",
+      "packets": 18,
+      "bytes": 16182
+    },
+    {
+      "ts": "2026-10-25T19:34:40+00:00",
+      "packets": 16,
+      "bytes": 15504
+    },
+    {
+      "ts": "2026-10-25T19:34:50+00:00",
+      "packets": 18,
+      "bytes": 15188
+    },
+    {
+      "ts": "2026-10-25T19:35:00+00:00",
+      "packets": 16,
+      "bytes": 15240
+    },
+    {
+      "ts": "2026-10-25T19:35:10+00:00",
+      "packets": 15,
+      "bytes": 11301
+    },
+    {
+      "ts": "2026-10-25T19:35:20+00:00",
+      "packets": 20,
+      "bytes": 17988
+    },
+    {
+      "ts": "2026-10-25T19:35:30+00:00",
+      "packets": 15,
+      "bytes": 12482
+    },
+    {
+      "ts": "2026-10-25T19:35:40+00:00",
+      "packets": 19,
+      "bytes": 18049
+    },
+    {
+      "ts": "2026-10-25T19:35:50+00:00",
+      "packets": 18,
+      "bytes": 14140
+    },
+    {
+      "ts": "2026-10-25T19:36:00+00:00",
+      "packets": 16,
+      "bytes": 15409
+    },
+    {
+      "ts": "2026-10-25T19:36:10+00:00",
+      "packets": 12546,
+      "bytes": 18807867
+    },
+    {
+      "ts": "2026-10-25T19:36:20+00:00",
+      "packets": 13998,
+      "bytes": 20987369
+    },
+    {
+      "ts": "2026-10-25T19:36:30+00:00",
+      "packets": 13999,
+      "bytes": 20986974
+    },
+    {
+      "ts": "2026-10-25T19:36:40+00:00",
+      "packets": 1469,
+      "bytes": 2195455
+    },
+    {
+      "ts": "2026-10-25T19:36:50+00:00",
+      "packets": 15,
+      "bytes": 12176
+    },
+    {
+      "ts": "2026-10-25T19:37:00+00:00",
+      "packets": 19,
+      "bytes": 18903
+    },
+    {
+      "ts": "2026-10-25T19:37:10+00:00",
+      "packets": 18,
+      "bytes": 15014
+    },
+    {
+      "ts": "2026-10-25T19:37:20+00:00",
+      "packets": 17,
+      "bytes": 15842
+    },
+    {
+      "ts": "2026-10-25T19:37:30+00:00",
+      "packets": 18,
+      "bytes": 15170
+    },
+    {
+      "ts": "2026-10-25T19:37:40+00:00",
+      "packets": 16,
+      "bytes": 14788
+    },
+    {
+      "ts": "2026-10-25T19:37:50+00:00",
+      "packets": 18,
+      "bytes": 14993
+    },
+    {
+      "ts": "2026-10-25T19:38:00+00:00",
+      "packets": 16,
+      "bytes": 15658
+    },
+    {
+      "ts": "2026-10-25T19:38:10+00:00",
+      "packets": 18,
+      "bytes": 15345
+    },
+    {
+      "ts": "2026-10-25T19:38:20+00:00",
+      "packets": 14,
+      "bytes": 12020
+    },
+    {
+      "ts": "2026-10-25T19:38:30+00:00",
+      "packets": 21,
+      "bytes": 18443
+    },
+    {
+      "ts": "2026-10-25T19:38:40+00:00",
+      "packets": 13,
+      "bytes": 10972
+    },
+    {
+      "ts": "2026-10-25T19:38:50+00:00",
+      "packets": 18,
+      "bytes": 14790
+    },
+    {
+      "ts": "2026-10-25T19:39:00+00:00",
+      "packets": 19,
+      "bytes": 17551
+    }
+  ],
+  "anomalies": [
+    {
+      "finding_id": "TRF-IOC-IP",
+      "title": "Communication with known malicious IP 203.0.113.66",
+      "severity": "critical",
+      "category": "traffic",
+      "source": "traffic_monitor",
+      "asset": "10.10.0.13",
+      "description": "Communication with known malicious IP 203.0.113.66",
+      "evidence": "10 packets / 1420 bytes exchanged with 203.0.113.66 (IOC 203.0.113.66, source cybershield-sample: Sample botnet command-and-control server)",
+      "recommendation": "Isolate the host, block the indicator at the perimeter, and start incident response (collect volatile evidence before remediation).",
+      "references": [],
+      "cve": null,
+      "cvss": null,
+      "port": null,
+      "confidence": "high",
+      "detected_at": "2026-10-25T19:39:13.194412Z"
+    },
+    {
+      "finding_id": "TRF-IOC-IP",
+      "title": "Communication with known malicious IP 203.0.113.50",
+      "severity": "critical",
+      "category": "traffic",
+      "source": "traffic_monitor",
+      "asset": "10.10.0.13",
+      "description": "Communication with known malicious IP 203.0.113.50",
+      "evidence": "41943 packets / 62914500 bytes exchanged with 203.0.113.50 (IOC 203.0.113.50, source cybershield-sample: Sample data exfiltration endpoint)",
+      "recommendation": "Isolate the host, block the indicator at the perimeter, and start incident response (collect volatile evidence before remediation).",
+      "references": [],
+      "cve": null,
+      "cvss": null,
+      "port": null,
+      "confidence": "high",
+      "detected_at": "2026-10-25T19:39:13.194440Z"
+    },
+    {
+      "finding_id": "TRF-EXFIL",
+      "title": "Large outbound transfer from 10.10.0.13 to 203.0.113.50",
+      "severity": "high",
+      "category": "traffic",
+      "source": "traffic_monitor",
+      "asset": "10.10.0.13",
+      "description": "Large outbound transfer from 10.10.0.13 to 203.0.113.50",
+      "evidence": "60.0 MB sent to external address 203.0.113.50",
+      "recommendation": "Verify the transfer is business-justified (backup, update). Otherwise treat as potential data exfiltration: block the destination and review the host.",
+      "references": [],
+      "cve": null,
+      "cvss": null,
+      "port": null,
+      "confidence": "high",
+      "detected_at": "2026-10-25T19:39:13.194510Z"
+    },
+    {
+      "finding_id": "TRF-IOC-DOMAIN",
+      "title": "Access to known malicious domain malware-c2.example",
+      "severity": "high",
+      "category": "traffic",
+      "source": "traffic_monitor",
+      "asset": "10.10.0.13",
+      "description": "Access to known malicious domain malware-c2.example",
+      "evidence": "TLS connection (Sample malware command-and-control domain) from 10.10.0.13",
+      "recommendation": "Sinkhole/block the domain in DNS, investigate the client for compromise and reset exposed credentials.",
+      "references": [],
+      "cve": null,
+      "cvss": null,
+      "port": null,
+      "confidence": "high",
+      "detected_at": "2026-10-25T19:39:13.194450Z"
+    },
+    {
+      "finding_id": "TRF-DNS-TUNNEL",
+      "title": "Possible DNS tunnelling via tunnel-exfil.example",
+      "severity": "high",
+      "category": "traffic",
+      "source": "traffic_monitor",
+      "asset": "10.10.0.56",
+      "description": "Possible DNS tunnelling via tunnel-exfil.example",
+      "evidence": "60 unique sub-domains queried under tunnel-exfil.example with very long query names",
+      "recommendation": "Block the domain, inspect the client, and restrict DNS egress to internal resolvers only.",
+      "references": [],
+      "cve": null,
+      "cvss": null,
+      "port": null,
+      "confidence": "high",
+      "detected_at": "2026-10-25T19:39:13.195312Z"
+    },
+    {
+      "finding_id": "TRF-PORTSCAN",
+      "title": "Possible port scan from 10.10.0.99",
+      "severity": "high",
+      "category": "traffic",
+      "source": "traffic_monitor",
+      "asset": "10.10.0.99",
+      "description": "Possible port scan from 10.10.0.99",
+      "evidence": "30+ distinct SYN probes to 1 host(s): 10.10.0.10",
+      "recommendation": "Confirm whether the scan is authorised; if not, block the source and investigate the host.",
+      "references": [],
+      "cve": null,
+      "cvss": null,
+      "port": null,
+      "confidence": "high",
+      "detected_at": "2026-10-25T19:39:13.194474Z"
+    },
+    {
+      "finding_id": "TRF-LEGACY-TLS",
+      "title": "Legacy TLS/SSL protocol in use",
+      "severity": "medium",
+      "category": "traffic",
+      "source": "traffic_monitor",
+      "asset": "10.10.0.53",
+      "description": "Legacy TLS/SSL protocol in use",
+      "evidence": "10.10.0.53 -> legacy-portal.example.org (TLS 1.0)",
+      "recommendation": "Disable SSL 3.0/TLS 1.0/1.1 on clients and servers; require TLS 1.2+ (RFC 8996).",
+      "references": [],
+      "cve": null,
+      "cvss": null,
+      "port": null,
+      "confidence": "high",
+      "detected_at": "2026-10-25T19:39:13.195335Z"
+    },
+    {
+      "finding_id": "TRF-DGA",
+      "title": "Algorithmically generated (DGA-like) domain lookups",
+      "severity": "medium",
+      "category": "traffic",
+      "source": "traffic_monitor",
+      "asset": "10.10.0.55",
+      "description": "Algorithmically generated (DGA-like) domain lookups",
+      "evidence": "41 high-entropy domain(s): 08v56nsn0jf37650.example, 0z5hfsmgdw5820cz.example, 1ds0lrw96d2ln4kv.example, 3bdlrskcchmpvxgd.example, 3dgktw07zzdlj99j.example, 4pw2vvz4hq7528kd.example, 57dr5chwn159gtgv.example, 66zsnd6cl7zc12lx.example, 6xg7qh0gm9k6zk3j.example, 778zjm7gwvlxtjrw.example",
+      "recommendation": "Inspect the querying hosts for malware; enable DNS filtering / RPZ.",
+      "references": [],
+      "cve": null,
+      "cvss": null,
+      "port": null,
+      "confidence": "high",
+      "detected_at": "2026-10-25T19:39:13.195288Z"
+    },
+    {
+      "finding_id": "TRF-SUSP-PORT",
+      "title": "Connection attempt to suspicious port 4444",
+      "severity": "medium",
+      "category": "traffic",
+      "source": "traffic_monitor",
+      "asset": "10.10.0.57",
+      "description": "Connection attempt to suspicious port 4444",
+      "evidence": "10.10.0.57 -> 198.51.100.200:4444 (Metasploit default handler)",
+      "recommendation": "Identify the process initiating the connection; block the port at the egress firewall if unused.",
+      "references": [],
+      "cve": null,
+      "cvss": null,
+      "port": null,
+      "confidence": "high",
+      "detected_at": "2026-10-25T19:39:13.195350Z"
+    },
+    {
+      "finding_id": "TRF-SUSP-PORT",
+      "title": "Connection attempt to suspicious port 23",
+      "severity": "medium",
+      "category": "traffic",
+      "source": "traffic_monitor",
+      "asset": "10.10.0.99",
+      "description": "Connection attempt to suspicious port 23",
+      "evidence": "10.10.0.99 -> 10.10.0.10:23 (Telnet)",
+      "recommendation": "Identify the process initiating the connection; block the port at the egress firewall if unused.",
+      "references": [],
+      "cve": null,
+      "cvss": null,
+      "port": null,
+      "confidence": "high",
+      "detected_at": "2026-10-25T19:39:13.195355Z"
+    },
+    {
+      "finding_id": "TRF-NXDOMAIN",
+      "title": "High rate of failed DNS resolutions (NXDOMAIN)",
+      "severity": "medium",
+      "category": "traffic",
+      "source": "traffic_monitor",
+      "asset": "network",
+      "description": "High rate of failed DNS resolutions (NXDOMAIN)",
+      "evidence": "45/135 responses were NXDOMAIN",
+      "recommendation": "Investigate clients generating failed lookups (DGA malware, misconfiguration).",
+      "references": [],
+      "cve": null,
+      "cvss": null,
+      "port": null,
+      "confidence": "high",
+      "detected_at": "2026-10-25T19:39:13.195324Z"
+    },
+    {
+      "finding_id": "TRF-SPIKE",
+      "title": "Unexpected traffic spike",
+      "severity": "medium",
+      "category": "traffic",
+      "source": "traffic_monitor",
+      "asset": "network",
+      "description": "Unexpected traffic spike",
+      "evidence": "20987369 bytes in 10s at 2026-10-25T19:36:20+00:00 = 1360.6x the median baseline (15425 bytes)",
+      "recommendation": "Correlate with top talkers at that time; check for DoS, misbehaving jobs or exfiltration.",
+      "references": [],
+      "cve": null,
+      "cvss": null,
+      "port": null,
+      "confidence": "high",
+      "detected_at": "2026-10-25T19:39:13.194578Z"
+    },
+    {
+      "finding_id": "TRF-CLEARTEXT-HTTP",
+      "title": "Cleartext HTTP to Internet hosts",
+      "severity": "low",
+      "category": "traffic",
+      "source": "traffic_monitor",
+      "asset": "10.10.0.54",
+      "description": "Cleartext HTTP to Internet hosts",
+      "evidence": "1 client/host pairs, e.g. downloads.example.net",
+      "recommendation": "Enforce HTTPS (HSTS, browser policies, egress proxy) to protect data in transit.",
+      "references": [],
+      "cve": null,
+      "cvss": null,
+      "port": null,
+      "confidence": "high",
+      "detected_at": "2026-10-25T19:39:13.195342Z"
+    }
+  ],
+  "severity_counts": {
+    "critical": 2,
+    "high": 4,
+    "medium": 6,
+    "low": 1,
+    "informational": 0
+  },
+  "health_score": 0.0
+}

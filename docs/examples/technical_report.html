@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:">
+<title>Technical Security Report - ACME Corp (demo)</title>
+<style>
+  :root {
+    --ink: #0f172a; --muted: #475569; --line: #e2e8f0; --panel: #f8fafc; --brand: #0b3d91;
+    --critical: #b91c1c; --high: #ea580c; --medium: #ca8a04; --low: #2563eb; --informational: #64748b;
+    --pass: #15803d; --fail: #b91c1c; --partial: #ca8a04; --na: #94a3b8;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 14px/1.55 -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color: var(--ink); background: #fff; }
+  .page { max-width: 1100px; margin: 0 auto; padding: 32px 28px 64px; }
+  header.cover { border-bottom: 4px solid var(--brand); padding-bottom: 18px; margin-bottom: 28px; display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .brand { font-weight: 700; letter-spacing: .08em; color: var(--brand); text-transform: uppercase; font-size: 12px; }
+  h1 { font-size: 28px; margin: 6px 0 4px; }
+  h2 { font-size: 19px; margin: 36px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+  h3 { font-size: 15px; margin: 22px 0 8px; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .classification { align-self: flex-start; border: 2px solid var(--critical); color: var(--critical); font-weight: 700; padding: 4px 10px; border-radius: 4px; font-size: 12px; letter-spacing: .1em; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; }
+  .card .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+  .card .value { font-size: 22px; font-weight: 700; margin-top: 2px; }
+  .narrative { background: var(--panel); border-left: 4px solid var(--brand); padding: 14px 16px; border-radius: 4px; }
+  table { width: 100%; border-collapse: collapse; margin: 8px 0 4px; font-size: 13px; }
+  th, td { text-align: left; padding: 7px 9px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--panel); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .sev { display: inline-block; min-width: 86px; text-align: center; color: #fff; font-weight: 700; font-size: 11px; padding: 2px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: .04em; }
+  .sev-critical { background: var(--critical); } .sev-high { background: var(--high); } .sev-medium { background: var(--medium); }
+  .sev-low { background: var(--low); } .sev-informational { background: var(--informational); }
+  .st { font-weight: 700; text-transform: uppercase; font-size: 11px; }
+  .st-pass { color: var(--pass); } .st-fail { color: var(--fail); } .st-partial, .st-warn { color: var(--partial); } .st-not_assessed, .st-unknown, .st-not_applicable { color: var(--na); }
+  .heat { table-layout: fixed; }
+  .heat th:first-child { width: 22%; }
+  .heat td { text-align: center; font-weight: 700; }
+  .finding { border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; margin: 10px 0; page-break-inside: avoid; }
+  .finding .head { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .finding .title { font-weight: 600; }
+  .finding dl { display: grid; grid-template-columns: 140px 1fr; gap: 4px 12px; margin: 10px 0 0; }
+  .finding dt { color: var(--muted); font-size: 12px; }
+  .finding dd { margin: 0; word-break: break-word; }
+  .bar { height: 8px; background: var(--line); border-radius: 999px; overflow: hidden; min-width: 120px; }
+  .bar > span { display: block; height: 100%; background: var(--brand); }
+  ol.recs li { margin: 6px 0; }
+  footer { margin-top: 48px; color: var(--muted); font-size: 12px; border-top: 1px solid var(--line); padding-top: 10px; }
+  @media print { .page { padding: 0; } h2 { page-break-after: avoid; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="cover">
+    <div>
+      <div class="brand">CyberShield Enterprise Security Platform</div>
+      <h1>Technical Security Report</h1>
+      <div class="meta">ACME Corp (demo) &middot; Generated 2026-10-25 19:39 UTC by examples</div>
+      <div class="meta">Scope: 8 network asset(s), host audit of web-prod-01, traffic capture &#39;demo:sensor-eth0&#39;</div>
+    </div>
+    <div class="classification">CONFIDENTIAL</div>
+  </header>
+
+  <h2>1. Summary</h2>
+  <div class="cards">
+    
+    <div class="card"><div class="label">Risk score</div><div class="value">100/100</div></div>
+    
+    <div class="card"><div class="label">Security posture</div><div class="value">0/100</div></div>
+    
+    <div class="card"><div class="label">Open findings</div><div class="value">57</div></div>
+    
+    <div class="card"><div class="label">Critical</div><div class="value">13</div></div>
+    
+    <div class="card"><div class="label">High</div><div class="value">17</div></div>
+    
+    <div class="card"><div class="label">Assets</div><div class="value">8</div></div>
+    
+    <div class="card"><div class="label">Compliance</div><div class="value">9%</div></div>
+    
+    <div class="card"><div class="label">Network health</div><div class="value">0/100</div></div>
+    
+  </div>
+  <p class="narrative">The assessment identified 57 open finding(s): 13 critical, 17 high, 16 medium and 11 low. The aggregated risk score is 100/100, which corresponds to a critical level of risk. Critical findings must be remediated immediately (P1, 24-72 hours). Network health score of the latest capture is 0/100 with 13 anomaly(ies).</p>
+
+  <h2>2. Severity matrix</h2>
+  <table>
+    <thead><tr><th>Category</th><th class="num">critical</th><th class="num">high</th><th class="num">medium</th><th class="num">low</th><th class="num">informational</th><th class="num">Total</th></tr></thead>
+    <tbody>
+    
+      <tr><td>accounts</td><td class="num">2</td><td class="num"></td><td class="num"></td><td class="num">1</td><td class="num"></td><td class="num"><strong>3</strong></td></tr>
+    
+      <tr><td>exposure</td><td class="num">1</td><td class="num">2</td><td class="num">3</td><td class="num">2</td><td class="num"></td><td class="num"><strong>8</strong></td></tr>
+    
+      <tr><td>filesystem</td><td class="num"></td><td class="num">1</td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"><strong>1</strong></td></tr>
+    
+      <tr><td>firewall</td><td class="num"></td><td class="num">1</td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"><strong>1</strong></td></tr>
+    
+      <tr><td>logging</td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num">1</td><td class="num"></td><td class="num"><strong>1</strong></td></tr>
+    
+      <tr><td>network</td><td class="num"></td><td class="num">1</td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"><strong>1</strong></td></tr>
+    
+      <tr><td>password_policy</td><td class="num"></td><td class="num"></td><td class="num">2</td><td class="num"></td><td class="num"></td><td class="num"><strong>2</strong></td></tr>
+    
+      <tr><td>patching</td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num">1</td><td class="num"></td><td class="num"><strong>1</strong></td></tr>
+    
+      <tr><td>privilege</td><td class="num"></td><td class="num">1</td><td class="num"></td><td class="num">1</td><td class="num"></td><td class="num"><strong>2</strong></td></tr>
+    
+      <tr><td>ssh</td><td class="num"></td><td class="num">1</td><td class="num">2</td><td class="num">4</td><td class="num"></td><td class="num"><strong>7</strong></td></tr>
+    
+      <tr><td>traffic</td><td class="num">1</td><td class="num">4</td><td class="num">6</td><td class="num">1</td><td class="num"></td><td class="num"><strong>12</strong></td></tr>
+    
+      <tr><td>vulnerability</td><td class="num">9</td><td class="num">6</td><td class="num">3</td><td class="num"></td><td class="num"></td><td class="num"><strong>18</strong></td></tr>
+    
+    <tr><td><strong>Total</strong></td><td class="num"><strong>13</strong></td><td class="num"><strong>17</strong></td><td class="num"><strong>16</strong></td><td class="num"><strong>11</strong></td><td class="num"><strong>0</strong></td><td class="num"><strong>57</strong></td></tr>
+    </tbody>
+  </table>
+
+  
+  <h3>Risk matrix (likelihood &times; impact)</h3>
+  <table class="heat">
+    <thead><tr><th>Likelihood \ Impact</th><th>Negligible</th><th>Minor</th><th>Moderate</th><th>Major</th><th>Severe</th></tr></thead>
+    <tbody>
+    
+      <tr><th>Almost certain</th>
+      
+        
+        <td style="background: #fef9c3"></td>
+      
+        
+        <td style="background: #fed7aa"></td>
+      
+        
+        <td style="background: #fecaca"></td>
+      
+        
+        <td style="background: #fecaca">3</td>
+      
+        
+        <td style="background: #fecaca">11</td>
+      </tr>
+    
+      <tr><th>Likely</th>
+      
+        
+        <td style="background: #fef9c3"></td>
+      
+        
+        <td style="background: #fed7aa"></td>
+      
+        
+        <td style="background: #fed7aa">3</td>
+      
+        
+        <td style="background: #fecaca">14</td>
+      
+        
+        <td style="background: #fecaca">2</td>
+      </tr>
+    
+      <tr><th>Possible</th>
+      
+        
+        <td style="background: #dcfce7"></td>
+      
+        
+        <td style="background: #fef9c3"></td>
+      
+        
+        <td style="background: #fed7aa">13</td>
+      
+        
+        <td style="background: #fed7aa"></td>
+      
+        
+        <td style="background: #fecaca"></td>
+      </tr>
+    
+      <tr><th>Unlikely</th>
+      
+        
+        <td style="background: #dcfce7"></td>
+      
+        
+        <td style="background: #fef9c3">11</td>
+      
+        
+        <td style="background: #fef9c3"></td>
+      
+        
+        <td style="background: #fed7aa"></td>
+      
+        
+        <td style="background: #fed7aa"></td>
+      </tr>
+    
+      <tr><th>Rare</th>
+      
+        
+        <td style="background: #dcfce7"></td>
+      
+        
+        <td style="background: #dcfce7"></td>
+      
+        
+        <td style="background: #dcfce7"></td>
+      
+        
+        <td style="background: #fef9c3"></td>
+      
+        
+        <td style="background: #fef9c3"></td>
+      </tr>
+    
+    </tbody>
+  </table>
+  
+
+  
+
+  <h2>3. Findings</h2>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">Apache HTTP Server 2.4.49 affected by CVE-2021-42013</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2021-42013 &middot; CVSS 9.8 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.10:80 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>Incomplete fix for CVE-2021-41773: path traversal and remote code execution in Apache HTTP Server 2.4.49 and 2.4.50. A public exploit is available.</dd>
+      <dt>Evidence</dt><dd>80/tcp banner &#39;Apache httpd 2.4.49 (Unix) OpenSSL/1.0.1f&#39; matches affected range (versions 2.4.49, 2.4.50).</dd>
+      <dt>Recommendation</dt><dd>Upgrade Apache HTTP Server to 2.4.51 or later.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2021-42013</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">Apache HTTP Server 2.4.49 affected by CVE-2022-22720</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2022-22720 &middot; CVSS 9.8 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.10:80 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>Apache HTTP Server 2.4.52 and earlier fails to close the inbound connection when errors are encountered discarding the request body, exposing the server to HTTP request smuggling.</dd>
+      <dt>Evidence</dt><dd>80/tcp banner &#39;Apache httpd 2.4.49 (Unix) OpenSSL/1.0.1f&#39; matches affected range (&lt;= 2.4.52).</dd>
+      <dt>Recommendation</dt><dd>Upgrade Apache HTTP Server to 2.4.53 or later.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2022-22720</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">Apache HTTP Server 2.4.49 affected by CVE-2023-25690</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2023-25690 &middot; CVSS 9.8 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.10:80 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>Some mod_proxy configurations on Apache HTTP Server 2.4.0 through 2.4.55 allow HTTP request smuggling.</dd>
+      <dt>Evidence</dt><dd>80/tcp banner &#39;Apache httpd 2.4.49 (Unix) OpenSSL/1.0.1f&#39; matches affected range (&gt;= 2.4.0 and &lt;= 2.4.55).</dd>
+      <dt>Recommendation</dt><dd>Upgrade Apache HTTP Server to 2.4.56 or later.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2023-25690</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">OpenSSH 8.9p1 affected by CVE-2023-38408</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2023-38408 &middot; CVSS 9.8 &middot; confidence medium</dd>
+      <dt>Asset</dt><dd>10.10.0.10:22 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>The PKCS#11 feature in ssh-agent has an insufficiently trustworthy search path, leading to remote code execution if an agent is forwarded to an attacker-controlled system.</dd>
+      <dt>Evidence</dt><dd>22/tcp banner &#39;OpenSSH 8.9p1 Ubuntu 3ubuntu0.6 Ubuntu Linux; protocol 2.0&#39; matches affected range (&lt; 9.3p2).</dd>
+      <dt>Recommendation</dt><dd>Upgrade OpenSSH to 9.3p2 or later. Distribution package detected: verify with the distro security tracker, the fix may be backported without a version change.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2023-38408</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">vsftpd 2.3.4 affected by CVE-2011-2523</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2011-2523 &middot; CVSS 9.8 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.11:21 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>vsftpd 2.3.4 downloaded between 2011-06-30 and 2011-07-03 contains a backdoor which opens a shell on port 6200/tcp. A public exploit is available.</dd>
+      <dt>Evidence</dt><dd>21/tcp banner &#39;vsftpd 2.3.4&#39; matches affected range (versions 2.3.4).</dd>
+      <dt>Recommendation</dt><dd>Upgrade vsftpd to 2.3.5 or later.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2011-2523</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">Samba 4.5.9 affected by CVE-2017-7494</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2017-7494 &middot; CVSS 9.8 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.11:445 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>SambaCry: a malicious client can upload a shared library to a writable share and cause the server to load and execute it (remote code execution). A public exploit is available.</dd>
+      <dt>Evidence</dt><dd>445/tcp banner &#39;Samba smbd 4.5.9 workgroup: CORP&#39; matches affected range (&gt;= 4.5.0 and &lt; 4.5.10).</dd>
+      <dt>Recommendation</dt><dd>Upgrade Samba to 4.6.4 or later.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2017-7494</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">OpenSSH 7.4 affected by CVE-2023-38408</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2023-38408 &middot; CVSS 9.8 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.11:22 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>The PKCS#11 feature in ssh-agent has an insufficiently trustworthy search path, leading to remote code execution if an agent is forwarded to an attacker-controlled system.</dd>
+      <dt>Evidence</dt><dd>22/tcp banner &#39;OpenSSH 7.4 protocol 2.0&#39; matches affected range (&lt; 9.3p2).</dd>
+      <dt>Recommendation</dt><dd>Upgrade OpenSSH to 9.3p2 or later.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2023-38408</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">Exim 4.89 affected by CVE-2019-10149</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2019-10149 &middot; CVSS 9.8 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.12:25 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>Improper validation of recipient addresses in deliver_message() in Exim 4.87 to 4.91 allows remote command execution (&#34;Return of the WIZard&#34;). A public exploit is available.</dd>
+      <dt>Evidence</dt><dd>25/tcp banner &#39;Exim smtpd 4.89&#39; matches affected range (&gt;= 4.87 and &lt;= 4.91).</dd>
+      <dt>Recommendation</dt><dd>Upgrade Exim to 4.92 or later.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2019-10149</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">Apache Tomcat 9.0.30 affected by CVE-2020-1938</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2020-1938 &middot; CVSS 9.8 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.13:8080 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>Ghostcat: the AJP connector trusts incoming connections by default, allowing file read/inclusion (and RCE when uploads are possible) in Apache Tomcat. A public exploit is available.</dd>
+      <dt>Evidence</dt><dd>8080/tcp banner &#39;Apache Tomcat 9.0.30&#39; matches affected range (&gt;= 9.0.0.M1 and &lt; 9.0.31).</dd>
+      <dt>Recommendation</dt><dd>Upgrade Apache Tomcat to 9.0.31 or later.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2020-1938</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">Communication with known malicious IP 203.0.113.50</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>TRF-IOC-IP &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.13 &middot; traffic &middot; traffic_monitor</dd>
+      
+      <dt>Evidence</dt><dd>41943 packets / 62914500 bytes exchanged with 203.0.113.50 (IOC 203.0.113.50, source cybershield-sample: Sample data exfiltration endpoint)</dd>
+      <dt>Recommendation</dt><dd>Isolate the host, block the indicator at the perimeter, and start incident response (collect volatile evidence before remediation).</dd>
+      
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">Docker Engine API exposed without TLS</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>EXP-DOCKER &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.21:2375 &middot; exposure &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>Docker Engine API exposed without TLS on 10.10.0.21:2375/tcp.</dd>
+      <dt>Evidence</dt><dd>2375/tcp docker Docker 20.10.7</dd>
+      <dt>Recommendation</dt><dd>Never expose the Docker socket over TCP without mutual TLS; bind to a unix socket only.</dd>
+      
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">No duplicate UID 0 (root-equivalent) accounts</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>USR-001 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>web-prod-01 &middot; accounts &middot; system_auditor</dd>
+      
+      <dt>Evidence</dt><dd>Accounts with UID 0 besides root: svc-backup</dd>
+      <dt>Recommendation</dt><dd>Only &#39;root&#39; may have UID 0. Investigate and remove/renumber other UID 0 accounts immediately.</dd>
+      <dt>References</dt><dd>CIS Debian/Ubuntu Benchmark 7.2.x | NIST CSF PR.AA-05</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-critical">critical</span><span class="title">No accounts with empty passwords</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>USR-002 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>web-prod-01 &middot; accounts &middot; system_auditor</dd>
+      
+      <dt>Evidence</dt><dd>Accounts with empty password: svc-backup</dd>
+      <dt>Recommendation</dt><dd>Lock or set a strong password on every account with an empty password field (`passwd -l &lt;user&gt;`).</dd>
+      <dt>References</dt><dd>CIS Debian/Ubuntu Benchmark 7.2.x | ISO 27001 A.5.17</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-high">high</span><span class="title">OpenSSH 8.9p1 affected by CVE-2024-6387</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2024-6387 &middot; CVSS 8.1 &middot; confidence medium</dd>
+      <dt>Asset</dt><dd>10.10.0.10:22 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>regreSSHion: a signal handler race condition in sshd&#39;s SIGALRM handling (LoginGraceTime) can allow unauthenticated remote code execution as root on glibc-based Linux systems.</dd>
+      <dt>Evidence</dt><dd>22/tcp banner &#39;OpenSSH 8.9p1 Ubuntu 3ubuntu0.6 Ubuntu Linux; protocol 2.0&#39; matches affected range (&gt;= 8.5p1 and &lt; 9.8p1).</dd>
+      <dt>Recommendation</dt><dd>Upgrade OpenSSH to 9.8p1 or later. Distribution package detected: verify with the distro security tracker, the fix may be backported without a version change.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2024-6387 | https://www.qualys.com/2024/07/01/cve-2024-6387/regresshion.txt</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-high">high</span><span class="title">OpenSSH 9.7p1 affected by CVE-2024-6387</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2024-6387 &middot; CVSS 8.1 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.12:22 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>regreSSHion: a signal handler race condition in sshd&#39;s SIGALRM handling (LoginGraceTime) can allow unauthenticated remote code execution as root on glibc-based Linux systems.</dd>
+      <dt>Evidence</dt><dd>22/tcp banner &#39;OpenSSH 9.7p1 protocol 2.0&#39; matches affected range (&gt;= 8.5p1 and &lt; 9.8p1).</dd>
+      <dt>Recommendation</dt><dd>Upgrade OpenSSH to 9.8p1 or later.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2024-6387 | https://www.qualys.com/2024/07/01/cve-2024-6387/regresshion.txt</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-high">high</span><span class="title">nginx 1.18.0 affected by CVE-2021-23017</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2021-23017 &middot; CVSS 7.7 &middot; confidence medium</dd>
+      <dt>Asset</dt><dd>10.10.0.14:80 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>A one-byte memory overwrite in the nginx DNS resolver may allow an attacker able to forge UDP packets from the DNS server to crash the worker process or have other impact.</dd>
+      <dt>Evidence</dt><dd>80/tcp banner &#39;nginx 1.18.0 Ubuntu&#39; matches affected range (&gt;= 0.6.18 and &lt; 1.20.1).</dd>
+      <dt>Recommendation</dt><dd>Upgrade nginx to 1.20.1 or later. Distribution package detected: verify with the distro security tracker, the fix may be backported without a version change.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2021-23017 | https://nginx.org/en/security_advisories.html</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-high">high</span><span class="title">nginx 1.18.0 affected by CVE-2021-23017</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2021-23017 &middot; CVSS 7.7 &middot; confidence medium</dd>
+      <dt>Asset</dt><dd>10.10.0.14:443 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>A one-byte memory overwrite in the nginx DNS resolver may allow an attacker able to forge UDP packets from the DNS server to crash the worker process or have other impact.</dd>
+      <dt>Evidence</dt><dd>443/tcp banner &#39;nginx 1.18.0 Ubuntu&#39; matches affected range (&gt;= 0.6.18 and &lt; 1.20.1).</dd>
+      <dt>Recommendation</dt><dd>Upgrade nginx to 1.20.1 or later. Distribution package detected: verify with the distro security tracker, the fix may be backported without a version change.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2021-23017 | https://nginx.org/en/security_advisories.html</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-high">high</span><span class="title">OpenSSL 1.0.1f affected by CVE-2014-0160</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2014-0160 &middot; CVSS 7.5 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.10:80 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>Heartbleed: the TLS heartbeat extension in OpenSSL 1.0.1 through 1.0.1f does not properly handle heartbeat requests, disclosing process memory (private keys, credentials). A public exploit is available.</dd>
+      <dt>Evidence</dt><dd>80/tcp banner &#39;Apache httpd 2.4.49 (Unix) OpenSSL/1.0.1f&#39; matches affected range (&gt;= 1.0.1 and &lt;= 1.0.1f).</dd>
+      <dt>Recommendation</dt><dd>Upgrade OpenSSL to 1.0.1g or later.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2014-0160 | https://heartbleed.com/</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-high">high</span><span class="title">Apache HTTP Server 2.4.49 affected by CVE-2021-41773</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2021-41773 &middot; CVSS 7.5 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.10:80 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>Path traversal and file disclosure in Apache HTTP Server 2.4.49 via a flaw in path normalization; can lead to remote code execution when CGI is enabled. A public exploit is available.</dd>
+      <dt>Evidence</dt><dd>80/tcp banner &#39;Apache httpd 2.4.49 (Unix) OpenSSL/1.0.1f&#39; matches affected range (versions 2.4.49).</dd>
+      <dt>Recommendation</dt><dd>Upgrade Apache HTTP Server to 2.4.51 or later.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2021-41773 | https://httpd.apache.org/security/vulnerabilities_24.html</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-high">high</span><span class="title">Redis exposed to the network</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>EXP-REDIS &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.13:6379 &middot; exposure &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>Redis exposed to the network on 10.10.0.13:6379/tcp.</dd>
+      <dt>Evidence</dt><dd>6379/tcp redis Redis key-value store 5.0.7</dd>
+      <dt>Recommendation</dt><dd>Bind Redis to 127.0.0.1, enable protected-mode and ACL authentication.</dd>
+      
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-high">high</span><span class="title">Large outbound transfer from 10.10.0.13 to 203.0.113.50</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>TRF-EXFIL &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.13 &middot; traffic &middot; traffic_monitor</dd>
+      
+      <dt>Evidence</dt><dd>60.0 MB sent to external address 203.0.113.50</dd>
+      <dt>Recommendation</dt><dd>Verify the transfer is business-justified (backup, update). Otherwise treat as potential data exfiltration: block the destination and review the host.</dd>
+      
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-high">high</span><span class="title">Access to known malicious domain malware-c2.example</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>TRF-IOC-DOMAIN &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.13 &middot; traffic &middot; traffic_monitor</dd>
+      
+      <dt>Evidence</dt><dd>TLS connection (Sample malware command-and-control domain) from 10.10.0.13</dd>
+      <dt>Recommendation</dt><dd>Sinkhole/block the domain in DNS, investigate the client for compromise and reset exposed credentials.</dd>
+      
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-high">high</span><span class="title">Telnet service exposed (cleartext credentials)</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>EXP-TELNET &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.20:23 &middot; exposure &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>Telnet service exposed (cleartext credentials) on 10.10.0.20:23/tcp.</dd>
+      <dt>Evidence</dt><dd>23/tcp telnet Linux telnetd</dd>
+      <dt>Recommendation</dt><dd>Disable Telnet and use SSH with key-based authentication.</dd>
+      
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-high">high</span><span class="title">Possible DNS tunnelling via tunnel-exfil.example</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>TRF-DNS-TUNNEL &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.56 &middot; traffic &middot; traffic_monitor</dd>
+      
+      <dt>Evidence</dt><dd>60 unique sub-domains queried under tunnel-exfil.example with very long query names</dd>
+      <dt>Recommendation</dt><dd>Block the domain, inspect the client, and restrict DNS egress to internal resolvers only.</dd>
+      
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-high">high</span><span class="title">Possible port scan from 10.10.0.99</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>TRF-PORTSCAN &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.99 &middot; traffic &middot; traffic_monitor</dd>
+      
+      <dt>Evidence</dt><dd>30+ distinct SYN probes to 1 host(s): 10.10.0.10</dd>
+      <dt>Recommendation</dt><dd>Confirm whether the scan is authorised; if not, block the source and investigate the host.</dd>
+      
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-high">high</span><span class="title">Critical system files have restrictive permissions</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>FS-001 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>web-prod-01 &middot; filesystem &middot; system_auditor</dd>
+      
+      <dt>Evidence</dt><dd>/etc/shadow mode 0o644 must not be accessible by others</dd>
+      <dt>Recommendation</dt><dd>Restore permissions: `chmod 644 /etc/passwd /etc/group; chmod 640 /etc/shadow /etc/gshadow; chmod 440 /etc/sudoers; chmod 600 /etc/ssh/sshd_config`.</dd>
+      <dt>References</dt><dd>CIS Debian/Ubuntu Benchmark 7.1</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-high">high</span><span class="title">Host firewall is enabled</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>FW-001 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>web-prod-01 &middot; firewall &middot; system_auditor</dd>
+      
+      <dt>Evidence</dt><dd>ufw is installed but disabled (ENABLED=no in /etc/ufw/ufw.conf)</dd>
+      <dt>Recommendation</dt><dd>Enable a default-deny host firewall (e.g. `ufw default deny incoming &amp;&amp; ufw enable`, or nftables with an input chain policy of drop) and allow only required services.</dd>
+      <dt>References</dt><dd>CIS Controls v8 4.4 | CIS Debian/Ubuntu Benchmark 3.5</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-high">high</span><span class="title">No high-risk services listening on all interfaces</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>NET-001 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>web-prod-01 &middot; network &middot; system_auditor</dd>
+      
+      <dt>Evidence</dt><dd>Exposed on all interfaces: tcp/3306 MySQL</dd>
+      <dt>Recommendation</dt><dd>Bind databases and admin services to localhost or a management interface, disable cleartext protocols (Telnet/FTP/rsh) and restrict access with the host firewall.</dd>
+      <dt>References</dt><dd>CIS Controls v8 4.8 | NIST CSF PR.IR-01</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-high">high</span><span class="title">SSH root login is disabled</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>SSH-001 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>web-prod-01 &middot; ssh &middot; system_auditor</dd>
+      
+      <dt>Evidence</dt><dd>PermitRootLogin yes</dd>
+      <dt>Recommendation</dt><dd>Set `PermitRootLogin no` in /etc/ssh/sshd_config and administer via named accounts + sudo.</dd>
+      <dt>References</dt><dd>CIS Debian/Ubuntu Benchmark 5.1 | ISO 27001 A.8.5</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-high">high</span><span class="title">sudo always requires authentication (no NOPASSWD)</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>SUDO-001 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>web-prod-01 &middot; privilege &middot; system_auditor</dd>
+      
+      <dt>Evidence</dt><dd>Passwordless sudo rules: /etc/sudoers.d/deploy: bob ALL=(ALL) NOPASSWD: ALL</dd>
+      <dt>Recommendation</dt><dd>Remove NOPASSWD and !authenticate from sudoers rules (use `visudo`); grant passwordless sudo only to narrowly scoped automation commands.</dd>
+      <dt>References</dt><dd>CIS Debian/Ubuntu Benchmark 5.2.4 | ISO 27001 A.8.2</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-medium">medium</span><span class="title">OpenSSH 8.9p1 affected by CVE-2023-48795</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2023-48795 &middot; CVSS 5.9 &middot; confidence medium</dd>
+      <dt>Asset</dt><dd>10.10.0.10:22 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>Terrapin: the SSH transport protocol with certain OpenSSH extensions allows remote attackers to bypass integrity checks (prefix truncation), downgrading connection security. A public exploit is available.</dd>
+      <dt>Evidence</dt><dd>22/tcp banner &#39;OpenSSH 8.9p1 Ubuntu 3ubuntu0.6 Ubuntu Linux; protocol 2.0&#39; matches affected range (&lt; 9.6p1).</dd>
+      <dt>Recommendation</dt><dd>Upgrade OpenSSH to 9.6p1 or later. Distribution package detected: verify with the distro security tracker, the fix may be backported without a version change.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2023-48795 | https://terrapin-attack.com/</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-medium">medium</span><span class="title">OpenSSH 7.4 affected by CVE-2023-48795</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2023-48795 &middot; CVSS 5.9 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.11:22 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>Terrapin: the SSH transport protocol with certain OpenSSH extensions allows remote attackers to bypass integrity checks (prefix truncation), downgrading connection security. A public exploit is available.</dd>
+      <dt>Evidence</dt><dd>22/tcp banner &#39;OpenSSH 7.4 protocol 2.0&#39; matches affected range (&lt; 9.6p1).</dd>
+      <dt>Recommendation</dt><dd>Upgrade OpenSSH to 9.6p1 or later.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2023-48795 | https://terrapin-attack.com/</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-medium">medium</span><span class="title">OpenSSH 7.4 affected by CVE-2018-15473</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>CVE-2018-15473 &middot; CVSS 5.3 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.11:22 &middot; vulnerability &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>OpenSSH through 7.7 is prone to a user enumeration vulnerability due to not delaying bailout for an invalid authenticating user. A public exploit is available.</dd>
+      <dt>Evidence</dt><dd>22/tcp banner &#39;OpenSSH 7.4 protocol 2.0&#39; matches affected range (&lt;= 7.7).</dd>
+      <dt>Recommendation</dt><dd>Upgrade OpenSSH to 7.8 or later.</dd>
+      <dt>References</dt><dd>https://nvd.nist.gov/vuln/detail/CVE-2018-15473</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-medium">medium</span><span class="title">Database service reachable over the network</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>EXP-DATABASE &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.10:3306 &middot; exposure &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>Database service reachable over the network on 10.10.0.10:3306/tcp.</dd>
+      <dt>Evidence</dt><dd>3306/tcp mysql MySQL 8.0.36</dd>
+      <dt>Recommendation</dt><dd>Restrict database ports to application servers via firewall rules and require TLS.</dd>
+      
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-medium">medium</span><span class="title">FTP service exposed (cleartext credentials)</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>EXP-FTP &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.11:21 &middot; exposure &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>FTP service exposed (cleartext credentials) on 10.10.0.11:21/tcp.</dd>
+      <dt>Evidence</dt><dd>21/tcp ftp vsftpd 2.3.4</dd>
+      <dt>Recommendation</dt><dd>Replace FTP with SFTP/FTPS; if FTP is required, disable anonymous access.</dd>
+      
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-medium">medium</span><span class="title">SMB/NetBIOS file sharing exposed</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>EXP-SMB &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.11:445 &middot; exposure &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>SMB/NetBIOS file sharing exposed on 10.10.0.11:445/tcp.</dd>
+      <dt>Evidence</dt><dd>445/tcp netbios-ssn Samba smbd 4.5.9</dd>
+      <dt>Recommendation</dt><dd>Disable SMBv1, require SMB signing and restrict SMB to trusted segments.</dd>
+      
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-medium">medium</span><span class="title">Legacy TLS/SSL protocol in use</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>TRF-LEGACY-TLS &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.53 &middot; traffic &middot; traffic_monitor</dd>
+      
+      <dt>Evidence</dt><dd>10.10.0.53 -&gt; legacy-portal.example.org (TLS 1.0)</dd>
+      <dt>Recommendation</dt><dd>Disable SSL 3.0/TLS 1.0/1.1 on clients and servers; require TLS 1.2+ (RFC 8996).</dd>
+      
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-medium">medium</span><span class="title">Algorithmically generated (DGA-like) domain lookups</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>TRF-DGA &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.55 &middot; traffic &middot; traffic_monitor</dd>
+      
+      <dt>Evidence</dt><dd>41 high-entropy domain(s): 08v56nsn0jf37650.example, 0z5hfsmgdw5820cz.example, 1ds0lrw96d2ln4kv.example, 3bdlrskcchmpvxgd.example, 3dgktw07zzdlj99j.example, 4pw2vvz4hq7528kd.example, 57dr5chwn159gtgv.example, 66zsnd6cl7zc12lx.example, 6xg7qh0gm9k6zk3j.example, 778zjm7gwvlxtjrw.example</dd>
+      <dt>Recommendation</dt><dd>Inspect the querying hosts for malware; enable DNS filtering / RPZ.</dd>
+      
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-medium">medium</span><span class="title">Connection attempt to suspicious port 4444</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>TRF-SUSP-PORT &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.57 &middot; traffic &middot; traffic_monitor</dd>
+      
+      <dt>Evidence</dt><dd>10.10.0.57 -&gt; 198.51.100.200:4444 (Metasploit default handler)</dd>
+      <dt>Recommendation</dt><dd>Identify the process initiating the connection; block the port at the egress firewall if unused.</dd>
+      
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-medium">medium</span><span class="title">Connection attempt to suspicious port 23</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>TRF-SUSP-PORT &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.99 &middot; traffic &middot; traffic_monitor</dd>
+      
+      <dt>Evidence</dt><dd>10.10.0.99 -&gt; 10.10.0.10:23 (Telnet)</dd>
+      <dt>Recommendation</dt><dd>Identify the process initiating the connection; block the port at the egress firewall if unused.</dd>
+      
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-medium">medium</span><span class="title">High rate of failed DNS resolutions (NXDOMAIN)</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>TRF-NXDOMAIN &middot; confidence high</dd>
+      <dt>Asset</dt><dd>network &middot; traffic &middot; traffic_monitor</dd>
+      
+      <dt>Evidence</dt><dd>45/135 responses were NXDOMAIN</dd>
+      <dt>Recommendation</dt><dd>Investigate clients generating failed lookups (DGA malware, misconfiguration).</dd>
+      
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-medium">medium</span><span class="title">Unexpected traffic spike</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>TRF-SPIKE &middot; confidence high</dd>
+      <dt>Asset</dt><dd>network &middot; traffic &middot; traffic_monitor</dd>
+      
+      <dt>Evidence</dt><dd>20987369 bytes in 10s at 2026-10-25T19:36:20+00:00 = 1360.6x the median baseline (15425 bytes)</dd>
+      <dt>Recommendation</dt><dd>Correlate with top talkers at that time; check for DoS, misbehaving jobs or exfiltration.</dd>
+      
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-medium">medium</span><span class="title">Password aging policy is enforced</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>PWD-001 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>web-prod-01 &middot; password_policy &middot; system_auditor</dd>
+      
+      <dt>Evidence</dt><dd>PASS_MAX_DAYS=99999 (&gt; 365); PASS_MIN_DAYS=0 (&lt; 1)</dd>
+      <dt>Recommendation</dt><dd>In /etc/login.defs set PASS_MAX_DAYS 365 (or less), PASS_MIN_DAYS 1 and PASS_WARN_AGE 7.</dd>
+      <dt>References</dt><dd>CIS Debian/Ubuntu Benchmark 5.4.1 | ISO 27001 A.5.17</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-medium">medium</span><span class="title">Password complexity is enforced (pam_pwquality)</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>PWD-003 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>web-prod-01 &middot; password_policy &middot; system_auditor</dd>
+      
+      <dt>Evidence</dt><dd>No pam_pwquality/pam_cracklib module in the PAM password stack</dd>
+      <dt>Recommendation</dt><dd>Install libpam-pwquality, reference pam_pwquality.so in the PAM password stack and set minlen = 14 in /etc/security/pwquality.conf.</dd>
+      <dt>References</dt><dd>CIS Debian/Ubuntu Benchmark 5.3.3.2 | CIS Controls v8 5.2</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-medium">medium</span><span class="title">SSH password authentication is disabled</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>SSH-002 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>web-prod-01 &middot; ssh &middot; system_auditor</dd>
+      
+      <dt>Evidence</dt><dd>PasswordAuthentication yes (brute-force exposure)</dd>
+      <dt>Recommendation</dt><dd>Deploy SSH keys, then set `PasswordAuthentication no` and `KbdInteractiveAuthentication no`.</dd>
+      <dt>References</dt><dd>CIS Debian/Ubuntu Benchmark 5.1 | ISO 27001 A.8.5</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-medium">medium</span><span class="title">SSH uses strong cryptographic algorithms only</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>SSH-006 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>web-prod-01 &middot; ssh &middot; system_auditor</dd>
+      
+      <dt>Evidence</dt><dd>Weak algorithms enabled: ciphers: aes128-cbc</dd>
+      <dt>Recommendation</dt><dd>Remove CBC/arcfour/3DES ciphers, MD5/SHA1-96 MACs and SHA-1 key exchanges from Ciphers, MACs and KexAlgorithms (or rely on modern OpenSSH defaults).</dd>
+      <dt>References</dt><dd>CIS Debian/Ubuntu Benchmark 5.1 | ISO 27001 A.8.5 | CIS Controls v8 3.10</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-low">low</span><span class="title">Web service without HTTPS</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>EXP-HTTP-NOTLS &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.10:80 &middot; exposure &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>HTTP on port 80 and no HTTPS listener detected on the host.</dd>
+      <dt>Evidence</dt><dd>80/tcp Apache httpd 2.4.49</dd>
+      <dt>Recommendation</dt><dd>Enable HTTPS with a valid certificate and redirect HTTP to HTTPS (HSTS).</dd>
+      
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-low">low</span><span class="title">Web service without HTTPS</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>EXP-HTTP-NOTLS &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.13:8080 &middot; exposure &middot; vulnerability_analyzer</dd>
+      <dt>Description</dt><dd>HTTP on port 8080 and no HTTPS listener detected on the host.</dd>
+      <dt>Evidence</dt><dd>8080/tcp Apache Tomcat 9.0.30</dd>
+      <dt>Recommendation</dt><dd>Enable HTTPS with a valid certificate and redirect HTTP to HTTPS (HSTS).</dd>
+      
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-low">low</span><span class="title">Cleartext HTTP to Internet hosts</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>TRF-CLEARTEXT-HTTP &middot; confidence high</dd>
+      <dt>Asset</dt><dd>10.10.0.54 &middot; traffic &middot; traffic_monitor</dd>
+      
+      <dt>Evidence</dt><dd>1 client/host pairs, e.g. downloads.example.net</dd>
+      <dt>Recommendation</dt><dd>Enforce HTTPS (HSTS, browser policies, egress proxy) to protect data in transit.</dd>
+      
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-low">low</span><span class="title">System auditing (auditd) is installed</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>LOG-001 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>web-prod-01 &middot; logging &middot; system_auditor</dd>
+      
+      <dt>Evidence</dt><dd>auditd configuration not found</dd>
+      <dt>Recommendation</dt><dd>Install and enable auditd (`apt install auditd &amp;&amp; systemctl enable --now auditd`) with rules for identity, sudoers and authentication events.</dd>
+      <dt>References</dt><dd>CIS Controls v8 8.2 | ISO 27001 A.8.15</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-low">low</span><span class="title">SSH MaxAuthTries is 4 or less</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>SSH-004 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>web-prod-01 &middot; ssh &middot; system_auditor</dd>
+      
+      <dt>Evidence</dt><dd>MaxAuthTries 6 (&gt; 4)</dd>
+      <dt>Recommendation</dt><dd>Set `MaxAuthTries 4` to slow down online guessing.</dd>
+      <dt>References</dt><dd>CIS Debian/Ubuntu Benchmark 5.1 | ISO 27001 A.8.5</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-low">low</span><span class="title">SSH X11 forwarding is disabled</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>SSH-005 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>web-prod-01 &middot; ssh &middot; system_auditor</dd>
+      
+      <dt>Evidence</dt><dd>X11Forwarding yes</dd>
+      <dt>Recommendation</dt><dd>Set `X11Forwarding no` unless strictly required.</dd>
+      <dt>References</dt><dd>CIS Debian/Ubuntu Benchmark 5.1 | ISO 27001 A.8.5</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-low">low</span><span class="title">SSH idle session timeout is configured</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>SSH-007 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>web-prod-01 &middot; ssh &middot; system_auditor</dd>
+      
+      <dt>Evidence</dt><dd>ClientAliveInterval 0 (idle sessions never time out)</dd>
+      <dt>Recommendation</dt><dd>Set `ClientAliveInterval 300` and `ClientAliveCountMax 3` (idle sessions closed after ~15 min).</dd>
+      <dt>References</dt><dd>CIS Debian/Ubuntu Benchmark 5.1 | ISO 27001 A.8.5 | CIS Controls v8 4.3</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-low">low</span><span class="title">SSH LoginGraceTime is 60 seconds or less</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>SSH-008 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>web-prod-01 &middot; ssh &middot; system_auditor</dd>
+      
+      <dt>Evidence</dt><dd>LoginGraceTime 120</dd>
+      <dt>Recommendation</dt><dd>Set `LoginGraceTime 60` to limit unauthenticated connection slots (also mitigates some DoS/race attacks).</dd>
+      <dt>References</dt><dd>CIS Debian/Ubuntu Benchmark 5.1 | ISO 27001 A.8.5</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-low">low</span><span class="title">sudo uses a pseudo-terminal and logs to a file</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>SUDO-002 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>web-prod-01 &middot; privilege &middot; system_auditor</dd>
+      
+      <dt>Evidence</dt><dd>Missing sudo Defaults: use_pty, logfile</dd>
+      <dt>Recommendation</dt><dd>Add `Defaults use_pty` and `Defaults logfile=&#34;/var/log/sudo.log&#34;` to /etc/sudoers.d/hardening.</dd>
+      <dt>References</dt><dd>CIS Debian/Ubuntu Benchmark 5.2.2-5.2.3</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-low">low</span><span class="title">Automatic security updates are configured</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>UPD-001 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>web-prod-01 &middot; patching &middot; system_auditor</dd>
+      
+      <dt>Evidence</dt><dd>No automatic security update mechanism detected</dd>
+      <dt>Recommendation</dt><dd>Debian/Ubuntu: `apt install unattended-upgrades &amp;&amp; dpkg-reconfigure -plow unattended-upgrades`. RHEL family: enable dnf-automatic with apply_updates = yes. On rolling distributions (Kali/Parrot) schedule regular `apt full-upgrade` instead.</dd>
+      <dt>References</dt><dd>CIS Controls v8 7.3 | NIST CSF PR.PS-02</dd>
+    </dl>
+  </div>
+  
+  <div class="finding">
+    <div class="head"><span class="sev sev-low">low</span><span class="title">System accounts have no interactive shell</span></div>
+    <dl>
+      <dt>Identifier</dt><dd>USR-003 &middot; confidence high</dd>
+      <dt>Asset</dt><dd>web-prod-01 &middot; accounts &middot; system_auditor</dd>
+      
+      <dt>Evidence</dt><dd>System accounts with a login shell: postgres. Interactive accounts: alice, bob, root, svc-backup</dd>
+      <dt>Recommendation</dt><dd>Set the shell of service/system accounts to /usr/sbin/nologin (`usermod -s /usr/sbin/nologin &lt;user&gt;`).</dd>
+      <dt>References</dt><dd>CIS Debian/Ubuntu Benchmark 5.4.2</dd>
+    </dl>
+  </div>
+  
+
+  <h2>4. Recommendations</h2>
+  <ol class="recs"><li>Upgrade Apache HTTP Server to 2.4.51 or later.</li><li>Upgrade Apache HTTP Server to 2.4.53 or later.</li><li>Upgrade Apache HTTP Server to 2.4.56 or later.</li><li>Upgrade OpenSSH to 9.3p2 or later. Distribution package detected: verify with the distro security tracker, the fix may be backported without a version change.</li><li>Upgrade vsftpd to 2.3.5 or later.</li><li>Upgrade Samba to 4.6.4 or later.</li><li>Upgrade OpenSSH to 9.3p2 or later.</li><li>Upgrade Exim to 4.92 or later.</li><li>Upgrade Apache Tomcat to 9.0.31 or later.</li><li>Isolate the host, block the indicator at the perimeter, and start incident response (collect volatile evidence before remediation).</li><li>Never expose the Docker socket over TCP without mutual TLS; bind to a unix socket only.</li><li>Only &#39;root&#39; may have UID 0. Investigate and remove/renumber other UID 0 accounts immediately.</li></ol>
+
+  <h2>5. Remediation priorities</h2>
+  <table>
+    <thead><tr><th>Priority</th><th>Severity</th><th>Target</th><th class="num">Findings</th><th>Examples</th></tr></thead>
+    <tbody>
+    
+      <tr><td><strong>P1</strong> Immediate</td><td><span class="sev sev-critical">critical</span></td><td>Within 24-72 hours</td><td class="num">13</td><td>Apache HTTP Server 2.4.49 affected by CVE-2021-42013 (10.10.0.10); Apache HTTP Server 2.4.49 affected by CVE-2022-22720 (10.10.0.10); Apache HTTP Server 2.4.49 affected by CVE-2023-25690 (10.10.0.10); OpenSSH 8.9p1 affected by CVE-2023-38408 (10.10.0.10); vsftpd 2.3.4 affected by CVE-2011-2523 (10.10.0.11); Samba 4.5.9 affected by CVE-2017-7494 (10.10.0.11); OpenSSH 7.4 affected by CVE-2023-38408 (10.10.0.11); Exim 4.89 affected by CVE-2019-10149 (10.10.0.12)</td></tr>
+    
+      <tr><td><strong>P2</strong> Urgent</td><td><span class="sev sev-high">high</span></td><td>Within 7 days</td><td class="num">17</td><td>OpenSSH 8.9p1 affected by CVE-2024-6387 (10.10.0.10); OpenSSH 9.7p1 affected by CVE-2024-6387 (10.10.0.12); nginx 1.18.0 affected by CVE-2021-23017 (10.10.0.14); nginx 1.18.0 affected by CVE-2021-23017 (10.10.0.14); OpenSSL 1.0.1f affected by CVE-2014-0160 (10.10.0.10); Apache HTTP Server 2.4.49 affected by CVE-2021-41773 (10.10.0.10); Redis exposed to the network (10.10.0.13); Large outbound transfer from 10.10.0.13 to 203.0.113.50 (10.10.0.13)</td></tr>
+    
+      <tr><td><strong>P3</strong> Planned</td><td><span class="sev sev-medium">medium</span></td><td>Within 30 days</td><td class="num">16</td><td>OpenSSH 8.9p1 affected by CVE-2023-48795 (10.10.0.10); OpenSSH 7.4 affected by CVE-2023-48795 (10.10.0.11); OpenSSH 7.4 affected by CVE-2018-15473 (10.10.0.11); Database service reachable over the network (10.10.0.10); FTP service exposed (cleartext credentials) (10.10.0.11); SMB/NetBIOS file sharing exposed (10.10.0.11); Legacy TLS/SSL protocol in use (10.10.0.53); Algorithmically generated (DGA-like) domain lookups (10.10.0.55)</td></tr>
+    
+      <tr><td><strong>P4</strong> Routine</td><td><span class="sev sev-low">low</span></td><td>Within 90 days</td><td class="num">11</td><td>Web service without HTTPS (10.10.0.10); Web service without HTTPS (10.10.0.13); Cleartext HTTP to Internet hosts (10.10.0.54); System auditing (auditd) is installed (web-prod-01); SSH MaxAuthTries is 4 or less (web-prod-01); SSH X11 forwarding is disabled (web-prod-01); SSH idle session timeout is configured (web-prod-01); SSH LoginGraceTime is 60 seconds or less (web-prod-01)</td></tr>
+    
+    </tbody>
+  </table>
+
+  
+  <h2>Asset inventory</h2>
+  
+  <table>
+    <thead><tr><th>IP</th><th>Hostname</th><th>Open services</th><th>Risk score</th></tr></thead>
+    <tbody>
+    <tr><td>10.10.0.10</td><td>web-prod-01.corp.example</td><td>22/tcp OpenSSH 8.9p1 Ubuntu 3ubuntu0.6, 80/tcp Apache httpd 2.4.49, 3306/tcp MySQL 8.0.36</td><td>73</td></tr><tr><td>10.10.0.11</td><td>files-01.corp.example</td><td>21/tcp vsftpd 2.3.4, 22/tcp OpenSSH 7.4, 445/tcp Samba smbd 4.5.9</td><td>57</td></tr><tr><td>10.10.0.12</td><td>mail-01.corp.example</td><td>22/tcp OpenSSH 9.7p1, 25/tcp Exim smtpd 4.89</td><td>27</td></tr><tr><td>10.10.0.13</td><td>app-01.corp.example</td><td>6379/tcp Redis key-value store 5.0.7, 8009/tcp Apache Jserv, 8080/tcp Apache Tomcat 9.0.30</td><td>54</td></tr><tr><td>10.10.0.14</td><td>proxy-01.corp.example</td><td>80/tcp nginx 1.18.0, 443/tcp nginx 1.18.0</td><td>21</td></tr><tr><td>10.10.0.20</td><td>core-sw-legacy.corp.example</td><td>23/tcp Linux telnetd</td><td>11</td></tr><tr><td>10.10.0.21</td><td>dev-docker-01.corp.example</td><td>22/tcp OpenSSH 9.8p1, 2375/tcp Docker 20.10.7</td><td>18</td></tr><tr><td>10.10.0.30</td><td>backup-01.corp.example</td><td>22/tcp OpenSSH 9.8p1</td><td>0</td></tr>
+    </tbody>
+  </table>
+  
+  <h2>Host audit checks - web-prod-01 (hardening score 24/100)</h2>
+  
+  <table>
+    <thead><tr><th>Check</th><th>Title</th><th>Status</th><th>Severity</th><th>Evidence</th></tr></thead>
+    <tbody>
+    <tr><td>FW-001</td><td>Host firewall is enabled</td><td class="st st-fail">FAIL</td><td>high</td><td>ufw is installed but disabled (ENABLED=no in /etc/ufw/ufw.conf)</td></tr><tr><td>USR-001</td><td>No duplicate UID 0 (root-equivalent) accounts</td><td class="st st-fail">FAIL</td><td>critical</td><td>Accounts with UID 0 besides root: svc-backup</td></tr><tr><td>USR-002</td><td>No accounts with empty passwords</td><td class="st st-fail">FAIL</td><td>critical</td><td>Accounts with empty password: svc-backup</td></tr><tr><td>USR-003</td><td>System accounts have no interactive shell</td><td class="st st-warn">WARN</td><td>low</td><td>System accounts with a login shell: postgres. Interactive accounts: alice, bob, root, svc-backup</td></tr><tr><td>USR-004</td><td>Active user sessions inventory</td><td class="st st-not_applicable">NOT_APPLICABLE</td><td>informational</td><td>Session inventory is only available on a live host</td></tr><tr><td>NET-001</td><td>No high-risk services listening on all interfaces</td><td class="st st-fail">FAIL</td><td>high</td><td>Exposed on all interfaces: tcp/3306 MySQL</td></tr><tr><td>NET-002</td><td>Listening ports inventory</td><td class="st st-pass">PASS</td><td>informational</td><td>4 listening socket(s): tcp/22@0.0.0.0, tcp/80@0.0.0.0, tcp/3306@0.0.0.0, tcp/6379@127.0.0.1</td></tr><tr><td>PWD-001</td><td>Password aging policy is enforced</td><td class="st st-fail">FAIL</td><td>medium</td><td>PASS_MAX_DAYS=99999 (&gt; 365); PASS_MIN_DAYS=0 (&lt; 1)</td></tr><tr><td>PWD-002</td><td>Strong password hashing algorithm</td><td class="st st-pass">PASS</td><td>high</td><td>ENCRYPT_METHOD=SHA512</td></tr><tr><td>PWD-003</td><td>Password complexity is enforced (pam_pwquality)</td><td class="st st-fail">FAIL</td><td>medium</td><td>No pam_pwquality/pam_cracklib module in the PAM password stack</td></tr><tr><td>SUDO-001</td><td>sudo always requires authentication (no NOPASSWD)</td><td class="st st-fail">FAIL</td><td>high</td><td>Passwordless sudo rules: /etc/sudoers.d/deploy: bob ALL=(ALL) NOPASSWD: ALL</td></tr><tr><td>SUDO-002</td><td>sudo uses a pseudo-terminal and logs to a file</td><td class="st st-warn">WARN</td><td>low</td><td>Missing sudo Defaults: use_pty, logfile</td></tr><tr><td>SSH-001</td><td>SSH root login is disabled</td><td class="st st-fail">FAIL</td><td>high</td><td>PermitRootLogin yes</td></tr><tr><td>SSH-002</td><td>SSH password authentication is disabled</td><td class="st st-fail">FAIL</td><td>medium</td><td>PasswordAuthentication yes (brute-force exposure)</td></tr><tr><td>SSH-003</td><td>SSH empty passwords are prohibited</td><td class="st st-pass">PASS</td><td>critical</td><td>PermitEmptyPasswords no</td></tr><tr><td>SSH-004</td><td>SSH MaxAuthTries is 4 or less</td><td class="st st-fail">FAIL</td><td>low</td><td>MaxAuthTries 6 (&gt; 4)</td></tr><tr><td>SSH-005</td><td>SSH X11 forwarding is disabled</td><td class="st st-fail">FAIL</td><td>low</td><td>X11Forwarding yes</td></tr><tr><td>SSH-006</td><td>SSH uses strong cryptographic algorithms only</td><td class="st st-fail">FAIL</td><td>medium</td><td>Weak algorithms enabled: ciphers: aes128-cbc</td></tr><tr><td>SSH-007</td><td>SSH idle session timeout is configured</td><td class="st st-fail">FAIL</td><td>low</td><td>ClientAliveInterval 0 (idle sessions never time out)</td></tr><tr><td>SSH-008</td><td>SSH LoginGraceTime is 60 seconds or less</td><td class="st st-fail">FAIL</td><td>low</td><td>LoginGraceTime 120</td></tr><tr><td>FS-001</td><td>Critical system files have restrictive permissions</td><td class="st st-fail">FAIL</td><td>high</td><td>/etc/shadow mode 0o644 must not be accessible by others</td></tr><tr><td>KRN-001</td><td>Address space layout randomisation (ASLR) is fully enabled</td><td class="st st-pass">PASS</td><td>medium</td><td>kernel.randomize_va_space = 2</td></tr><tr><td>KRN-002</td><td>IPv4 forwarding is disabled (non-router hosts)</td><td class="st st-pass">PASS</td><td>low</td><td>net.ipv4.ip_forward = 0</td></tr><tr><td>UPD-001</td><td>Automatic security updates are configured</td><td class="st st-warn">WARN</td><td>low</td><td>No automatic security update mechanism detected</td></tr><tr><td>LOG-001</td><td>System auditing (auditd) is installed</td><td class="st st-fail">FAIL</td><td>low</td><td>auditd configuration not found</td></tr>
+    </tbody>
+  </table>
+  
+  <h2>Traffic protocol mix - demo:sensor-eth0</h2>
+  <p class="meta">43216 packets / 63860433 bytes analysed; health score 0/100.</p>
+  <table>
+    <thead><tr><th>Protocol</th><th>Packets</th><th>Bytes</th></tr></thead>
+    <tbody>
+    <tr><td>TLS</td><td>42917</td><td>63825801</td></tr><tr><td>DNS</td><td>271</td><td>32984</td></tr><tr><td>TCP-other</td><td>18</td><td>972</td></tr><tr><td>HTTP</td><td>3</td><td>298</td></tr><tr><td>SMB</td><td>2</td><td>108</td></tr><tr><td>SSH</td><td>1</td><td>54</td></tr><tr><td>SMTP</td><td>1</td><td>54</td></tr><tr><td>MySQL</td><td>1</td><td>54</td></tr><tr><td>RDP</td><td>1</td><td>54</td></tr><tr><td>PostgreSQL</td><td>1</td><td>54</td></tr>
+    </tbody>
+  </table>
+  
+  <h2>Top talkers</h2>
+  
+  <table>
+    <thead><tr><th>Host</th><th>Bytes</th><th>Packets</th><th>Internal</th></tr></thead>
+    <tbody>
+    <tr><td>10.10.0.13</td><td>62915920</td><td>41953</td><td>yes</td></tr><tr><td>192.0.2.16</td><td>69263</td><td>69</td><td>no</td></tr><tr><td>192.0.2.25</td><td>66328</td><td>66</td><td>no</td></tr><tr><td>192.0.2.15</td><td>59850</td><td>60</td><td>no</td></tr><tr><td>192.0.2.12</td><td>57602</td><td>57</td><td>no</td></tr><tr><td>192.0.2.19</td><td>56263</td><td>57</td><td>no</td></tr><tr><td>192.0.2.22</td><td>51464</td><td>51</td><td>no</td></tr><tr><td>192.0.2.29</td><td>48812</td><td>48</td><td>no</td></tr><tr><td>192.0.2.11</td><td>47965</td><td>48</td><td>no</td></tr><tr><td>192.0.2.27</td><td>45817</td><td>45</td><td>no</td></tr>
+    </tbody>
+  </table>
+  
+
+  <footer>
+    CONFIDENTIAL &middot; Produced by CyberShield 1.0.0 for authorised defensive use only. Automated findings should be validated by a qualified analyst before remediation decisions.
+  </footer>
+</div>
+</body>
+</html>
