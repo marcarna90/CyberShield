@@ -44,9 +44,8 @@ docker compose ps                                              # all services "h
 docker compose exec api cat /run/cybershield-secrets/admin_password
 ```
 
-> The repository is private: authenticate once before cloning, e.g. `sudo apt install -y gh && gh auth login`
-> (then `gh repo clone marcarna90/CyberShield`), or paste a personal access token when `git` asks for a password.
-> Details: [Installation guide](INSTALLATION.md#2-docker-compose-recommended).
+> Type the whole `git clone ...` line: pasting the URL alone gives `/bin/sh: https://...: not found`.
+> No GitHub account is needed (public repository).
 
 Open <http://localhost:8501> and sign in as `admin`.
 

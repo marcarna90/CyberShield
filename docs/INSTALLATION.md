@@ -34,22 +34,11 @@ cd CyberShield
 docker compose up -d            # or: docker-compose up -d (v2)
 ```
 
-> **Private repository?** GitHub no longer accepts your account password for `git clone`. Use one of:
+> The repository is public: no GitHub account or token is needed. Type the whole command, `git clone` included
+> (install Git first if necessary: `sudo apt install -y git`).
 >
-> ```bash
-> # a) GitHub CLI (simplest): log in once, then clone normally
-> sudo apt install -y gh && gh auth login        # GitHub.com → HTTPS → login with a web browser
-> gh repo clone marcarna90/CyberShield
->
-> # b) Personal access token: GitHub → Settings → Developer settings → Fine-grained tokens,
-> #    repository access "CyberShield", permission Contents: Read. Paste the token when git asks for the password.
-> git clone https://github.com/marcarna90/CyberShield.git
->
-> # c) SSH key: ssh-keygen -t ed25519, add ~/.ssh/id_ed25519.pub in GitHub → Settings → SSH keys, then
-> git clone git@github.com:marcarna90/CyberShield.git
-> ```
->
-> Without Git: download the release archive, then `unzip CyberShield.zip && cd CyberShield`.
+> Without Git: download <https://github.com/marcarna90/CyberShield/archive/refs/heads/main.zip>, then
+> `unzip main.zip && cd CyberShield-main`.
 
 The first start builds the image locally (2-5 minutes), then:
 
@@ -195,8 +184,9 @@ Developers can run the full test suite (`make test`, 300+ tests, coverage gate 9
 | Sensor captures nothing | Set `CYBERSHIELD_SENSOR_INTERFACE`; on VMs use bridged networking; check `docker compose logs sensor`. |
 | Dashboard says "API unreachable" | `docker compose logs api`; the dashboard waits for the API healthcheck. |
 | Corporate proxy during `docker compose build` | Configure `~/.docker/config.json` → `proxies` so the build can reach PyPI and Debian mirrors. |
-| `git clone`: `Authentication failed` / `Password authentication is not supported` | The repository is private: use `gh auth login`, a personal access token as the password, or SSH (section 2). |
-| `git clone`: `Repository not found` | Wrong URL or no access to the private repository: check the spelling (`marcarna90/CyberShield`) and that your GitHub account is the owner or a collaborator. |
+| `/bin/sh: https://github.com/...: not found` | Only the URL was pasted. The command is `git clone https://github.com/marcarna90/CyberShield.git`. |
+| `git: not found` / `git: command not found` | Install Git: `sudo apt install -y git`. |
+| `git clone`: `Repository not found` or asks for a password | Typo in the URL: it must be exactly `https://github.com/marcarna90/CyberShield.git`. |
 | `app/`, `docker/` or `docs/` missing after cloning | The repository was filled with GitHub's web "Upload files", which drops folders. Push from a local clone with `git add -A && git commit && git push` instead. |
 | `permission denied` on `scripts/*.sh` | The execute bit was lost (zip from Windows, web upload): `chmod +x scripts/*.sh docker/entrypoint.sh`. |
 

@@ -15,9 +15,7 @@ docker compose up -d
 docker compose exec api cat /run/cybershield-secrets/admin_password   # then open http://localhost:8501
 ```
 
-Private repository: run `gh auth login` first (or use a personal access token as the password) - see
-[Installation](docs/INSTALLATION.md#2-docker-compose-recommended). Uninstall: `./scripts/uninstall.sh`
-([details](docs/INSTALLATION.md#6-uninstall)).
+Uninstall: `./scripts/uninstall.sh` ([details](docs/INSTALLATION.md#6-uninstall)).
 
 ![Dashboard overview](docs/screenshots/01_overview.png)
 
