@@ -2,8 +2,8 @@
 __pycache__/
 *.py[cod]
 *.egg-info/
-build/
-dist/
+/build/
+/dist/
 .venv/
 venv/
 
@@ -16,8 +16,8 @@ htmlcov/
 
 # Runtime data (never commit)
 .env
-data/
-backups/
+/data/
+/backups/
 logs/*
 !logs/.gitkeep
 reports/*

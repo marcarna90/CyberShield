@@ -1,0 +1,229 @@
+# CyberShield compliance mapping.
+#
+# Each control lists the technical checks that provide evidence for it.
+#   - Host audit checks:  FW-*, USR-*, NET-00x, PWD-*, SUDO-*, SSH-*, FS-*, KRN-*, UPD-*, LOG-*
+#   - Derived signals:    VULN-001..003 (vulnerability management), NET-010..012 (monitoring/exposure)
+#
+# A control PASSES when all its assessed checks pass, is PARTIAL when the worst
+# result is a warning, FAILS when any check fails, and is NOT ASSESSED when no
+# evidence is available. Automated evidence supports - but does not replace - a
+# formal audit: organisational controls (policies, training, contracts) are out
+# of scope for technical tooling.
+#
+# Weights: 3 = foundational, 2 = important, 1 = supporting.
+
+frameworks:
+  CIS:
+    name: "CIS Critical Security Controls v8"
+    version: "8.0"
+  NIST_CSF:
+    name: "NIST Cybersecurity Framework"
+    version: "2.0"
+  ISO27001:
+    name: "ISO/IEC 27001:2022 Annex A"
+    version: "2022"
+
+controls:
+  # ------------------------------------------------------------------ CIS v8
+  - id: "CIS-3.10"
+    framework: CIS
+    title: "Encrypt Sensitive Data in Transit"
+    checks: [SSH-006, NET-012]
+    weight: 2
+    recommendation: "Use only strong SSH algorithms and replace cleartext services (Telnet, FTP, HTTP) with encrypted alternatives."
+  - id: "CIS-4.1"
+    framework: CIS
+    title: "Establish and Maintain a Secure Configuration Process"
+    checks: [SSH-001, SSH-002, SSH-003, SSH-005, PWD-002, KRN-001, FS-001]
+    weight: 3
+    recommendation: "Adopt a hardened baseline (CIS Benchmark) and enforce it with configuration management."
+  - id: "CIS-4.3"
+    framework: CIS
+    title: "Configure Automatic Session Locking on Enterprise Assets"
+    checks: [SSH-007]
+    weight: 1
+    recommendation: "Configure idle session timeouts (SSH ClientAliveInterval/CountMax, shell TMOUT)."
+  - id: "CIS-4.4"
+    framework: CIS
+    title: "Implement and Manage a Firewall on Servers"
+    checks: [FW-001]
+    weight: 3
+    recommendation: "Enable a default-deny host firewall on every server."
+  - id: "CIS-4.8"
+    framework: CIS
+    title: "Uninstall or Disable Unnecessary Services"
+    checks: [NET-001, NET-012]
+    weight: 2
+    recommendation: "Remove or disable unneeded network services and bind admin services to management interfaces."
+  - id: "CIS-5.2"
+    framework: CIS
+    title: "Use Unique Passwords"
+    checks: [PWD-003, USR-002]
+    weight: 2
+    recommendation: "Enforce password complexity (minimum 14 characters) and forbid empty passwords."
+  - id: "CIS-5.4"
+    framework: CIS
+    title: "Restrict Administrator Privileges to Dedicated Administrator Accounts"
+    checks: [USR-001, SSH-001, SUDO-001]
+    weight: 3
+    recommendation: "Disable direct root login, remove duplicate UID 0 accounts and require authentication for sudo."
+  - id: "CIS-7.1"
+    framework: CIS
+    title: "Establish and Maintain a Vulnerability Management Process"
+    checks: [VULN-003]
+    weight: 2
+    recommendation: "Schedule recurring authorised vulnerability scans and track remediation SLAs."
+  - id: "CIS-7.3"
+    framework: CIS
+    title: "Perform Automated Operating System Patch Management"
+    checks: [UPD-001]
+    weight: 2
+    recommendation: "Enable automatic security updates or a managed patch cycle."
+  - id: "CIS-7.7"
+    framework: CIS
+    title: "Remediate Detected Vulnerabilities"
+    checks: [VULN-001, VULN-002]
+    weight: 3
+    recommendation: "Remediate critical vulnerabilities within 72 hours and high within 7 days."
+  - id: "CIS-8.2"
+    framework: CIS
+    title: "Collect Audit Logs"
+    checks: [LOG-001, SUDO-002]
+    weight: 2
+    recommendation: "Enable auditd and sudo logging; forward logs to a central collector."
+  - id: "CIS-13.6"
+    framework: CIS
+    title: "Collect Network Traffic Flow Logs"
+    checks: [NET-010]
+    weight: 1
+    recommendation: "Run the CyberShield sensor (or NetFlow/IPFIX) on key network segments."
+
+  # -------------------------------------------------------------- NIST CSF 2.0
+  - id: "ID.RA-01"
+    framework: NIST_CSF
+    title: "Vulnerabilities in assets are identified, validated, and recorded"
+    checks: [VULN-003]
+    weight: 3
+    recommendation: "Scan all in-scope assets regularly and record findings in the risk register."
+  - id: "ID.RA-06"
+    framework: NIST_CSF
+    title: "Risk responses are chosen, prioritized, planned, tracked, and communicated"
+    checks: [VULN-001, VULN-002]
+    weight: 2
+    recommendation: "Prioritise remediation by severity and exploitability and track it to closure."
+  - id: "PR.AA-01"
+    framework: NIST_CSF
+    title: "Identities and credentials for authorized users, services, and hardware are managed"
+    checks: [USR-001, USR-002, USR-003, PWD-001, PWD-003]
+    weight: 3
+    recommendation: "Review accounts, enforce password policy and lock unused/system accounts."
+  - id: "PR.AA-03"
+    framework: NIST_CSF
+    title: "Users, services, and hardware are authenticated"
+    checks: [SSH-002, SSH-003, SSH-004, SSH-008]
+    weight: 2
+    recommendation: "Use key-based SSH authentication and limit authentication attempts."
+  - id: "PR.AA-05"
+    framework: NIST_CSF
+    title: "Access permissions are managed, incorporating least privilege"
+    checks: [SUDO-001, SSH-001, FS-001]
+    weight: 3
+    recommendation: "Apply least privilege for sudo, root access and sensitive file permissions."
+  - id: "PR.DS-02"
+    framework: NIST_CSF
+    title: "The confidentiality, integrity, and availability of data-in-transit are protected"
+    checks: [SSH-006, NET-012]
+    weight: 2
+    recommendation: "Encrypt all administrative and application traffic with modern protocols."
+  - id: "PR.IR-01"
+    framework: NIST_CSF
+    title: "Networks and environments are protected from unauthorized logical access and usage"
+    checks: [FW-001, NET-001]
+    weight: 3
+    recommendation: "Filter inbound traffic with host and network firewalls; restrict exposed services."
+  - id: "PR.PS-01"
+    framework: NIST_CSF
+    title: "Configuration management practices are established and applied"
+    checks: [SSH-005, SSH-007, PWD-002, KRN-001, KRN-002]
+    weight: 2
+    recommendation: "Maintain hardened configuration baselines and detect drift automatically."
+  - id: "PR.PS-02"
+    framework: NIST_CSF
+    title: "Software is maintained, replaced, and removed commensurate with risk"
+    checks: [UPD-001, VULN-001]
+    weight: 2
+    recommendation: "Patch promptly and decommission unsupported software."
+  - id: "PR.PS-04"
+    framework: NIST_CSF
+    title: "Log records are generated and made available for continuous monitoring"
+    checks: [LOG-001, SUDO-002]
+    weight: 2
+    recommendation: "Generate security logs (auditd, sudo) and centralise them."
+  - id: "DE.CM-01"
+    framework: NIST_CSF
+    title: "Networks and network services are monitored to find potentially adverse events"
+    checks: [NET-010, NET-011]
+    weight: 2
+    recommendation: "Deploy continuous passive network monitoring and investigate anomalies."
+
+  # ------------------------------------------------------ ISO/IEC 27001:2022
+  - id: "A.5.15"
+    framework: ISO27001
+    title: "Access control"
+    checks: [SSH-001, SUDO-001]
+    weight: 2
+    recommendation: "Define and enforce access rules based on business and security requirements."
+  - id: "A.5.17"
+    framework: ISO27001
+    title: "Authentication information"
+    checks: [PWD-001, PWD-003, USR-002]
+    weight: 2
+    recommendation: "Manage passwords through policy (length, ageing, no empty passwords)."
+  - id: "A.8.2"
+    framework: ISO27001
+    title: "Privileged access rights"
+    checks: [USR-001, SUDO-001, SUDO-002]
+    weight: 3
+    recommendation: "Restrict and log privileged access."
+  - id: "A.8.5"
+    framework: ISO27001
+    title: "Secure authentication"
+    checks: [SSH-002, SSH-003, SSH-004, SSH-008]
+    weight: 2
+    recommendation: "Implement secure authentication (keys/MFA, attempt limits)."
+  - id: "A.8.8"
+    framework: ISO27001
+    title: "Management of technical vulnerabilities"
+    checks: [VULN-001, VULN-002, VULN-003, UPD-001]
+    weight: 3
+    recommendation: "Identify vulnerabilities timely, evaluate exposure and remediate."
+  - id: "A.8.9"
+    framework: ISO27001
+    title: "Configuration management"
+    checks: [SSH-005, SSH-007, KRN-001, KRN-002, FS-001, PWD-002]
+    weight: 2
+    recommendation: "Establish, document and monitor secure configurations."
+  - id: "A.8.15"
+    framework: ISO27001
+    title: "Logging"
+    checks: [LOG-001, SUDO-002]
+    weight: 2
+    recommendation: "Produce, protect and review logs of security events."
+  - id: "A.8.16"
+    framework: ISO27001
+    title: "Monitoring activities"
+    checks: [NET-010, NET-011]
+    weight: 2
+    recommendation: "Monitor networks and systems for anomalous behaviour."
+  - id: "A.8.20"
+    framework: ISO27001
+    title: "Networks security"
+    checks: [FW-001, NET-001]
+    weight: 3
+    recommendation: "Secure, manage and control networks and filter traffic."
+  - id: "A.8.24"
+    framework: ISO27001
+    title: "Use of cryptography"
+    checks: [SSH-006, NET-012]
+    weight: 2
+    recommendation: "Use approved, modern cryptographic algorithms for data in transit."

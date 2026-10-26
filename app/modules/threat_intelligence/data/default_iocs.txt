@@ -1,0 +1,19 @@
+# CyberShield bundled SAMPLE indicators.
+#
+# These indicators use address space and domains RESERVED FOR DOCUMENTATION
+# (RFC 5737 TEST-NET ranges, RFC 3849 and the .example TLD from RFC 2606), so
+# they never match real infrastructure. They exist to demonstrate and test the
+# matching pipeline.
+#
+# For production, configure real feeds, e.g.:
+#   CYBERSHIELD_THREAT_FEEDS=https://feodotracker.abuse.ch/downloads/ipblocklist.txt
+# or add your own files with CYBERSHIELD_IOC_FILES=/path/a.txt,/path/b.txt
+#
+# Format: indicator[,description[,source]]
+203.0.113.66,Sample botnet command-and-control server,cybershield-sample
+203.0.113.50,Sample data exfiltration endpoint,cybershield-sample
+198.51.100.0/28,Sample bulletproof hosting range,cybershield-sample
+2001:db8:bad::/48,Sample IPv6 malicious range,cybershield-sample
+malware-c2.example,Sample malware command-and-control domain,cybershield-sample
+phishing-login.example,Sample credential phishing domain,cybershield-sample
+exfil-drop.example,Sample exfiltration drop domain,cybershield-sample
